@@ -1,0 +1,12 @@
+node_modules
+.next
+.git
+.github
+.claude
+.env
+.env.txt
+.env.*
+*.env
+DEPLOY-FLY.md
+DEPLOY-KOYEB.md
+npm-debug.log*
