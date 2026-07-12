@@ -1,0 +1,18 @@
+# dependencies
+node_modules
+
+# Keep environment variables & secrets out of version control
+.env
+.env.*
+*.env
+.env.txt
+
+# stray local copies
+*.prisma.txt
+
+# next.js build output
+.next
+/app/generated/prisma
+
+# local editor / tooling
+.claude
