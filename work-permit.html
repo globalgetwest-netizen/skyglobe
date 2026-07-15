@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Europe Work Permit — SkyGlobe Group</title>
+<meta name="description" content="Professional Europe work permit application service. We prepare, submit and track your genuine work permit with the relevant government authority on your behalf.">
+<link rel="icon" href="/favicon-32.png">
+<style>
+/* ── base ─────────────────────────────────────────────────── */
+:root{
+  --navy:#041022;--navy2:#071B3B;--navy3:#13294f;
+  --gold:#D4A73A;--gold2:#F4D77A;--gold3:#f5e6bd;
+  --ink:#0f1a2e;--muted:#6b7a96;--line:#dde3f0;
+  --green:#1a6e38;--ok:#e8f7ee;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f7;color:var(--ink);line-height:1.65}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+
+/* ── nav ─────────────────────────────────────────────────── */
+.topnav{background:var(--navy);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 18px rgba(0,0,0,.4)}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:1.05rem;letter-spacing:.04em}
+.brand img{height:36px;width:36px;border-radius:8px}
+.brand small{display:block;color:var(--gold);font-size:.6rem;letter-spacing:.2em;font-weight:600}
+.navlinks{display:flex;gap:18px;align-items:center}
+.navlinks a{color:#b0bdd6;font-size:.85rem;transition:.2s}
+.navlinks a:hover{color:var(--gold)}
+.navlinks .cta{background:var(--gold);color:#1a1300;padding:8px 16px;border-radius:8px;font-weight:700;font-size:.82rem}
+.navlinks .cta:hover{filter:brightness(1.08)}
+
+/* ── hero ────────────────────────────────────────────────── */
+.hero{
+  background:linear-gradient(150deg,var(--navy) 0%,var(--navy2) 60%,#1a2c55 100%);
+  color:#fff;padding:72px 24px 80px;text-align:center;position:relative;overflow:hidden
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 110%, rgba(212,167,58,.18) 0%, transparent 70%);
+}
+.hero-inner{max-width:820px;margin:0 auto;position:relative}
+.hero-badge{display:inline-block;background:rgba(212,167,58,.15);border:1px solid rgba(212,167,58,.45);
+  color:var(--gold2);padding:7px 18px;border-radius:30px;font-size:.8rem;font-weight:600;letter-spacing:.08em;margin-bottom:22px}
+.hero h1{font-family:Georgia,serif;font-size:2.8rem;line-height:1.2;margin-bottom:16px}
+.hero h1 span{color:var(--gold)}
+.hero .sub{font-size:1.1rem;color:#b8c6de;max-width:620px;margin:0 auto 32px}
+.hero-trust{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:36px}
+.hero-trust span{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  color:#cdd8ea;padding:7px 16px;border-radius:24px;font-size:.8rem}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:#1a1300;padding:14px 26px;border-radius:10px;font-weight:700;font-size:1rem;border:none;cursor:pointer;transition:.2s;display:inline-block}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px)}
+.btn-outline{background:transparent;border:2px solid rgba(212,167,58,.5);color:var(--gold2);padding:13px 24px;border-radius:10px;font-weight:600;font-size:.95rem;cursor:pointer;transition:.2s;display:inline-block}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── section shells ─────────────────────────────────────── */
+.section{padding:60px 24px}
+.wrap{max-width:1080px;margin:0 auto}
+.section-label{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.section-h{font-family:Georgia,serif;font-size:1.9rem;margin-bottom:8px}
+.section-sub{color:var(--muted);max-width:620px;margin-bottom:36px}
+
+/* ── process steps ──────────────────────────────────────── */
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.step-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold)}
+.step-num{width:36px;height:36px;background:var(--navy);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;margin-bottom:12px}
+.step-card h3{font-size:1rem;margin-bottom:6px}
+.step-card p{color:var(--muted);font-size:.88rem}
+
+/* ── country cards ──────────────────────────────────────── */
+.countries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.country-card{background:#fff;border:2px solid var(--line);border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;transition:.2s}
+.country-card:hover,.country-card.selected{border-color:var(--gold);box-shadow:0 4px 18px rgba(212,167,58,.2)}
+.country-card.selected{background:#fffbf0}
+.country-flag{font-size:2.2rem;line-height:1;margin-bottom:8px}
+.country-card h3{font-size:.95rem;font-weight:700;margin-bottom:4px}
+.country-card .weeks{font-size:.78rem;color:var(--muted)}
+.country-card .weeks b{color:var(--green);font-weight:700}
+
+/* ── packages ───────────────────────────────────────────── */
+.packages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
+.pkg{background:#fff;border:2px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;transition:.2s}
+.pkg:hover{border-color:rgba(212,167,58,.5);box-shadow:0 6px 28px rgba(212,167,58,.12)}
+.pkg.featured{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);border-color:var(--gold);color:#fff}
+.pkg .badge{display:inline-block;background:var(--gold);color:#1a1300;font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:20px;margin-bottom:12px;align-self:flex-start}
+.pkg h3{font-family:Georgia,serif;font-size:1.3rem;margin-bottom:8px}
+.pkg .tagline{font-size:.88rem;margin-bottom:18px;opacity:.75}
+.pkg .featured .tagline{color:#9ab2cc}
+.pkg ul{list-style:none;flex:1;margin-bottom:22px}
+.pkg ul li{padding:6px 0;font-size:.88rem;border-bottom:1px solid rgba(0,0,0,.06);display:flex;gap:8px;align-items:flex-start}
+.pkg.featured ul li{border-color:rgba(255,255,255,.08)}
+.pkg ul li .ck{color:var(--green);font-weight:700;flex-shrink:0}
+.pkg.featured ul li .ck{color:var(--gold)}
+.price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:16px}
+.price-row .cur{font-size:.85rem;color:var(--muted)}
+.pkg.featured .price-row .cur{color:#8899bb}
+.price-row .amt{font-family:Georgia,serif;font-size:1.7rem;font-weight:700;color:var(--navy)}
+.pkg.featured .price-row .amt{color:var(--gold)}
+.price-row small{font-size:.78rem;color:var(--muted)}
+.pkg.featured .price-row small{color:#8899bb}
+.btn-pkg{width:100%;padding:13px;border-radius:10px;font-weight:700;font-size:.95rem;border:none;cursor:pointer;background:var(--gold);color:#1a1300;transition:.2s}
+.btn-pkg:hover{filter:brightness(1.08)}
+.pkg.featured .btn-pkg{background:var(--gold)}
+
+/* ── eligibility / application form ─────────────────────── */
+.elig-shell{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.07)}
+.elig-header{background:linear-gradient(100deg,var(--navy),var(--navy2));color:#fff;padding:28px 32px}
+.elig-header h2{font-family:Georgia,serif;font-size:1.5rem}
+.elig-header p{color:#8fa0bb;font-size:.9rem;margin-top:6px}
+.elig-body{padding:28px 32px}
+.step-tabs{display:flex;gap:6px;margin-bottom:28px;flex-wrap:wrap}
+.step-tab{padding:8px 18px;border-radius:30px;font-size:.82rem;font-weight:600;background:#f0f2f7;color:var(--muted);border:1px solid var(--line);cursor:default}
+.step-tab.active{background:var(--navy);color:var(--gold);border-color:var(--navy)}
+.step-tab.done{background:var(--ok);color:var(--green);border-color:#a8dab5}
+label{display:block;font-size:.82rem;font-weight:600;color:#3a4760;margin:14px 0 5px}
+label span.req{color:#c0392b}
+input,select,textarea{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff;transition:.2s;font-size:.95rem}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,167,58,.12)}
+textarea{min-height:80px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.doc-list{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.doc-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;transition:.2s;background:#fafbfd}
+.doc-item:hover{border-color:var(--gold);background:#fffbf2}
+.doc-item.checked{border-color:var(--green);background:var(--ok)}
+.doc-item input[type=checkbox]{width:18px;height:18px;flex-shrink:0;margin-top:1px;accent-color:var(--green);cursor:pointer}
+.doc-item span{font-size:.88rem;color:#2a3548;line-height:1.45}
+.doc-item.checked span{color:var(--green);font-weight:600}
+.checklist-progress{height:6px;background:var(--line);border-radius:6px;margin:16px 0 6px;overflow:hidden}
+.checklist-progress-bar{height:100%;background:linear-gradient(90deg,#2ecc71,#27ae60);border-radius:6px;transition:width .4s}
+.progress-text{font-size:.8rem;color:var(--muted);margin-bottom:18px}
+.elig-result{padding:16px 18px;border-radius:12px;margin:18px 0;font-size:.92rem;display:none}
+.elig-result.pass{background:var(--ok);border:1px solid #a8dab5;color:var(--green);display:block}
+.elig-result.warn{background:#fff8e6;border:1px solid #e8d495;color:#7a5c00;display:block}
+.elig-result.fail{background:#fdecec;border:1px solid #e8b4b4;color:#922020;display:block}
+.pricebar{background:var(--navy);color:#fff;border-radius:12px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin:18px 0 8px}
+.pricebar .lbl{font-size:.82rem;color:#7a90b0}
+.pricebar .amt{font-family:Georgia,serif;font-size:1.5rem;color:var(--gold);font-weight:700}
+.processing-est{background:#e8f0fe;border:1px solid #b8cff7;border-radius:10px;padding:12px 16px;font-size:.88rem;color:#1a3670;margin-bottom:16px;display:none}
+.msg{padding:12px 16px;border-radius:10px;font-size:.9rem;margin-top:12px;display:none}
+.msg.err{background:#fdecec;color:#922020;border:1px solid #e8b4b4;display:block}
+.msg.ok{background:var(--ok);color:var(--green);border:1px solid #a8dab5;display:block}
+.form-nav{display:flex;gap:12px;margin-top:22px}
+.btn-back{background:transparent;border:1.5px solid var(--line);color:var(--muted);padding:12px 22px;border-radius:10px;font-weight:600;cursor:pointer;transition:.2s}
+.btn-back:hover{border-color:var(--gold);color:var(--navy)}
+.btn-next{background:var(--navy);color:var(--gold);border:none;padding:12px 28px;border-radius:10px;font-weight:700;cursor:pointer;transition:.2s;flex:1}
+.btn-next:hover{background:#0d1e3e}
+.btn-submit{background:var(--gold);color:#1a1300;border:none;padding:13px 28px;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;transition:.2s;width:100%;margin-top:6px}
+.btn-submit:hover{background:var(--gold2)}
+.btn-submit:disabled{opacity:.55;cursor:not-allowed}
+
+/* ── legal note ─────────────────────────────────────────── */
+.legal{background:var(--navy);color:#7a90b0;border-radius:16px;padding:24px 28px;font-size:.85rem;line-height:1.7;margin-top:36px}
+.legal strong{color:var(--gold)}
+
+/* ── footer ─────────────────────────────────────────────── */
+footer{background:var(--navy);color:#6a7f9a;padding:32px 24px;text-align:center;font-size:.84rem}
+footer a{color:var(--gold)}
+footer .brand-footer{font-family:Georgia,serif;font-size:1.1rem;color:#c5d0e0;margin-bottom:6px}
+
+/* ── responsive ─────────────────────────────────────────── */
+@media(max-width:700px){
+  .hero h1{font-size:1.9rem}
+  .row2{grid-template-columns:1fr}
+  .elig-header,.elig-body{padding:20px 18px}
+  .form-nav{flex-direction:column}
+  .btn-next{flex:unset}
+  .navlinks{gap:10px}
+  .navlinks .cta{padding:7px 12px;font-size:.78rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav">
+  <a href="/" class="brand">
+    <img src="/icon-192.png" alt="SkyGlobe">
+    <div>SKYGLOBE<small>GROUP</small></div>
+  </a>
+  <div class="navlinks">
+    <a href="/">Home</a>
+    <a href="/conferences">Conferences</a>
+    <a href="/packages">All Packages</a>
+    <a href="/work-permit" class="cta">Apply Now</a>
+  </div>
+</nav>
+
+<script src="/noria-widget.js"></script>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🇪🇺 Europe &amp; Global Work Permit Service</div>
+    <h1>Your <span>European Work Permit</span>,<br>Professionally Handled</h1>
+    <p class="sub">We verify your documents, prepare your complete application, submit it to the relevant authority, and keep you updated — until your permit is in your hands.</p>
+    <div class="hero-trust">
+      <span>✔ Genuine government-issued permits</span>
+      <span>✔ Document review before payment</span>
+      <span>✔ Dedicated application agent</span>
+      <span>✔ Portal tracking &amp; delivery</span>
+    </div>
+    <div class="hero-ctas">
+      <button class="btn-gold" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">Check My Eligibility →</button>
+      <a href="/packages" class="btn-outline">View All Packages</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" style="background:#fff">
+  <div class="wrap">
+    <div class="section-label">The Process</div>
+    <h2 class="section-h">How your work permit application works</h2>
+    <p class="section-sub">We handle every step professionally. You only pay after we confirm you hold the necessary documents.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Document Check</h3>
+        <p>Tell us what documents you have. We verify you meet the requirements for your target country — no payment yet.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Secure Payment</h3>
+        <p>Once eligibility is confirmed, pay your service fee securely via card or bank transfer.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>We Prepare &amp; Submit</h3>
+        <p>Your dedicated agent prepares your complete application package and submits it to the relevant authority.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h3>Track &amp; Receive</h3>
+        <p>Follow your case in your SKYGLOBE portal. We deliver your permit to you the moment it is issued.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATION COUNTRIES (click to apply) -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-label">Available Destinations</div>
+    <h2 class="section-h">Choose your destination country</h2>
+    <p class="section-sub">Click any country to load its document requirements in the application form below.</p>
+    <div class="countries-grid" id="countriesGrid">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION FORM -->
+<section class="section" id="apply" style="background:#f0f2f7">
+  <div class="wrap">
+    <div class="section-label">Application</div>
+    <h2 class="section-h">Check eligibility &amp; apply</h2>
+    <p class="section-sub">Complete the steps below. <strong>Payment is only requested after we confirm your documents qualify.</strong></p>
+
+    <div class="elig-shell">
+      <div class="elig-header">
+        <h2>Work Permit Application</h2>
+        <p>Powered by SkyGlobe Group — we handle the full process on your behalf</p>
+      </div>
+      <div class="elig-body">
+        <!-- step tabs -->
+        <div class="step-tabs">
+          <div class="step-tab active" id="tab1">1. Country &amp; Package</div>
+          <div class="step-tab" id="tab2">2. Document Check</div>
+          <div class="step-tab" id="tab3">3. Personal Details</div>
+          <div class="step-tab" id="tab4">4. Pay &amp; Submit</div>
+        </div>
+
+        <!-- ── STEP 1: country + occupation (each has its own fee) ── -->
+        <div id="step1">
+          <label>Destination country <span class="req">*</span></label>
+          <select id="s1country" onchange="onCountryChange()">
+            <option value="">— Select a country —</option>
+          </select>
+          <div id="s1processingEst" class="processing-est"></div>
+          <label style="margin-top:18px">Role / occupation <span class="req">*</span></label>
+          <select id="s1occupation" onchange="onOccupationChange()" disabled>
+            <option value="">— Select a country first —</option>
+          </select>
+          <div id="s1occPrice" class="pricebar" style="display:none">
+            <div><div class="lbl">Service fee for this role</div><div id="s1occAmt" class="amt">—</div></div>
+            <div style="text-align:right"><div class="lbl">Est. processing</div><div id="s1occWeeks" style="color:#60aeff;font-weight:700">—</div></div>
+          </div>
+          <p id="s1noRoles" style="display:none;font-size:.85rem;color:var(--muted);margin-top:8px">This country isn't currently open for applications. Please choose another destination or WhatsApp us to be notified when it reopens.</p>
+          <div class="form-nav">
+            <button class="btn-next" id="s1NextBtn" onclick="goStep(2)" disabled>Next: Document Check →</button>
+          </div>
+        </div>
+
+        <!-- ── STEP 2: document checklist ── -->
+        <div id="step2" style="display:none">
+          <p style="font-size:.9rem;color:var(--muted);margin-bottom:14px">Check all documents you currently hold or can obtain before your application is submitted.</p>
+          <div class="checklist-progress"><div class="checklist-progress-bar" id="progressBar" style="width:0%"></div></div>
+          <p class="progress-text" id="progressText">0 of 0 documents confirmed</p>
+          <div class="doc-list" id="docList"><!-- rendered by JS --></div>
+          <div class="elig-result" id="eligResult"></div>
+          <div class="form-nav">
+            <button class="btn-back" onclick="goStep(1)">← Back</button>
+            <button class="btn-next" id="docsNextBtn" onclick="goStep(3)" disabled>Next: Personal Details →</button>
+          </div>
+        </div>
+
+        <!-- ── STEP 3: personal details ── -->
+        <div id="step3" style="display:none">
+          <div class="row2">
+            <div><label>First name <span class="req">*</span></label><input id="s3fname" placeholder="As on passport"></div>
+            <div><label>Last name <span class="req">*</span></label><input id="s3lname"></div>
+          </div>
+          <div class="row2">
+            <div><label>Email address <span class="req">*</span></label><input id="s3email" type="email"></div>
+            <div><label>Phone / WhatsApp <span class="req">*</span></label><input id="s3phone" placeholder="+1 or +44 …"></div>
+          </div>
+          <div class="row2">
+            <div><label>Nationality</label><input id="s3nationality" placeholder="e.g. British, French, Indian"></div>
+            <div><label>Intended travel date</label><input id="s3travel" type="date"></div>
+          </div>
+          <label>Additional notes (optional)</label>
+          <textarea id="s3notes" placeholder="Anything specific about your situation, employer, field of work…"></textarea>
+          <div class="form-nav">
+            <button class="btn-back" onclick="goStep(2)">← Back</button>
+            <button class="btn-next" onclick="goStep(4)">Next: Review &amp; Pay →</button>
+          </div>
+        </div>
+
+        <!-- ── STEP 4: review + pay ── -->
+        <div id="step4" style="display:none">
+          <div id="s4summary" style="background:#f4f6fb;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px;font-size:.9rem"></div>
+          <div class="row2">
+            <div>
+              <label>Currency</label>
+              <select id="s4currency" onchange="refreshPay()">
+                <option value="USD">USD — US Dollar</option>
+                <option value="EUR">EUR — Euro</option>
+                <option value="GBP">GBP — British Pound</option>
+              </select>
+            </div>
+            <div>
+              <label>Pay with</label>
+              <select id="s4provider">
+                <option value="">Loading payment options…</option>
+              </select>
+            </div>
+          </div>
+          <div class="pricebar">
+            <div><div class="lbl">Service fee</div><div id="s4price" class="amt">—</div></div>
+            <div style="text-align:right"><div class="lbl">Est. processing</div><div id="s4weeks" style="color:#60aeff;font-weight:700">—</div></div>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted);margin-bottom:4px">
+            ℹ️ Processing time is the government authority's official estimate — not a guarantee. Our service fee covers preparation, submission and follow-up; it does not include government filing fees where applicable.
+          </p>
+          <div class="msg" id="s4msg"></div>
+          <button class="btn-submit" id="submitBtn" onclick="submitApplication()">🔒 Continue to Secure Payment →</button>
+          <div class="form-nav" style="margin-top:14px">
+            <button class="btn-back" onclick="goStep(3)">← Back</button>
+          </div>
+        </div>
+
+      </div><!-- elig-body -->
+    </div><!-- elig-shell -->
+
+    <div class="legal">
+      <strong>Important:</strong> SkyGlobe Group is an immigration facilitation and concierge service. Work permits are issued exclusively by the relevant government immigration authority of the destination country. Our service fee covers professional application preparation, submission, follow-up and delivery — we do not guarantee permit approval, as the decision rests solely with the government. Processing times stated are official government estimates. All documents submitted must be genuine. Submission of fraudulent documents is a criminal offence and SkyGlobe Group accepts no liability for applications containing false information.
+    </div>
+  </div>
+</section>
+
+<!-- PRICING MODEL EXPLAINER -->
+<section class="section" style="background:#fff">
+  <div class="wrap">
+    <div class="section-label">Transparent, Role-Based Pricing</div>
+    <h2 class="section-h">Every country and role is priced individually</h2>
+    <p class="section-sub">A Construction Helper permit and a Registered Nurse permit involve very different work — so we don't charge one flat fee for every role. Select your destination country above to see the exact service fee for your specific occupation, in USD, EUR or GBP.</p>
+    <div class="packages-grid">
+      <div class="pkg">
+        <span class="badge">Unskilled / General Labour</span>
+        <h3>General Labour &amp; Construction</h3>
+        <p class="tagline">Full professional application service</p>
+        <ul>
+          <li><span class="ck">✔</span>Document eligibility check</li>
+          <li><span class="ck">✔</span>Full application preparation</li>
+          <li><span class="ck">✔</span>Submission to government authority</li>
+          <li><span class="ck">✔</span>Progress updates via portal</li>
+          <li><span class="ck">✔</span>Permit delivery to you</li>
+        </ul>
+        <button class="btn-pkg" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">Select Country &amp; Role →</button>
+      </div>
+      <div class="pkg featured">
+        <span class="badge">⚡ Skilled Trade</span>
+        <h3>Skilled Trade &amp; Drivers</h3>
+        <p class="tagline" style="color:#9ab2cc">Electricians, welders, technicians, drivers</p>
+        <ul>
+          <li><span class="ck">✔</span>Everything in General Labour</li>
+          <li><span class="ck">✔</span>Trade qualification verification support</li>
+          <li><span class="ck">✔</span>Priority queue submission</li>
+          <li><span class="ck">✔</span>WhatsApp direct agent access</li>
+          <li><span class="ck">✔</span>Employer liaison support</li>
+        </ul>
+        <button class="btn-pkg" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">Select Country &amp; Role →</button>
+      </div>
+      <div class="pkg">
+        <span class="badge" style="background:var(--navy);color:var(--gold)">🌟 Professional</span>
+        <h3>Nursing, Engineering &amp; IT</h3>
+        <p class="tagline">Full case management for professional roles</p>
+        <ul>
+          <li><span class="ck">✔</span>Everything in Skilled Trade</li>
+          <li><span class="ck">✔</span>Credential recognition guidance</li>
+          <li><span class="ck">✔</span>Settlement &amp; registration support</li>
+          <li><span class="ck">✔</span>Banking &amp; local ID setup guidance</li>
+          <li><span class="ck">✔</span>90-day post-arrival support</li>
+        </ul>
+        <button class="btn-pkg" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">Select Country &amp; Role →</button>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:28px"><a href="/packages" style="color:var(--gold);font-weight:600">→ See all packages including Travel Preparation</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="brand-footer">SkyGlobe Group</div>
+  <p>Professional Immigration &amp; Migration Services · <a href="https://wa.me/17373998522">WhatsApp us</a> · <a href="/">Back to main site</a></p>
+  <p style="margin-top:8px;font-size:.78rem;opacity:.7">SkyGlobe Group facilitates applications — permits are issued by government authorities.</p>
+</footer>
+
+<script>
+// Real flag icon images instead of flag emoji — Windows (and some Android
+// builds) don't render regional-indicator flag emoji as flags, only as plain
+// letters or boxes. A crisp flag image looks premium everywhere.
+function flagImg(countryCode, w) {
+  const cc = String(countryCode || '').trim().toLowerCase();
+  if (!/^[a-z]{2}$/.test(cc)) return '';
+  w = w || 22;
+  return `<img src="https://flagcdn.com/${cc}.svg" alt="" loading="lazy" style="width:${w}px;height:${Math.round(w*0.75)}px;object-fit:cover;border-radius:2px;vertical-align:-3px;box-shadow:0 0 0 1px rgba(0,0,0,.06)">`;
+}
+let COUNTRIES = {};
+let CFG = { providers: [], pricing: {} };
+let RATES = [];               // active work_permit_rates rows, live from the CEO portal
+let checkedDocs = new Set();
+let selectedCountry = '';
+let selectedRate = null;      // the chosen {id, country_code, occupation, usd, eur, gbp, ...}
+
+async function init() {
+  const [cRes, pRes, rRes] = await Promise.all([
+    fetch('/api/work-permit/requirements').then(r=>r.json()).catch(()=>({})),
+    fetch('/api/pay/config').then(r=>r.json()).catch(()=>({providers:[],pricing:{}})),
+    fetch('/api/work-permit/rates').then(r=>r.json()).catch(()=>[]),
+  ]);
+  COUNTRIES = cRes;
+  CFG = pRes;
+  RATES = Array.isArray(rRes) ? rRes : [];
+
+  // Only countries with at least one active rate are open for applications —
+  // closing a country in the CEO portal removes it here automatically.
+  const openCodes = [...new Set(RATES.map(r=>r.country_code))];
+
+  const sel = document.getElementById('s1country');
+  openCodes.forEach(code=>{
+    const c = COUNTRIES[code] || RATES.find(r=>r.country_code===code);
+    const o = document.createElement('option');
+    o.value = code;
+    o.textContent = c.name || c.country_name; // <option> can't show images — plain text here
+    sel.appendChild(o);
+  });
+
+  const grid = document.getElementById('countriesGrid');
+  if (!openCodes.length) {
+    grid.innerHTML = '<p style="color:var(--muted)">No countries are currently open for work permit applications. Please check back soon or WhatsApp us.</p>';
+  } else {
+    grid.innerHTML = openCodes.map(code=>{
+      const c = COUNTRIES[code] || {};
+      const rateInfo = RATES.find(r=>r.country_code===code) || {};
+      const name = c.name || rateInfo.country_name;
+      const roles = RATES.filter(r=>r.country_code===code).length;
+      return `<div class="country-card" id="cc_${code}" onclick="pickCountry('${code}')">
+        <div class="country-flag">${flagImg(code, 40)}</div>
+        <h3>${name}</h3>
+        <div class="weeks">${roles} role${roles===1?'':'s'} open</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Deep-link support: /work-permit?country=NO pre-selects that country
+  // (used by the homepage "Now accepting work permits" strip).
+  const preselect = new URLSearchParams(location.search).get('country');
+  if (preselect && openCodes.includes(preselect.toUpperCase())) {
+    pickCountry(preselect.toUpperCase());
+  }
+}
+
+function pickCountry(code) {
+  document.querySelectorAll('.country-card').forEach(el=>el.classList.remove('selected'));
+  const card = document.getElementById('cc_'+code);
+  if(card){card.classList.add('selected'); card.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  document.getElementById('s1country').value = code;
+  onCountryChange();
+  document.getElementById('apply').scrollIntoView({behavior:'smooth'});
+}
+
+function onCountryChange() {
+  const code = document.getElementById('s1country').value.toUpperCase();
+  selectedCountry = code;
+  selectedRate = null;
+  const info = COUNTRIES[code];
+  const est = document.getElementById('s1processingEst');
+  if(info){
+    est.style.display='block';
+    est.innerHTML = `<strong>${flagImg(code)} ${info.name}</strong> — Official government processing estimate: <strong>${info.processingWeeks} weeks</strong>. Requirements: ${info.docs.length} documents.`;
+  } else {
+    est.style.display='none';
+  }
+  document.querySelectorAll('.country-card').forEach(el=>el.classList.remove('selected'));
+  if(code){const c=document.getElementById('cc_'+code); if(c)c.classList.add('selected');}
+
+  // build the occupation dropdown from this country's active rates
+  const occSel = document.getElementById('s1occupation');
+  const roles = RATES.filter(r=>r.country_code===code);
+  document.getElementById('s1noRoles').style.display = code && !roles.length ? 'block' : 'none';
+  if (!code || !roles.length) {
+    occSel.innerHTML = '<option value="">— Select a country first —</option>';
+    occSel.disabled = true;
+  } else {
+    occSel.disabled = false;
+    occSel.innerHTML = '<option value="">— Select your role —</option>' +
+      roles.map(r=>`<option value="${r.id}">${esc(r.occupation)}${r.skill_level?' ('+esc(r.skill_level)+')':''}</option>`).join('');
+  }
+  document.getElementById('s1occPrice').style.display='none';
+  document.getElementById('s1NextBtn').disabled = true;
+  buildDocChecklist(code);
+}
+
+function onOccupationChange() {
+  const id = document.getElementById('s1occupation').value;
+  selectedRate = RATES.find(r=>String(r.id)===String(id)) || null;
+  const box = document.getElementById('s1occPrice');
+  const nextBtn = document.getElementById('s1NextBtn');
+  if (!selectedRate) { box.style.display='none'; nextBtn.disabled = true; return; }
+  box.style.display='flex';
+  document.getElementById('s1occAmt').textContent = selectedRate.usd!=null ? `USD ${Number(selectedRate.usd).toLocaleString()}` : '—';
+  document.getElementById('s1occWeeks').textContent = (selectedRate.processing_weeks || COUNTRIES[selectedCountry]?.processingWeeks || '—') + ' wks';
+  nextBtn.disabled = false;
+  refreshPay();
+}
+
+function buildDocChecklist(code) {
+  const info = COUNTRIES[code];
+  checkedDocs.clear();
+  const dl = document.getElementById('docList');
+  if(!info){dl.innerHTML='<p style="color:var(--muted);font-size:.9rem">Select a country above to see its document requirements.</p>'; updateProgress(0,0); return;}
+  dl.innerHTML = info.docs.map((doc,i)=>`
+    <label class="doc-item" id="di_${i}" onclick="toggleDoc(${i}, this)">
+      <input type="checkbox" id="dc_${i}" onchange="toggleDoc(${i}, document.getElementById('di_${i}'))">
+      <span>${esc(doc)}</span>
+    </label>`).join('');
+  updateProgress(0, info.docs.length);
+}
+
+function toggleDoc(i, el) {
+  const cb = document.getElementById('dc_'+i);
+  // if click was directly on checkbox, let it handle itself first
+  if(event && event.target !== cb){ cb.checked = !cb.checked; }
+  if(cb.checked){ checkedDocs.add(i); el.classList.add('checked'); }
+  else{ checkedDocs.delete(i); el.classList.remove('checked'); }
+  const total = COUNTRIES[selectedCountry]?.docs?.length || 0;
+  updateProgress(checkedDocs.size, total);
+}
+
+function updateProgress(have, total) {
+  const pct = total ? Math.round(have/total*100) : 0;
+  document.getElementById('progressBar').style.width = pct+'%';
+  document.getElementById('progressText').textContent = `${have} of ${total} documents confirmed`;
+  const res = document.getElementById('eligResult');
+  const btn = document.getElementById('docsNextBtn');
+  const threshold = Math.ceil(total * 0.75);
+  if(have === 0){ res.className='elig-result'; res.textContent=''; btn.disabled=true; }
+  else if(have >= total){
+    res.className='elig-result pass';
+    res.innerHTML='<strong>✅ Excellent!</strong> You have all required documents. You may proceed to payment.';
+    btn.disabled=false;
+  } else if(have >= threshold){
+    res.className='elig-result warn';
+    res.innerHTML=`<strong>⚠️ Almost there.</strong> You have ${have}/${total} documents. You may proceed, but our agent may contact you about the missing items before submission.`;
+    btn.disabled=false;
+  } else {
+    res.className='elig-result fail';
+    res.innerHTML=`<strong>❌ More documents needed.</strong> You have ${have}/${total}. We recommend gathering the missing documents before applying — otherwise your application may be rejected by the authority.`;
+    btn.disabled=false; // allow them to proceed anyway (we'll note it)
+  }
+}
+
+function refreshPay() {
+  const cur = document.getElementById('s4currency')?.value || 'USD';
+  const amt = selectedRate ? selectedRate[cur.toLowerCase()] : null;
+  const priceEl = document.getElementById('s4price');
+  if(priceEl) priceEl.textContent = amt!=null ? `${cur} ${Number(amt).toLocaleString()}` : '—';
+
+  const provSel = document.getElementById('s4provider');
+  if(provSel){
+    const nice = {grey:'🏦 Bank Transfer / USDC / USDT',paystack:'Card / Bank Transfer (Paystack)',stripe:'Card (Stripe)',flutterwave:'Mobile Money / Card (Flutterwave)'};
+    const active = CFG.providers.filter(p=>p.currencies.includes(cur));
+    provSel.innerHTML = active.length
+      ? active.map(p=>`<option value="${p.name}">${nice[p.name]||p.name}</option>`).join('')
+      : '<option value="">No payment method available yet — contact us</option>';
+  }
+}
+
+function buildSummary() {
+  const ccode = document.getElementById('s1country').value.toUpperCase();
+  const ci = COUNTRIES[ccode];
+  const pLabel = selectedRate ? `${selectedRate.occupation}${selectedRate.skill_level?' ('+selectedRate.skill_level+')':''}` : '—';
+  const docs = ci ? Array.from(checkedDocs).map(i=>ci.docs[i]) : [];
+  const el = document.getElementById('s4summary');
+  const weeks = selectedRate?.processing_weeks || ci?.processingWeeks;
+  el.innerHTML = `
+    <div style="display:flex;flex-wrap:wrap;gap:14px">
+      <div style="flex:1;min-width:180px"><div style="font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Role</div><div style="font-weight:700">${esc(pLabel)}</div></div>
+      <div style="flex:1;min-width:140px"><div style="font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Destination</div><div style="font-weight:700">${ci?flagImg(ccode)+' '+ci.name:'—'}</div></div>
+      ${weeks?`<div style="flex:1;min-width:140px"><div style="font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Est. Processing</div><div style="font-weight:700;color:#1a5c9e">${weeks} weeks</div></div>`:''}
+    </div>
+    ${docs.length?`<div style="margin-top:12px;font-size:.82rem;color:var(--muted)"><strong style="color:var(--ink)">Documents confirmed (${docs.length}):</strong> ${docs.map(d=>`<span style="display:inline-block;background:#e9f0fd;color:#1a3670;border-radius:20px;padding:2px 8px;margin:2px">${esc(d.slice(0,40))}…</span>`).join('')}</div>`:''}`;
+  // est weeks on pay bar
+  document.getElementById('s4weeks').textContent = weeks ? weeks+' wks (govt. est.)' : '—';
+}
+
+let currentStep = 1;
+function goStep(n) {
+  // validation
+  if(n===2 && !document.getElementById('s1country').value)
+    { alert('Please select a destination country.'); return; }
+  if(n===2 && !selectedRate)
+    { alert('Please select your role/occupation.'); return; }
+  if(n===3){
+    if(!document.getElementById('s1country').value){ alert('Please select a country.'); return; }
+    // warn if no docs checked
+    const total = COUNTRIES[selectedCountry]?.docs?.length || 0;
+    if(total && checkedDocs.size === 0 && !confirm('You haven\'t confirmed any documents yet. Continue anyway?')) return;
+  }
+  if(n===4){
+    const f = v=>document.getElementById(v).value.trim();
+    if(!f('s3fname')||!f('s3lname')||!f('s3email')||!f('s3phone'))
+      { alert('Please fill in your full name, email and phone number.'); return; }
+    buildSummary();
+    refreshPay();
+  }
+  for(let i=1;i<=4;i++){
+    document.getElementById('step'+i).style.display = i===n?'block':'none';
+    const tab = document.getElementById('tab'+i);
+    tab.className = 'step-tab'+(i===n?' active':i<n?' done':'');
+  }
+  currentStep = n;
+  document.getElementById('apply').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+async function submitApplication() {
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('s4msg');
+  const provider = document.getElementById('s4provider').value;
+  if(!provider){ msg.className='msg err'; msg.textContent='Payment is not available yet. Please WhatsApp us to arrange manual payment.'; return; }
+  btn.disabled=true; btn.textContent='Starting secure payment…'; msg.className='msg';
+
+  if(!selectedRate){ msg.className='msg err'; msg.textContent='Please go back and select your destination and role.'; btn.disabled=false; btn.textContent='🔒 Continue to Secure Payment →'; return; }
+  const ccode = selectedCountry;
+  const ci = COUNTRIES[ccode];
+  const docsConfirmed = ci ? Array.from(checkedDocs).map(i=>ci.docs[i]) : [];
+  const body = {
+    rateId: selectedRate.id,
+    provider, currency: document.getElementById('s4currency').value,
+    fname: v('s3fname'), lname: v('s3lname'), email: v('s3email'), phone: v('s3phone'),
+    nationality: v('s3nationality'), travel_date: v('s3travel'), notes: v('s3notes'),
+    destination_country: ccode,
+    docs_confirmed: docsConfirmed,
+  };
+  try {
+    const r = await fetch('/api/work-permit/apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const d = await r.json();
+    if(!r.ok) throw new Error(d.error||'Something went wrong.');
+    if(d.payment?.authorization_url){ sessionStorage.setItem('sky_last_ref',d.ref); window.location.href=d.payment.authorization_url; return; }
+    msg.className='msg ok';
+    msg.innerHTML=`✅ Application submitted (Ref: <strong>${d.ref}</strong>). ${d.paymentError||'Our team will contact you with a payment link.'}`;
+    btn.textContent='Application submitted ✓';
+  } catch(e){
+    msg.className='msg err'; msg.textContent=e.message;
+    btn.disabled=false; btn.textContent='🔒 Continue to Secure Payment →';
+  }
+}
+
+function v(id){return document.getElementById(id)?.value?.trim()||'';}
+function esc(s){return String(s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+
+document.getElementById('s4currency')?.addEventListener('change',refreshPay);
+init();
+</script>
+<script src="/announcements.js?v=2" defer></script>
+<script src="/dept-contact.js?v=7" defer></script>
+</body>
+</html>

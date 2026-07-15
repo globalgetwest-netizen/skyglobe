@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>You're Offline — SkyGlobe Group</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<meta name="theme-color" content="#ffffff">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--ink:#0b1220;--muted:#5b6573;--gold:#C8962A;--navy:#0a1c3e;--line:#e7e9ee}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    min-height:100vh;min-height:100svh;
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;padding-bottom:calc(24px + env(safe-area-inset-bottom));
+    background:radial-gradient(120% 90% at 50% -10%,#eef4ff 0%,#f4f6f9 60%);
+    color:var(--ink);text-align:center;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;letter-spacing:-.011em;
+  }
+  .card{max-width:460px;width:100%}
+  .logo{
+    width:88px;height:88px;margin:0 auto 26px;border-radius:22px;display:flex;align-items:center;justify-content:center;
+    background:#fff;border:1px solid var(--line);box-shadow:0 18px 44px rgba(16,24,40,.12);overflow:hidden;
+    animation:float 4.5s ease-in-out infinite;
+  }
+  .logo img{width:84%;height:84%;object-fit:contain}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  h1{font-size:clamp(1.5rem,5vw,2rem);font-weight:700;margin-bottom:12px;letter-spacing:-.03em}
+  .gold{color:var(--gold)}
+  p{color:var(--muted);font-size:1rem;line-height:1.6;margin-bottom:28px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--navy);color:#fff;border:none;border-radius:980px;padding:14px 30px;
+    font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;
+    box-shadow:0 12px 30px rgba(10,28,62,.22);transition:transform .15s,box-shadow .15s;
+    min-height:48px;-webkit-tap-highlight-color:transparent;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(10,28,62,.3)}
+  .btn:active{transform:translateY(0)}
+  .hint{margin-top:20px;font-size:.82rem;color:#94a3b8}
+  .brand{margin-top:40px;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:800}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo"><img src="icon.svg" onerror="this.src='icon-192.png'" alt="SkyGlobe Group"></div>
+    <h1>You're <span class="gold">Offline</span></h1>
+    <p>Your connection dropped. SkyGlobe needs the internet to load fresh content — but don't worry, your journey is still on track.</p>
+    <button class="btn" onclick="location.reload()">&#8635; Try Again</button>
+    <div class="hint">We'll reconnect you automatically once your network is back.</div>
+    <div class="brand">SkyGlobe Group · One World. One Mission.</div>
+  </div>
+<script>
+  window.addEventListener('online', () => location.reload());
+</script>
+</body>
+</html>

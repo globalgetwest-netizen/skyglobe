@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Official Letterhead Studio — SkyGlobe Group</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  body { font-family:'Inter',sans-serif; background:#d8dce4; color:#1a1a1a; }
+
+  /* ── Login gate ─────────────────────────────────────────── */
+  .gate { position:fixed; inset:0; z-index:999; background:linear-gradient(160deg,#041022,#071B3B); display:flex; align-items:center; justify-content:center; padding:20px; }
+  .gate-card { background:#fff; border-radius:20px; padding:44px 38px; width:100%; max-width:390px; box-shadow:0 40px 100px rgba(0,0,0,.5); text-align:center; }
+  .gate-card img { height:72px; width:72px; border-radius:16px; margin-bottom:16px; }
+  .gate-card h1 { font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:#041022; letter-spacing:.02em; }
+  .gate-card h1 span { color:#D4A73A; }
+  .gate-card .sub { font-size:.74rem; color:#64748b; letter-spacing:.2em; text-transform:uppercase; margin:8px 0 26px; }
+  .gate-card input { width:100%; padding:14px 16px; border:1.5px solid #e2e8f0; border-radius:11px; font-size:.95rem; margin-bottom:14px; transition:.2s; }
+  .gate-card input:focus { outline:none; border-color:#D4A73A; box-shadow:0 0 0 3px rgba(212,167,58,.15); }
+  .gate-card button { width:100%; padding:14px; background:#D4A73A; color:#041022; border:none; border-radius:11px; font-weight:700; cursor:pointer; font-size:.95rem; letter-spacing:.02em; transition:.15s; }
+  .gate-card button:hover { background:#d4b860; }
+  .gate-card .err { color:#dc2626; font-size:.82rem; min-height:20px; margin-top:10px; }
+  .gate-card .lock { font-size:.72rem; color:#94a3b8; margin-top:18px; }
+
+  /* ── Studio controls ────────────────────────────────────── */
+  .studio { max-width:900px; margin:0 auto; padding:20px 16px 0; }
+  .whoami { display:flex; align-items:center; gap:10px; justify-content:space-between; flex-wrap:wrap; margin-bottom:16px; }
+  .whoami .badge { display:inline-flex; align-items:center; gap:8px; background:#041022; color:#fff; padding:9px 18px; border-radius:100px; font-size:.82rem; font-weight:600; }
+  .whoami .badge .role { color:#D4A73A; text-transform:uppercase; font-size:.68rem; letter-spacing:.12em; }
+  .whoami .out { background:#fff; border:1px solid #d8dce4; color:#64748b; padding:8px 16px; border-radius:100px; font-size:.78rem; cursor:pointer; transition:.15s; }
+  .whoami .out:hover { border-color:#D4A73A; color:#041022; }
+
+  .panel { background:#fff; border-radius:18px; padding:24px; box-shadow:0 4px 28px rgba(0,0,0,.08); margin-bottom:20px; border:1px solid #f0f2f8; }
+  .panel h2 { font-size:.96rem; color:#041022; margin-bottom:4px; display:flex; align-items:center; gap:8px; font-weight:700; }
+  .panel .desc { font-size:.78rem; color:#64748b; margin-bottom:18px; line-height:1.6; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  @media(max-width:560px){ .row { grid-template-columns:1fr; } }
+  .field label { display:block; font-size:.74rem; font-weight:600; color:#475569; margin-bottom:6px; letter-spacing:.02em; }
+  .field input, .field textarea, .field select { width:100%; padding:11px 14px; border:1.5px solid #e2e8f0; border-radius:10px; font-size:.88rem; font-family:inherit; transition:.2s; }
+  .field input:focus, .field textarea:focus, .field select:focus { outline:none; border-color:#D4A73A; box-shadow:0 0 0 3px rgba(212,167,58,.12); }
+  .field textarea { resize:vertical; min-height:92px; line-height:1.6; }
+  .btn-gold { background:#D4A73A; color:#041022; border:none; padding:12px 24px; border-radius:10px; font-weight:700; cursor:pointer; font-size:.9rem; transition:.15s; }
+  .btn-gold:hover { background:#d4b860; }
+  .btn-gold:disabled { opacity:.5; cursor:not-allowed; }
+  .btn-line { background:#fff; border:1.5px solid #d8dce4; color:#041022; padding:11px 20px; border-radius:10px; font-weight:600; cursor:pointer; font-size:.88rem; transition:.15s; }
+  .btn-line:hover { border-color:#D4A73A; }
+  .ai-status { font-size:.8rem; color:#64748b; margin-top:10px; min-height:18px; }
+  .ai-status.err { color:#dc2626; }
+
+  .sig-modes { display:flex; flex-direction:column; gap:10px; }
+  .sig-opt { display:flex; gap:12px; align-items:flex-start; border:1.5px solid #e2e8f0; border-radius:12px; padding:14px 16px; cursor:pointer; transition:.15s; }
+  .sig-opt:hover { border-color:#D4A73A88; background:#fffdf6; }
+  .sig-opt.active { border-color:#D4A73A; background:#fbf6e9; }
+  .sig-opt.locked { opacity:.45; cursor:not-allowed; background:#f8fafc; }
+  .sig-opt input { margin-top:3px; accent-color:#D4A73A; }
+  .sig-opt .t { font-weight:700; font-size:.86rem; color:#041022; }
+  .sig-opt .d { font-size:.74rem; color:#64748b; margin-top:3px; line-height:1.5; }
+  .sig-opt .locktag { font-size:.68rem; color:#b45309; font-weight:700; background:#fef3c7; padding:2px 9px; border-radius:6px; margin-left:6px; }
+
+  .toolbar { display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; align-items:center; margin-bottom:18px; padding:16px 20px; background:#fff; border-radius:14px; border:1px solid #f0f2f8; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+  .toolbar .hint { flex:1; min-width:240px; font-size:.74rem; color:#475569; line-height:1.5; }
+
+  /* ════════════════════════════════════════════════════════
+     THE PRINTABLE DOCUMENT — premium, world-class
+  ════════════════════════════════════════════════════════ */
+  .page {
+    position:relative; background:#fefdf8; max-width:820px; min-height:1123px;
+    margin:0 auto 40px; box-shadow:0 8px 60px rgba(0,0,0,.25);
+    display:flex; flex-direction:column; overflow:hidden;
+    border:1px solid #e8e0c8;
+  }
+
+  /* Double gold border frame */
+  .frame-outer { position:absolute; inset:10px; border:1.5px solid #D4A73A; pointer-events:none; z-index:2; }
+  .frame-inner { position:absolute; inset:14px; border:.5px solid rgba(212,167,58,.4); pointer-events:none; z-index:2; }
+
+  /* Gold corner ornaments */
+  .corner { position:absolute; width:52px; height:52px; z-index:3; pointer-events:none; }
+  .corner::before, .corner::after { content:''; position:absolute; background:#D4A73A; }
+  .corner::before { width:100%; height:2.5px; }
+  .corner::after { width:2.5px; height:100%; }
+  .corner .dot { position:absolute; top:0; left:0; width:6px; height:6px; background:#D4A73A; border-radius:50%; transform:translate(-1.75px,-1.75px); }
+  .c-tl { top:10px; left:10px; }
+  .c-tr { top:10px; right:10px; transform:scaleX(-1); }
+  .c-bl { bottom:10px; left:10px; transform:scaleY(-1); }
+  .c-br { bottom:10px; right:10px; transform:scale(-1); }
+
+  /* Globe watermark (centre, very faint) */
+  .watermark { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:0; pointer-events:none; }
+  .watermark img { width:54%; opacity:.04; filter:grayscale(1); }
+
+  /* Diagonal text watermark */
+  .watermark-text { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+  .watermark-text span { position:absolute; font-family:'Cormorant Garamond',serif; font-weight:700; color:rgba(10,22,40,.05); font-size:1.8rem; letter-spacing:.4em; white-space:nowrap; transform:rotate(-30deg); }
+
+  /* DRAFT stamp */
+  .draftmark { position:absolute; inset:0; z-index:5; pointer-events:none; display:none; align-items:center; justify-content:center; }
+  .draftmark span { font-family:'Inter',sans-serif; font-weight:900; font-size:6.5rem; letter-spacing:.25em; color:rgba(220,38,38,.11); border:5px solid rgba(220,38,38,.11); padding:12px 50px; border-radius:12px; transform:rotate(-24deg); white-space:nowrap; }
+  body.is-draft .draftmark { display:flex; }
+
+  /* ── Header ─────────────────────────────────────────────── */
+  .lh-header {
+    position:relative; z-index:4;
+    background:linear-gradient(135deg, #041022 0%, #071B3B 60%, #132850 100%);
+    margin:18px 18px 0; padding:26px 48px 22px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+    border-radius:4px 4px 0 0;
+  }
+  /* Bottom gold rule */
+  .lh-header::after {
+    content:''; position:absolute; left:0; right:0; bottom:-10px; height:10px;
+    background:linear-gradient(90deg, #6b5020, #a87c30 15%, #D4A73A 30%, #f0d98c 50%, #D4A73A 70%, #a87c30 85%, #6b5020);
+    z-index:5;
+  }
+  .lh-brand { display:flex; align-items:center; gap:18px; }
+  .lh-header img.logo { height:80px; width:80px; border-radius:16px; border:2px solid rgba(212,167,58,.4); }
+  .lh-brand-text .name { font-family:'Cormorant Garamond',serif; font-size:2.05rem; font-weight:700; letter-spacing:.04em; color:#fff; line-height:1; }
+  .lh-brand-text .name span { color:#D4A73A; }
+  .lh-brand-text .name-sub { font-size:.64rem; color:#7a90bb; letter-spacing:.28em; text-transform:uppercase; margin-top:6px; display:block; }
+  .lh-brand-text .tag { font-size:.62rem; color:#8899bb; letter-spacing:.14em; text-transform:uppercase; margin-top:3px; }
+  .lh-header .co { text-align:right; color:#8899bb; font-size:.7rem; line-height:2; }
+  .lh-header .co strong { color:#D4A73A; font-size:.72rem; display:block; letter-spacing:.06em; margin-bottom:2px; }
+  .lh-header .co a { color:#8899bb; text-decoration:none; }
+
+  /* ── Security strip below gold rule ─────────────────────── */
+  .security-strip {
+    position:relative; z-index:4;
+    margin:0 18px 0; padding:8px 48px;
+    background:#f0ead8; border-left:3px solid #D4A73A; border-right:3px solid #D4A73A;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+  }
+  .security-strip .sec-item { font-size:.65rem; color:#7a6830; letter-spacing:.06em; display:flex; align-items:center; gap:4px; }
+  .security-strip .sec-item strong { color:#5a4820; }
+
+  /* ── Body ───────────────────────────────────────────────── */
+  .lh-body { position:relative; z-index:4; flex:1; padding:44px 64px 28px; font-size:.95rem; line-height:1.85; color:#1a1a2e; font-family:'EB Garamond',Georgia,serif; }
+  .lh-body[contenteditable]:focus { outline:2px dashed rgba(212,167,58,.35); border-radius:4px; }
+  .lh-date { color:#4a5568; margin-bottom:24px; font-size:.88rem; font-family:'Inter',sans-serif; }
+  .lh-ref { font-size:.75rem; color:#8a6f2a; letter-spacing:.1em; margin-bottom:14px; font-family:'Inter',sans-serif; font-weight:600; text-transform:uppercase; }
+
+  /* ── Signature block ────────────────────────────────────── */
+  .sign-block { position:relative; z-index:4; padding:10px 64px 24px; display:flex; align-items:flex-end; justify-content:space-between; }
+  .sign-left { display:flex; flex-direction:column; }
+  .sign-block .sig-img { height:72px; width:auto; display:block; margin-bottom:-6px; }
+  .sign-divider { width:200px; height:1px; background:linear-gradient(90deg,#D4A73A,transparent); margin:4px 0 8px; }
+  .sign-block .sig-name { font-weight:700; font-size:1rem; color:#041022; font-family:'Inter',sans-serif; }
+  .sign-block .sig-title { font-size:.78rem; color:#4a5568; font-family:'Inter',sans-serif; line-height:1.5; margin-top:2px; }
+  .sign-block .sig-company { font-size:.72rem; color:#8a6f2a; font-family:'Inter',sans-serif; letter-spacing:.06em; margin-top:4px; font-weight:600; }
+  .sign-block .stamp-img { height:140px; width:140px; opacity:.93; flex-shrink:0; }
+  body.no-sigimg .sign-block .sig-img { display:none; }
+  body.no-sigimg .sign-divider { margin-top:0; }
+  body.no-stamp .sign-block .stamp-img { display:none; }
+
+  /* ── Footer ─────────────────────────────────────────────── */
+  .lh-footer {
+    position:relative; z-index:4;
+    background:linear-gradient(135deg, #041022 0%, #071B3B 100%);
+    margin:0 18px 18px; padding:16px 48px;
+    border-radius:0 0 4px 4px;
+  }
+  .lh-footer::before {
+    content:''; position:absolute; left:0; right:0; top:-10px; height:10px;
+    background:linear-gradient(90deg, #6b5020, #a87c30 15%, #D4A73A 30%, #f0d98c 50%, #D4A73A 70%, #a87c30 85%, #6b5020);
+    z-index:5;
+  }
+  .lh-footer .motto {
+    text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:.88rem; color:#D4A73A; padding-bottom:10px; margin-bottom:10px;
+    border-bottom:1px solid rgba(212,167,58,.25); letter-spacing:.08em;
+  }
+  .lh-footer .contacts { display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; align-items:center; }
+  .lh-footer .contacts span { color:#7a90bb; font-size:.68rem; display:flex; align-items:center; gap:5px; }
+  .lh-footer .contacts span strong { color:#D4A73A; }
+  .lh-footer .reg { text-align:center; margin-top:10px; font-size:.62rem; color:#4a5a7a; letter-spacing:.06em; padding-top:8px; border-top:1px solid rgba(255,255,255,.06); }
+
+  /* ── QR placeholder ─────────────────────────────────────── */
+  .qr-block { position:absolute; bottom:88px; right:64px; z-index:4; text-align:center; }
+  .qr-placeholder { width:54px; height:54px; border:1.5px solid #D4A73A55; border-radius:6px; display:flex; align-items:center; justify-content:center; background:#f9f8f4; }
+  .qr-placeholder svg { width:40px; height:40px; opacity:.4; }
+  .qr-block p { font-size:.54rem; color:#b0a070; margin-top:3px; letter-spacing:.04em; text-align:center; }
+
+  /* ── Print ──────────────────────────────────────────────── */
+  @media print {
+    body { background:#fff; }
+    .gate, .studio, .toolbar { display:none !important; }
+    .page { box-shadow:none; margin:0; max-width:none; min-height:100vh; border:none; }
+    @page { margin:0; size:A4; }
+    .lh-header, .lh-footer, .frame-outer, .frame-inner, .corner, .lh-header::after, .lh-footer::before, .security-strip, .sign-divider { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    .stamp-img { display:block !important; visibility:visible !important; }
+    body.no-stamp .stamp-img { display:none !important; }
+    .draftmark { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN GATE -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <img src="icon.svg" onerror="this.src='icon-512.png'" alt="SkyGlobe Group">
+    <h1>Sky<span>Globe</span> <span style="color:#fff">Group</span></h1>
+    <div class="sub">Official Letterhead Studio · Private</div>
+    <input type="password" id="pw" placeholder="Enter your portal password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Unlock Studio</button>
+    <div class="err" id="loginErr"></div>
+    <div class="lock">🔒 Authorised personnel only. All access is role-controlled and logged.</div>
+  </div>
+</div>
+
+<!-- STUDIO CONTROLS -->
+<div class="studio" id="studio" style="display:none">
+  <div class="whoami">
+    <div class="badge">👤 <span id="meName">—</span> <span class="role" id="meRole"></span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn-line" onclick="window.print()" style="font-size:.78rem;padding:7px 14px">🖨️ Print / PDF</button>
+      <button class="out" onclick="logout()">Sign out</button>
+    </div>
+  </div>
+
+  <!-- Recipient watermark -->
+  <div class="panel" style="border-left:3px solid #D4A73A">
+    <h2>🔏 Document Security — Recipient Watermark</h2>
+    <div class="desc">Enter the client's name and email below. These are burned into the document as a diagonal watermark on every page. If the document is copied or shared without authorisation, it traces directly back to the recipient.</div>
+    <div class="row">
+      <div class="field"><label>Recipient full name *</label><input id="wmName" placeholder="e.g. John Adebayo Smith" oninput="updateWatermark()"></div>
+      <div class="field"><label>Recipient email *</label><input id="wmEmail" placeholder="e.g. john@email.com" oninput="updateWatermark()"></div>
+    </div>
+    <div style="font-size:.76rem;color:#64748b;margin-top:6px">⚠️ Always fill these before printing. The watermark is invisible to the eye at normal viewing distance but clearly visible when copied or photographed.</div>
+  </div>
+
+  <!-- Document type selector -->
+  <div class="panel">
+    <h2>📋 Document Type</h2>
+    <div class="desc">Select the type of official document to produce. Each type loads the correct template and reference prefix.</div>
+    <div class="row">
+      <div class="field"><label>Document type</label>
+        <select id="docType" onchange="applyDocType()">
+          <option value="letter">Official Company Letter</option>
+          <option value="invitation">Conference / Event Invitation</option>
+          <option value="support">Work Permit Support Letter</option>
+          <option value="visa">Visa Support & Recommendation Letter</option>
+          <option value="appointment">Appointment / Employment Confirmation</option>
+          <option value="recommendation">Reference / Recommendation Letter</option>
+        </select>
+      </div>
+      <div class="field"><label>Document reference</label>
+        <div style="display:flex;gap:8px">
+          <input id="docRef" value="" readonly style="font-family:monospace;font-size:.82rem;background:#f8fafc">
+          <button class="btn-line" onclick="newRef()" style="padding:8px 12px;white-space:nowrap;font-size:.8rem">New Ref</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI writer -->
+  <div class="panel">
+    <h2>✨ AI Letter Writer</h2>
+    <div class="desc">Describe what the letter should say. The AI writes a professional, formal letter on SkyGlobe Group headed paper. It never invents facts not given to it.</div>
+    <div class="row">
+      <div class="field"><label>Recipient name &amp; title</label><input id="aiRecipient" placeholder="e.g. The Visa Officer, German Embassy, London"></div>
+      <div class="field"><label>Subject / RE line</label><input id="aiSubject" placeholder="e.g. Support Letter for Mr John Doe — UK Work Permit Application"></div>
+    </div>
+    <div class="field" style="margin-bottom:14px"><label>Instruction — what should the letter say?</label>
+      <textarea id="aiInstruction" placeholder="e.g. Write a formal support letter for Mr James Carter (British, passport GB12345678) confirming that SkyGlobe Group has verified his qualifications and is facilitating his Germany work permit application as a mechanical engineer. Request the authority's kind consideration."></textarea></div>
+    <div class="row">
+      <div class="field"><label>Tone</label>
+        <select id="aiTone">
+          <option>formal, warm and professional</option>
+          <option>strictly formal and official</option>
+          <option>friendly and reassuring</option>
+          <option>persuasive but respectful</option>
+          <option>authoritative and concise</option>
+        </select>
+      </div>
+      <div class="field" style="display:flex;align-items:flex-end">
+        <button class="btn-gold" id="aiBtn" onclick="generateLetter()" style="width:100%">✨ Generate Letter</button>
+      </div>
+    </div>
+    <div class="ai-status" id="aiStatus"></div>
+  </div>
+
+  <!-- Signature governance -->
+  <div class="panel">
+    <h2>🖋️ Signature &amp; Authority Level</h2>
+    <div class="desc" id="sigDesc">Choose how this letter is authorised. CEO-level signatures are locked to the CEO password only.</div>
+    <div class="sig-modes" id="sigModes">
+      <label class="sig-opt" data-mode="draft">
+        <input type="radio" name="sigmode" value="draft" checked onchange="applyMode()">
+        <div><div class="t">Unsigned Draft</div><div class="d">Working draft marked "DRAFT". No signature, no stamp. For internal review before approval.</div></div>
+      </label>
+      <label class="sig-opt" data-mode="authorised">
+        <input type="radio" name="sigmode" value="authorised" onchange="applyMode()">
+        <div><div class="t">Authorised Signatory <span class="locktag" id="lockAuth" style="display:none">CEO only</span></div><div class="d">Official stamp + "Authorised Signatory, for and on behalf of SkyGlobe Group". For standard official letters.</div></div>
+      </label>
+      <label class="sig-opt" data-mode="ceo">
+        <input type="radio" name="sigmode" value="ceo" onchange="applyMode()">
+        <div><div class="t">CEO Signed — Saleh Shuaibu <span class="locktag" id="lockCeo" style="display:none">CEO only</span></div><div class="d">Full CEO signature + official company stamp. The highest authority letter SkyGlobe Group can issue.</div></div>
+      </label>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <div class="field"><label>Signatory name</label><input id="sigName" value="Saleh Shuaibu"></div>
+      <div class="field"><label>Signatory title</label><input id="sigTitle" value="Founder & Chief Executive Officer, SkyGlobe Group"></div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="hint">💡 <strong>Before printing:</strong> Enable <strong>"Background graphics"</strong> in Chrome (Print → More settings → Background graphics) so the navy header, gold lines, stamp and watermark print correctly. Save as PDF for digital delivery.</div>
+    <button class="btn-line" onclick="insertDate()">📅 Insert Today's Date</button>
+    <button class="btn-line" onclick="newRef()">🔖 New Reference No.</button>
+    <button class="btn-gold" onclick="window.print()">🖨️ Print / Save as PDF</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     THE PREMIUM PRINTABLE DOCUMENT
+════════════════════════════════════════════════════════ -->
+<div class="page" id="page">
+  <!-- Borders -->
+  <div class="frame-outer"></div>
+  <div class="frame-inner"></div>
+  <div class="corner c-tl"><div class="dot"></div></div>
+  <div class="corner c-tr"><div class="dot"></div></div>
+  <div class="corner c-bl"><div class="dot"></div></div>
+  <div class="corner c-br"><div class="dot"></div></div>
+
+  <!-- Watermarks -->
+  <div class="watermark"><img src="icon.svg" onerror="this.src='icon-512.png'" alt=""></div>
+  <div class="watermark-text" id="wmTextBlock">
+    <span style="top:16%; left:-8%" id="wmt1">SKYGLOBE GROUP · OFFICIAL · SKYGLOBE GROUP · OFFICIAL</span>
+    <span style="top:43%; left:-14%" id="wmt2">SKYGLOBE GROUP · OFFICIAL · SKYGLOBE GROUP · OFFICIAL</span>
+    <span style="top:70%; left:-6%" id="wmt3">SKYGLOBE GROUP · OFFICIAL · SKYGLOBE GROUP · OFFICIAL</span>
+  </div>
+  <div class="draftmark"><span>DRAFT</span></div>
+
+  <!-- Header -->
+  <div class="lh-header">
+    <div class="lh-brand">
+      <img src="icon.svg" onerror="this.src='icon-512.png'" alt="SkyGlobe Group" class="logo">
+      <div class="lh-brand-text">
+        <div class="name">Sky<span>Globe</span> <span style="color:#fff">Group</span></div>
+        <span class="name-sub">Global Operations</span>
+        <div class="tag">Immigration · Work Permits · Conference Facilitation · Travel</div>
+      </div>
+    </div>
+    <div class="co">
+      <strong>SkyGlobe Group</strong>
+      skyglobegroup.com<br>
+      support@skyglobegroup.com<br>
+      WhatsApp: +1 737-399-8522<br>
+      United Kingdom
+    </div>
+  </div>
+
+  <!-- Security strip -->
+  <div class="security-strip">
+    <div class="sec-item">🔏 <strong>Verified Document</strong> — SkyGlobe Group</div>
+    <div class="sec-item">📋 Ref: <strong id="secRef">—</strong></div>
+    <div class="sec-item">🌐 Verify: <strong>skyglobegroup.com</strong></div>
+    <div class="sec-item" id="secDate" style="font-size:.62rem">Issued: <strong id="secDateVal">—</strong></div>
+  </div>
+
+  <!-- Body -->
+  <div class="lh-body" contenteditable="true" spellcheck="true" id="body">
+    <p class="lh-ref" id="refLine">Ref: SGL/2026/0001</p>
+    <p class="lh-date" id="today">[Date]</p>
+    <p>[Recipient Name / Title]<br>[Organisation / Authority]<br>[Address]<br>[City, Country]</p>
+    <br>
+    <p><strong>RE: [SUBJECT OF THIS LETTER]</strong></p>
+    <br>
+    <p>Dear [Recipient],</p>
+    <br>
+    <p>Click anywhere in this area to type your letter body, or use the <strong>AI Letter Writer</strong> above to generate professional content automatically. Replace all placeholders with your real information before printing.</p>
+    <br>
+    <p>Yours faithfully,</p>
+  </div>
+
+  <!-- QR verification block -->
+  <div class="qr-block">
+    <div class="qr-placeholder">
+      <svg viewBox="0 0 100 100" fill="none"><rect x="5" y="5" width="35" height="35" rx="4" stroke="#D4A73A" stroke-width="6"/><rect x="60" y="5" width="35" height="35" rx="4" stroke="#D4A73A" stroke-width="6"/><rect x="5" y="60" width="35" height="35" rx="4" stroke="#D4A73A" stroke-width="6"/><rect x="15" y="15" width="15" height="15" rx="1" fill="#D4A73A"/><rect x="70" y="15" width="15" height="15" rx="1" fill="#D4A73A"/><rect x="15" y="70" width="15" height="15" rx="1" fill="#D4A73A"/><rect x="60" y="60" width="8" height="8" rx="1" fill="#D4A73A" opacity=".6"/><rect x="72" y="60" width="8" height="8" rx="1" fill="#D4A73A" opacity=".6"/><rect x="84" y="60" width="8" height="8" rx="1" fill="#D4A73A" opacity=".6"/><rect x="60" y="72" width="8" height="8" rx="1" fill="#D4A73A" opacity=".6"/><rect x="84" y="84" width="8" height="8" rx="1" fill="#D4A73A" opacity=".6"/></svg>
+    </div>
+    <p>VERIFY ONLINE</p>
+  </div>
+
+  <!-- Signature block -->
+  <div class="sign-block" id="signBlock">
+    <div class="sign-left">
+      <img src="signature.png" alt="" class="sig-img">
+      <div class="sign-divider"></div>
+      <div class="sig-name" id="outName">Saleh Shuaibu</div>
+      <div class="sig-title" id="outTitle">Founder &amp; Chief Executive Officer</div>
+      <div class="sig-company">SkyGlobe Group · United Kingdom</div>
+    </div>
+    <img src="stamp.png" alt="Official Stamp" class="stamp-img">
+  </div>
+
+  <!-- Footer -->
+  <div class="lh-footer">
+    <div class="motto">One World. One Mission. — SkyGlobe Group</div>
+    <div class="contacts">
+      <span><strong>✉</strong> support@skyglobegroup.com</span>
+      <span><strong>☎</strong> +1 737-399-8522</span>
+      <span><strong>🌐</strong> skyglobegroup.com</span>
+      <span><strong>💬</strong> WhatsApp: +1 737-399-8522</span>
+    </div>
+    <div class="reg" id="legalFooter">SKYGLOBE GROUP · Global Operations · This document is confidential and issued solely to the named recipient. Unauthorised reproduction, distribution or misuse of this document may constitute a criminal offence under applicable law. SkyGlobe Group accepts no liability for any use of this document other than its stated purpose.</div>
+  </div>
+</div>
+
+<script>
+  let KEY = '', ROLE = '', NAME = '';
+
+  const DOC_TYPES = {
+    letter:         { prefix:'SGL', label:'Official Company Letter' },
+    invitation:     { prefix:'INV', label:'Conference / Event Invitation' },
+    support:        { prefix:'WPS', label:'Work Permit Support Letter' },
+    visa:           { prefix:'VSL', label:'Visa Support & Recommendation Letter' },
+    appointment:    { prefix:'APT', label:'Appointment / Employment Confirmation' },
+    recommendation: { prefix:'REC', label:'Reference / Recommendation Letter' },
+  };
+
+  /* ── Auth ── */
+  async function doLogin(){
+    const pw = document.getElementById('pw').value.trim();
+    const err = document.getElementById('loginErr');
+    err.textContent = '';
+    if(!pw){ err.textContent = 'Please enter your password.'; return; }
+    try {
+      const r = await fetch('/api/staff/login', { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ password: pw }) });
+      const d = await r.json();
+      if(!r.ok){ err.textContent = d.error || 'Wrong password.'; return; }
+      KEY = pw; ROLE = d.role; NAME = d.name;
+      sessionStorage.setItem('sg_lh_key', pw);
+      sessionStorage.setItem('sg_lh_role', d.role);
+      sessionStorage.setItem('sg_lh_name', d.name);
+      enterStudio();
+    } catch(e){ err.textContent = 'Network error. Please try again.'; }
+  }
+
+  function logout(){
+    ['sg_lh_key','sg_lh_role','sg_lh_name'].forEach(k=>sessionStorage.removeItem(k));
+    location.reload();
+  }
+
+  function enterStudio(){
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('studio').style.display = 'block';
+    document.getElementById('meName').textContent = NAME;
+    document.getElementById('meRole').textContent = ROLE === 'ceo' ? 'CEO' : 'Staff';
+    setupRoleGovernance();
+    insertDate();
+    newRef();
+    applyMode();
+  }
+
+  /* ── Role governance ── */
+  function setupRoleGovernance(){
+    const isCeo = ROLE === 'ceo';
+    ['authorised','ceo'].forEach(m=>{
+      const opt = document.querySelector('.sig-opt[data-mode="'+m+'"]');
+      const radio = opt.querySelector('input');
+      if(!isCeo){ opt.classList.add('locked'); radio.disabled = true; }
+    });
+    document.getElementById('lockAuth').style.display = isCeo ? 'none' : 'inline';
+    document.getElementById('lockCeo').style.display = isCeo ? 'none' : 'inline';
+    if(!isCeo){
+      document.querySelector('input[name="sigmode"][value="draft"]').checked = true;
+      document.getElementById('sigName').disabled = true;
+      document.getElementById('sigTitle').disabled = true;
+      document.getElementById('sigDesc').innerHTML = '🔒 Signed in as <strong>Staff</strong>. You can prepare and print <strong>drafts only</strong>. Send to the CEO for the official signature &amp; stamp.';
+    }
+  }
+
+  /* ── Signature mode ── */
+  function applyMode(){
+    const mode = (document.querySelector('input[name="sigmode"]:checked')||{}).value || 'draft';
+    document.querySelectorAll('.sig-opt').forEach(o=>o.classList.toggle('active', o.dataset.mode===mode && !o.classList.contains('locked')));
+    const b = document.body;
+    b.classList.remove('is-draft','no-sigimg','no-stamp');
+    const signBlock = document.getElementById('signBlock');
+    if(mode === 'ceo'){
+      document.getElementById('outName').textContent = document.getElementById('sigName').value || 'Saleh Shuaibu';
+      document.getElementById('outTitle').textContent = document.getElementById('sigTitle').value || 'Founder & Chief Executive Officer';
+      signBlock.style.display = 'flex';
+    } else if(mode === 'authorised'){
+      b.classList.add('no-sigimg');
+      document.getElementById('outName').textContent = document.getElementById('sigName').value || 'Authorised Signatory';
+      document.getElementById('outTitle').textContent = 'For and on behalf of SkyGlobe Group';
+      signBlock.style.display = 'flex';
+    } else {
+      b.classList.add('is-draft','no-sigimg','no-stamp');
+      signBlock.style.display = 'none';
+    }
+  }
+
+  document.addEventListener('input', e=>{
+    if(e.target.id==='sigName'||e.target.id==='sigTitle') applyMode();
+  });
+
+  /* ── Document type ── */
+  function applyDocType(){
+    newRef();
+  }
+
+  /* ── Reference number ── */
+  function updateWatermark(){
+    const name  = (document.getElementById('wmName')?.value  || '').trim();
+    const email = (document.getElementById('wmEmail')?.value || '').trim();
+    const base  = name || email ? `ISSUED TO: ${name}${email?' · '+email:''} · CONFIDENTIAL · SKYGLOBE GROUP · ` : 'SKYGLOBE GROUP · OFFICIAL · CONFIDENTIAL · SKYGLOBE GROUP · OFFICIAL · ';
+    const text  = base.repeat(5);
+    ['wmt1','wmt2','wmt3'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=text; });
+    // Update legal footer
+    const lf = document.getElementById('legalFooter');
+    if(lf && name){
+      lf.textContent = `SKYGLOBE GROUP · Global Operations · This document is confidential and issued solely to ${name}${email?' ('+email+')':''}. Unauthorised reproduction, distribution or misuse of this document may constitute a criminal offence under applicable law.`;
+    }
+  }
+
+  function newRef(){
+    const type = document.getElementById('docType')?.value || 'letter';
+    const prefix = DOC_TYPES[type]?.prefix || 'SGL';
+    const y = new Date().getFullYear();
+    const n = String(Math.floor(1000 + Math.random()*9000));
+    const ref = `${prefix}/${y}/${n}`;
+    document.getElementById('docRef').value = ref;
+    document.getElementById('refLine').textContent = `Ref: ${ref}`;
+    document.getElementById('secRef').textContent = ref;
+  }
+
+  /* ── Date ── */
+  function insertDate(){
+    const d = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    document.getElementById('today').textContent = d;
+    document.getElementById('secDateVal').textContent = d;
+  }
+
+  /* ── AI writer ── */
+  async function generateLetter(){
+    const instruction = document.getElementById('aiInstruction').value.trim();
+    const status = document.getElementById('aiStatus');
+    const btn = document.getElementById('aiBtn');
+    status.className = 'ai-status';
+    if(!instruction){ status.classList.add('err'); status.textContent = 'Please describe what the letter should say.'; return; }
+    btn.disabled = true; status.textContent = '✍️ Writing your letter…';
+    try {
+      const r = await fetch('/api/letterhead-draft', {
+        method:'POST', headers:{'content-type':'application/json','x-admin-key':KEY},
+        body: JSON.stringify({
+          recipient: document.getElementById('aiRecipient').value.trim(),
+          subject: document.getElementById('aiSubject').value.trim(),
+          instruction, tone: document.getElementById('aiTone').value,
+        })
+      });
+      const d = await r.json();
+      if(!r.ok){ status.classList.add('err'); status.textContent = d.error||'Generation failed.'; btn.disabled=false; return; }
+      insertLetterBody(d.text, document.getElementById('aiSubject').value.trim());
+      status.textContent = '✅ Letter inserted. Review carefully and edit before printing.';
+    } catch(e){ status.classList.add('err'); status.textContent = 'Network error. Please try again.'; }
+    btn.disabled = false;
+  }
+
+  function insertLetterBody(text, subject){
+    const esc = s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const recip = document.getElementById('aiRecipient').value.trim();
+    const ref = document.getElementById('refLine').textContent;
+    const today = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    const paras = text.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean)
+      .map(p=>'<p>'+esc(p).replace(/\n/g,'<br>')+'</p>').join('<br>');
+    let html = '<p class="lh-ref">'+esc(ref)+'</p>';
+    html += '<p class="lh-date">'+esc(today)+'</p>';
+    if(recip) html += '<p>'+esc(recip).replace(/,/g,'<br>')+'</p><br>';
+    if(subject) html += '<p><strong>RE: '+esc(subject)+'</strong></p><br>';
+    html += paras;
+    document.getElementById('body').innerHTML = html;
+    document.getElementById('secDateVal').textContent = today;
+  }
+
+  /* ── Restore session ── */
+  (async function(){
+    const k = sessionStorage.getItem('sg_lh_key');
+    if(k){ KEY=k; ROLE=sessionStorage.getItem('sg_lh_role')||'staff'; NAME=sessionStorage.getItem('sg_lh_name')||'Staff'; enterStudio(); return; }
+    const passthru = sessionStorage.getItem('skyadmin_key') || sessionStorage.getItem('skystaff_key');
+    if(passthru){
+      try {
+        const r = await fetch('/api/staff/login', { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ password: passthru }) });
+        const d = await r.json();
+        if(r.ok){ KEY=passthru; ROLE=d.role; NAME=d.name; sessionStorage.setItem('sg_lh_key',passthru); sessionStorage.setItem('sg_lh_role',d.role); sessionStorage.setItem('sg_lh_name',d.name); enterStudio(); }
+      } catch(e){}
+    }
+  })();
+</script>
+</body>
+</html>

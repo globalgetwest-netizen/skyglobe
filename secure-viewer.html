@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Secure Document Viewer — SkyGlobe Group</title>
+<link rel="icon" type="image/png" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:#07112b;color:#e8eef7;min-height:100vh;-webkit-user-select:none;user-select:none}
+  body *{-webkit-user-select:none!important;user-select:none!important}
+
+  /* Header bar */
+  .hdr{background:#0e1f42;border-bottom:1px solid rgba(201,168,76,0.2);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .hdr-brand{display:flex;align-items:center;gap:10px}
+  .hdr-brand img{height:38px;width:38px;border-radius:9px}
+  .hdr-brand .t{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#fff}
+  .hdr-brand .t span{color:#c9a84c}
+  .hdr-info{font-size:0.8rem;color:#8899bb;text-align:right}
+  .hdr-info strong{color:#e8eef7;display:block}
+
+  /* States */
+  .state{display:flex;align-items:center;justify-content:center;min-height:80vh;padding:40px 20px;text-align:center}
+  .state-card{background:#0e1f42;border:1px solid rgba(201,168,76,0.2);border-radius:20px;padding:48px 40px;max-width:480px;width:100%}
+  .state-card .icon{font-size:3rem;margin-bottom:16px}
+  .state-card h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;margin-bottom:10px}
+  .state-card p{color:#8899bb;font-size:0.9rem;line-height:1.6;margin-bottom:20px}
+  .state-card .wa{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:11px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:0.9rem}
+
+  /* Security notice bar */
+  .sec-bar{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:12px 18px;margin:16px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:0.8rem;color:#c5d2e6}
+  .sec-bar .lock{font-size:1.1rem;flex-shrink:0}
+  .sec-bar .exp{margin-left:auto;font-size:0.74rem;color:#c9a84c;font-weight:600;white-space:nowrap}
+
+  /* Print / download action bar — this IS the paying client's own document,
+     so they must always be able to print and save it (e.g. for an embassy
+     submission). The watermark + blocked right-click/copy below only guard
+     against a leaked LINK being screenshotted or redistributed by someone
+     other than the intended recipient — never against the recipient
+     themselves getting their own paid document. */
+  .action-bar{display:flex;gap:10px;flex-wrap:wrap;margin:0 24px 16px}
+  .action-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#D4A73A,#F4D77A);color:#1a1300;border:none;padding:11px 20px;border-radius:10px;font-weight:700;font-size:0.85rem;cursor:pointer;font-family:inherit;-webkit-user-select:auto;user-select:auto}
+  .action-btn:hover{filter:brightness(1.05)}
+  .action-btn.ghost{background:transparent;border:1px solid rgba(201,168,76,0.4);color:#c9a84c}
+
+  /* Viewer area */
+  .viewer-wrap{position:relative;margin:0 24px 24px;border-radius:12px;overflow:hidden;background:#1a1a2e;min-height:70vh}
+
+  /* Watermark overlay — always on top, deters screenshot redistribution.
+     Hidden automatically during print (see @media print below) so the
+     printed/saved document is clean, not stamped with the on-screen watermark. */
+  .wm-overlay{position:absolute;inset:0;z-index:50;pointer-events:none;overflow:hidden}
+  .wm-line{position:absolute;left:-20%;width:140%;font-size:1.1rem;font-weight:700;color:rgba(201,168,76,0.12);text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;transform:rotate(-30deg);transform-origin:center}
+
+  /* Blocking overlay — deters right-click/drag on the on-screen preview only */
+  .block-overlay{position:absolute;inset:0;z-index:40;background:transparent;cursor:not-allowed}
+
+  /* The actual iframe/embed — pointer-events re-enabled so scrolling/print
+     targeting works correctly inside it */
+  .doc-frame{width:100%;min-height:80vh;border:none;display:block}
+
+  /* Footer */
+  .viewer-footer{background:#0e1f42;border-top:1px solid rgba(201,168,76,0.15);padding:16px 24px;font-size:0.75rem;color:#64748b;text-align:center;line-height:1.6}
+  .viewer-footer strong{color:#c9a84c}
+
+  /* Countdown timer */
+  .timer{display:inline-block;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:6px;padding:4px 10px;font-size:0.72rem;color:#c9a84c;font-weight:600;margin-left:8px}
+
+  @media(max-width:600px){.hdr{padding:10px 14px}.sec-bar,.viewer-wrap,.action-bar{margin-left:10px;margin-right:10px}}
+  @media print{.hdr,.sec-bar,.action-bar,.viewer-footer,.wm-overlay,.block-overlay{display:none!important}body{background:#fff}.viewer-wrap{margin:0;min-height:0}}
+</style>
+</head>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+<div class="hdr">
+  <div class="hdr-brand">
+    <img src="icon-192.png" alt="SkyGlobe Group">
+    <div class="t">Sky<span>Globe</span> Group</div>
+  </div>
+  <div class="hdr-info">
+    <strong id="hdrFilename">Loading…</strong>
+    <span>🔒 Secure Document Viewer</span>
+  </div>
+</div>
+
+<!-- Loading state -->
+<div class="state" id="stateLoading">
+  <div class="state-card">
+    <div class="icon">⏳</div>
+    <h2>Loading Document…</h2>
+    <p>Please wait while we securely retrieve your document.</p>
+  </div>
+</div>
+
+<!-- Error state -->
+<div class="state" id="stateError" style="display:none">
+  <div class="state-card">
+    <div class="icon">🔐</div>
+    <h2 id="errTitle">Access Denied</h2>
+    <p id="errMsg">This document link is invalid or has expired.</p>
+    <a href="https://wa.me/17373998522" class="wa" target="_blank">💬 Contact SkyGlobe on WhatsApp</a>
+  </div>
+</div>
+
+<!-- Viewer state -->
+<div id="stateViewer" style="display:none">
+  <div class="sec-bar">
+    <span class="lock">🔏</span>
+    <div>
+      <strong style="color:#e8eef7" id="secFilename">Document</strong>
+      <span style="color:#64748b"> · Issued by SkyGlobe Group · This is your document — print or save it anytime.</span>
+    </div>
+    <span class="exp" id="expiry"></span>
+  </div>
+
+  <div class="action-bar">
+    <button class="action-btn" onclick="printDocument()">🖨️ Print / Save as PDF</button>
+    <a class="action-btn ghost" id="downloadLink" href="#" target="_blank">⬇ Open in New Tab</a>
+  </div>
+
+  <div class="viewer-wrap" id="viewerWrap">
+    <!-- Blocking overlay — deters casual right-click on the on-screen preview -->
+    <div class="block-overlay" oncontextmenu="return false" ondragstart="return false"></div>
+    <!-- Watermark overlay — on-screen only, excluded from print -->
+    <div class="wm-overlay" id="wmOverlay">
+      <div class="wm-line" style="top:8%"  id="wm1"></div>
+      <div class="wm-line" style="top:25%" id="wm2"></div>
+      <div class="wm-line" style="top:42%" id="wm3"></div>
+      <div class="wm-line" style="top:59%" id="wm4"></div>
+      <div class="wm-line" style="top:76%" id="wm5"></div>
+      <div class="wm-line" style="top:93%" id="wm6"></div>
+    </div>
+    <!-- Document iframe -->
+    <iframe class="doc-frame" id="docFrame" title="Secure Document" sandbox="allow-same-origin allow-modals" allowfullscreen="false"></iframe>
+  </div>
+
+  <div class="viewer-footer">
+    <strong>CONFIDENTIAL</strong> · This document was issued solely to the registered recipient by SkyGlobe Group.<br>
+    Please do not share this link — unauthorised redistribution of this document may constitute a criminal offence under applicable law.<br>
+    SkyGlobe Group · <a href="https://skyglobegroup.com" style="color:#c9a84c;text-decoration:none">skyglobegroup.com</a> · support@skyglobegroup.com
+  </div>
+</div>
+
+<script>
+(function(){
+  // Block copy/select-all/view-source/save-page shortcuts (deters casual
+  // scraping of the on-screen preview) — but NOT print ('p'), since this is
+  // the paying client's own document and they must be able to print/save it.
+  document.addEventListener('keydown', function(e){
+    if(e.ctrlKey||e.metaKey){
+      const k=e.key.toLowerCase();
+      if(['c','u','a'].includes(k)){ e.preventDefault(); return false; }
+    }
+  });
+
+  const token = location.pathname.split('/view/')[1] || location.pathname.split('/').pop();
+  if(!token){ showError('Invalid Link','No document token was found in this URL.'); return; }
+
+  window.printDocument = function(){
+    const frame = document.getElementById('docFrame');
+    try{
+      frame.contentWindow.focus();
+      frame.contentWindow.print();
+    }catch(e){
+      window.print();
+    }
+  };
+
+  async function init(){
+    try{
+      const r = await fetch('/api/view/'+token);
+      const d = await r.json();
+      if(!r.ok){ showError(r.status===410?'Link Expired':'Invalid Link', d.error||'This link is not valid.'); return; }
+
+      // Set header and filename
+      document.getElementById('hdrFilename').textContent = d.filename || 'Document';
+      document.getElementById('secFilename').textContent = d.filename || 'Document';
+
+      const contentUrl = '/api/view/'+token+'/content';
+      const dl = document.getElementById('downloadLink');
+      if (dl) dl.href = contentUrl;
+
+      // Expiry timer
+      if(d.expires_at){
+        const exp = new Date(d.expires_at);
+        function updateTimer(){
+          const diff = exp - new Date();
+          if(diff<=0){ document.getElementById('expiry').textContent='⚠ Link expired'; return; }
+          const h=Math.floor(diff/3600000), m=Math.floor((diff%3600000)/60000);
+          document.getElementById('expiry').textContent=`⏱ Link valid for ${h}h ${m}m`;
+        }
+        updateTimer(); setInterval(updateTimer, 60000);
+      }
+
+      // Watermark with client email — on-screen deterrent only, excluded from print
+      const wmText = `CONFIDENTIAL · ${d.client_email||'SKYGLOBE GROUP'} · REF: ${d.application_ref||''} · SKYGLOBE GROUP · `;
+      ['wm1','wm2','wm3','wm4','wm5','wm6'].forEach(id=>{
+        const el=document.getElementById(id);
+        if(el) el.textContent = wmText.repeat(4);
+      });
+
+      // Load document via our proxy (hides real URL)
+      document.getElementById('docFrame').src = contentUrl;
+
+      // Show viewer
+      document.getElementById('stateLoading').style.display='none';
+      document.getElementById('stateViewer').style.display='block';
+
+    }catch(e){ showError('Error','Could not load document. Please try again or contact support.'); }
+  }
+
+  function showError(title, msg){
+    document.getElementById('stateLoading').style.display='none';
+    document.getElementById('errTitle').textContent=title;
+    document.getElementById('errMsg').textContent=msg;
+    document.getElementById('stateError').style.display='flex';
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>

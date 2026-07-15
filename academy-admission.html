@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admission Application — SkyGlobe Academy</title>
+<meta name="theme-color" content="#041022">
+<link rel="icon" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1A2E4A;--navy2:#0a1f44;--gold:#C9A84C;--gold-hi:#F4D77A;
+    --sky:#4DA3FF;--sky-soft:#DCEBFF;--leaf:#3FBF7F;--leaf-soft:#D9F5E6;
+    --sun:#FFC542;--sun-soft:#FFF2CF;--earth:#E8A24A;--earth-soft:#FBEBD2;
+    --ink:#22324a;--muted:#7488a3;--line:#e7ecf3;--bg:#f4f8ff;--card:#fff;
+    --head:'Fredoka',system-ui,sans-serif;--body:'Nunito',system-ui,sans-serif;
+    --r:22px;--shadow:0 14px 40px rgba(10,31,68,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);background:
+      radial-gradient(1100px 460px at 85% -8%,var(--sky-soft),transparent 60%),
+      radial-gradient(900px 420px at 5% 8%,var(--leaf-soft),transparent 55%),var(--bg);
+    color:var(--ink);min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;position:sticky;top:0;z-index:40;box-shadow:0 6px 24px rgba(4,16,34,.25)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 20px;max-width:1080px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand img{height:40px;width:40px;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,.3)}
+  .brand .t{font-family:var(--head);font-weight:700;font-size:1.08rem;line-height:1}
+  .brand small{display:block;color:var(--gold-hi);font-size:.6rem;letter-spacing:.2em;font-weight:600;margin-top:3px}
+  .navlinks a{color:#cfe0f5;font-size:.86rem;font-weight:600;padding:8px 10px;border-radius:10px}
+  .navlinks a:hover{background:rgba(255,255,255,.08);color:#fff}
+
+  .hero{text-align:center;padding:30px 0 10px}
+  .hero .pill{display:inline-block;background:rgba(201,168,76,.16);color:var(--gold);border:1px solid rgba(201,168,76,.4);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:6px 16px;border-radius:30px;margin-bottom:14px}
+  .hero h1{font-family:var(--head);font-size:clamp(1.6rem,4.5vw,2.4rem);color:var(--navy);line-height:1.12}
+  .hero h1 span{color:var(--gold)}
+  .hero p{color:var(--muted);margin-top:10px}
+
+  .steps{display:flex;gap:8px;justify-content:center;margin:26px 0 18px;flex-wrap:wrap}
+  .stepdot{display:flex;align-items:center;gap:8px}
+  .stepdot .num{width:34px;height:34px;border-radius:50%;background:#fff;border:2px solid var(--line);color:var(--muted);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700}
+  .stepdot.active .num{background:var(--gold);border-color:var(--gold);color:#3a2a00}
+  .stepdot.done .num{background:var(--leaf);border-color:var(--leaf);color:#fff}
+  .stepdot .lbl{font-size:.78rem;font-weight:700;color:var(--muted)}
+  .stepdot.active .lbl{color:var(--navy)}
+  .stepdot .bar{width:26px;height:2px;background:var(--line)}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:28px;box-shadow:var(--shadow);margin-bottom:40px}
+  .card h2{font-family:var(--head);color:var(--navy);font-size:1.3rem;margin-bottom:4px}
+  .card .sub{color:var(--muted);font-size:.88rem;margin-bottom:18px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .grid .full{grid-column:1/-1}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  label{display:block;font-size:.78rem;color:var(--ink);margin:0 0 6px;font-weight:700}
+  input,select,textarea{width:100%;padding:12px 14px;border-radius:13px;border:2px solid var(--line);background:#fbfdff;color:var(--ink);font-size:.95rem;font-family:var(--body);font-weight:600}
+  textarea{min-height:84px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--sky)}
+  .check{display:flex;gap:10px;align-items:flex-start;margin-top:8px}
+  .check input{width:auto;margin-top:3px}
+  .check label{margin:0;font-weight:600;font-size:.86rem;color:var(--muted)}
+  .nav{display:flex;gap:12px;margin-top:24px}
+  .btn{flex:1;padding:14px;border:none;border-radius:30px;font-weight:700;font-size:1rem;cursor:pointer;font-family:var(--head);letter-spacing:.02em;transition:transform .15s,box-shadow .15s}
+  .btn.primary{background:linear-gradient(135deg,var(--gold-hi),var(--gold));color:#3a2a00;box-shadow:0 8px 22px rgba(201,168,76,.35)}
+  .btn.primary:hover{transform:translateY(-2px)}
+  .btn.ghost{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+  .btn:disabled{opacity:.6;cursor:wait}
+  .msg{margin-top:14px;font-size:.86rem;text-align:center;font-weight:600;min-height:18px}
+  .msg.err{color:#e0566a}.msg.ok{color:#1f9d57}
+
+  .done-box{text-align:center;padding:20px}
+  .done-box .ic{font-size:3.4rem}
+  .done-box h2{font-size:1.6rem;margin:10px 0}
+  .refbox{background:var(--navy);border:2px solid var(--gold);border-radius:16px;padding:18px;display:inline-block;margin:18px 0}
+  .refbox .k{color:#8899bb;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em}
+  .refbox .v{color:var(--gold);font-family:var(--head);font-size:1.4rem;font-weight:700;margin-top:6px}
+  .note{background:var(--sun-soft);border:1px solid var(--sun);border-radius:14px;padding:14px 16px;color:#9a6b00;font-size:.86rem;font-weight:600;line-height:1.55;margin-top:8px}
+  footer{text-align:center;color:var(--muted);font-size:.8rem;padding:24px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a href="/kids-academy" class="brand"><img src="/icon-192.png" alt="SkyGlobe Academy"><div class="t">SkyGlobe Academy<small>ADMISSIONS OFFICE</small></div></a>
+  <div class="navlinks"><a href="/academy">Already applied? Log in</a></div>
+</div></header>
+<script src="/noria-widget.js"></script>
+
+<div class="wrap">
+  <div class="hero">
+    <span class="pill">Formal Admission</span>
+    <h1>Begin your child's <span>learning journey</span></h1>
+    <p>Complete this short admission application. Our admissions team will review it and welcome your child to the academy.</p>
+  </div>
+
+  <div class="steps" id="steps"></div>
+
+  <form id="admForm" onsubmit="return false">
+
+    <!-- STEP 1 -->
+    <div class="card step" data-step="1">
+      <h2>1 · Student Information</h2>
+      <div class="sub">Tell us about the student applying for admission.</div>
+      <div class="grid">
+        <div><label>First name *</label><input id="firstName" required></div>
+        <div><label>Middle name</label><input id="middleName"></div>
+        <div><label>Last name *</label><input id="lastName" required></div>
+        <div><label>Date of birth *</label><input id="dateOfBirth" type="date" required></div>
+        <div><label>Gender</label><select id="gender"><option value="">Select…</option><option>Male</option><option>Female</option><option>Prefer not to say</option></select></div>
+        <div><label>Nationality</label><input id="nationality" placeholder="e.g. Canadian, Filipino, Emirati"></div>
+        <div><label>Country *</label><select id="country" required></select></div>
+        <div><label>State / Province</label><input id="stateProvince"></div>
+        <div class="full"><label>Home address</label><input id="homeAddress" placeholder="Street, city, postal code"></div>
+      </div>
+      <div class="nav"><button class="btn primary" onclick="next(1)">Continue →</button></div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="card step" data-step="2" style="display:none">
+      <h2>2 · Academic Information</h2>
+      <div class="sub">Help us personalise the learning experience.</div>
+      <div class="grid">
+        <div class="full"><label>Current school name (optional)</label><input id="schoolName"></div>
+        <div><label>Current grade / year level *</label><select id="schoolGrade" required>
+          <option value="">Select…</option>
+          <option>Pre-K</option><option>Kindergarten</option>
+          <option>Grade 1</option><option>Grade 2</option><option>Grade 3</option><option>Grade 4</option>
+          <option>Grade 5</option><option>Grade 6</option><option>Grade 7</option><option>Grade 8</option>
+          <option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option>
+        </select></div>
+        <div><label>Preferred learning language *</label><select id="language" required></select></div>
+        <div class="full"><label>Learning needs or special requirements</label><textarea id="learningNeeds" placeholder="Any learning preferences, support needs, or notes for our teachers."></textarea></div>
+      </div>
+      <div class="nav"><button class="btn ghost" onclick="prev(2)">← Back</button><button class="btn primary" onclick="next(2)">Continue →</button></div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="card step" data-step="3" style="display:none">
+      <h2>3 · Parent / Guardian Information</h2>
+      <div class="sub">This email becomes the Family Campus login.</div>
+      <div class="grid">
+        <div class="full"><label>Parent / Guardian full name *</label><input id="guardianName" required></div>
+        <div><label>Relationship *</label><select id="guardianRelationship" required>
+          <option value="">Select…</option><option value="mother">Mother</option><option value="father">Father</option>
+          <option value="guardian">Legal Guardian</option><option value="other">Other</option></select></div>
+        <div><label>Phone number</label><input id="guardianPhone" type="tel"></div>
+        <div class="full"><label>Email address (login) *</label><input id="guardianEmail" type="email" required autocomplete="email"></div>
+        <div class="full"><label>Home address</label><input id="guardianAddress" placeholder="Guardian's address"></div>
+        <div class="full check"><input type="checkbox" id="copyAddr" onchange="copyAddress()"><label for="copyAddr">Same as student's home address</label></div>
+      </div>
+      <div class="nav"><button class="btn ghost" onclick="prev(3)">← Back</button><button class="btn primary" onclick="next(3)">Continue →</button></div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="card step" data-step="4" style="display:none">
+      <h2>4 · Account Setup</h2>
+      <div class="sub">Create a secure password for your Family Campus account.</div>
+      <div class="grid">
+        <div><label>Create password *</label><input id="password" type="password" autocomplete="new-password"></div>
+        <div><label>Confirm password *</label><input id="password2" type="password" autocomplete="new-password"></div>
+        <div class="full check"><input type="checkbox" id="agree"><label for="agree">I agree to the SkyGlobe Academy terms and confirm I am the parent/legal guardian of the student named in this application.</label></div>
+      </div>
+      <div class="nav"><button class="btn ghost" onclick="prev(4)">← Back</button><button class="btn primary" id="submitBtn" onclick="submitApp()">Submit Application</button></div>
+      <div class="msg" id="msg"></div>
+    </div>
+
+    <!-- DONE -->
+    <div class="card step done-box" data-step="5" style="display:none">
+      <div class="ic">🎓</div>
+      <h2>Application Submitted!</h2>
+      <p style="color:var(--muted)">Thank you. Your child's admission application has been received.</p>
+      <div class="refbox"><div class="k">Application Reference</div><div class="v" id="refOut">—</div></div>
+      <div class="note">🛡️ This is a <b>formal admission process</b>. Our admissions team will review the application and update the status. You can track progress anytime by logging in to the Family Campus. You'll also receive an email at each stage.</div>
+      <div class="nav"><a class="btn primary" href="/academy" style="text-align:center;line-height:1.5">Go to Family Campus →</a></div>
+    </div>
+
+  </form>
+</div>
+
+<footer>© <span id="yr"></span> SkyGlobe Academy · part of SkyGlobe Group</footer>
+
+<script>
+const API='';
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+const COUNTRIES=["Afghanistan","Albania","Algeria","Andorra","Angola","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+const LANGUAGES=[["en","English"],["es","Spanish"],["fr","French"],["de","German"],["pt","Portuguese"],["it","Italian"],["nl","Dutch"],["ru","Russian"],["ar","Arabic"],["zh","Chinese (Mandarin)"],["ja","Japanese"],["ko","Korean"],["hi","Hindi"],["bn","Bengali"],["ur","Urdu"],["pa","Punjabi"],["ta","Tamil"],["te","Telugu"],["tr","Turkish"],["fa","Persian"],["sw","Swahili"],["ha","Hausa"],["yo","Yoruba"],["ig","Igbo"],["am","Amharic"],["id","Indonesian"],["ms","Malay"],["th","Thai"],["vi","Vietnamese"],["pl","Polish"],["uk","Ukrainian"],["ro","Romanian"],["el","Greek"],["he","Hebrew"],["fil","Filipino"]];
+
+document.getElementById('country').innerHTML='<option value="">Select…</option>'+COUNTRIES.map(c=>`<option>${c}</option>`).join('');
+document.getElementById('language').innerHTML=LANGUAGES.map(l=>`<option value="${l[0]}">${l[1]}</option>`).join('');
+
+const STEP_LABELS=['Student','Academic','Guardian','Account'];
+let current=1;
+function renderSteps(){
+  const box=document.getElementById('steps');
+  box.innerHTML=STEP_LABELS.map((l,i)=>{
+    const n=i+1;const cls=n<current?'done':n===current?'active':'';
+    return `<div class="stepdot ${cls}"><div class="num">${n<current?'✓':n}</div><div class="lbl">${l}</div></div>${n<STEP_LABELS.length?'<div class="bar"></div>':''}`;
+  }).join('');
+}
+function show(n){document.querySelectorAll('.step').forEach(s=>s.style.display=s.dataset.step==String(n)?'block':'none');current=Math.min(n,4);renderSteps();window.scrollTo({top:0,behavior:'smooth'});}
+function v(id){return document.getElementById(id).value.trim();}
+function copyAddress(){if(document.getElementById('copyAddr').checked)document.getElementById('guardianAddress').value=v('homeAddress');}
+
+function next(step){
+  if(step===1){if(!v('firstName')||!v('lastName')||!v('dateOfBirth')||!v('country')){alert('Please complete the required fields (*).');return;}}
+  if(step===2){if(!v('schoolGrade')||!v('language')){alert('Please select grade and learning language.');return;}}
+  if(step===3){if(!v('guardianName')||!v('guardianRelationship')||!v('guardianEmail')){alert('Please complete guardian name, relationship and email.');return;}}
+  show(step+1);
+}
+function prev(step){show(step-1);}
+
+async function submitApp(){
+  const msg=document.getElementById('msg'),btn=document.getElementById('submitBtn');
+  const p1=document.getElementById('password').value,p2=document.getElementById('password2').value;
+  if(p1.length<6){msg.className='msg err';msg.textContent='Password must be at least 6 characters.';return;}
+  if(p1!==p2){msg.className='msg err';msg.textContent='Passwords do not match.';return;}
+  if(!document.getElementById('agree').checked){msg.className='msg err';msg.textContent='Please agree to the terms to continue.';return;}
+  btn.disabled=true;msg.className='msg';msg.textContent='Submitting…';
+  const payload={
+    firstName:v('firstName'),middleName:v('middleName'),lastName:v('lastName'),
+    dateOfBirth:v('dateOfBirth'),gender:v('gender'),nationality:v('nationality'),
+    country:v('country'),stateProvince:v('stateProvince'),homeAddress:v('homeAddress'),
+    schoolName:v('schoolName'),schoolGrade:v('schoolGrade'),learningNeeds:v('learningNeeds'),
+    language:v('language')||'en',
+    guardianName:v('guardianName'),guardianRelationship:v('guardianRelationship'),
+    guardianPhone:v('guardianPhone'),guardianEmail:v('guardianEmail'),guardianAddress:v('guardianAddress'),
+    email:v('guardianEmail'),password:p1
+  };
+  try{
+    const r=await fetch(API+'/api/academy/admission/apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const d=await r.json();if(!r.ok)throw new Error(d.error||'Could not submit.');
+    if(d.token){localStorage.setItem('academyToken',d.token);localStorage.setItem('academyParent',JSON.stringify({email:d.email,name:d.name}));}
+    document.getElementById('refOut').textContent=d.applicationRef||'Received';
+    show(5);document.querySelector('[data-step="5"]').style.display='block';
+  }catch(e){msg.className='msg err';msg.textContent=e.message;btn.disabled=false;}
+}
+
+renderSteps();
+</script>
+<script src="/announcements.js?v=2" defer></script>
+<script src="/dept-contact.js?v=7" defer></script>
+</body>
+</html>

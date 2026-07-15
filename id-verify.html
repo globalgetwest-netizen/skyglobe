@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Identity Verification — SkyGlobe Group</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,sans-serif;background:#0a0e18;color:#e8eef7;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:30px}
+  .card{background:#111827;border-radius:22px;max-width:480px;width:100%;padding:38px 34px;box-shadow:0 24px 60px rgba(0,0,0,.5);text-align:center;border-top:6px solid #D4A73A}
+  .brand{font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.1em;color:#fff;font-size:1.1rem;text-transform:uppercase;margin-bottom:6px}
+  .brand span{color:#D4A73A}
+  .ic{font-size:3rem;margin:10px 0}
+  h1{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#fff;margin-bottom:6px}
+  .status{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:5px 16px;border-radius:20px;margin-bottom:18px}
+  .status.valid{background:#123321;color:#5fe0a0}
+  .status.invalid{background:#3a1414;color:#f28b8b}
+  .rows{text-align:left;background:#0a0e18;border-radius:14px;padding:16px 20px;margin-top:8px;border:1px solid #1f2937}
+  .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1f2937;font-size:.88rem}
+  .row:last-child{border-bottom:none}
+  .row .k{color:#8899bb;font-weight:600}
+  .row .v{color:#fff;font-weight:700;text-align:right}
+  .note{margin-top:20px;font-size:.78rem;color:#8899bb;line-height:1.6}
+  a{color:#D4A73A}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">SKY<span>GLOBE</span> GROUP</div>
+  <div id="content"><div class="ic">⏳</div><h1>Checking…</h1></div>
+</div>
+<script>
+const ref = location.pathname.split('/verify-id/')[1] || location.pathname.split('/').pop();
+async function run(){
+  const box = document.getElementById('content');
+  try{
+    const r = await fetch('/api/identity/verify/' + encodeURIComponent(ref));
+    const d = await r.json();
+    if (!r.ok || !d.valid) {
+      box.innerHTML = `<div class="ic">❌</div><h1>Not Verified</h1><div class="status invalid">Invalid or unknown</div>
+        <p class="note">${d.error || 'We could not verify an identity card with this reference.'} If you believe this is an error, contact <a href="https://wa.me/17373998522">SkyGlobe support</a>.</p>`;
+      return;
+    }
+    box.innerHTML = `<div class="ic">✅</div><h1>Identity Verified</h1><div class="status valid">Authentic · SkyGlobe Group</div>
+      <div class="rows">
+        <div class="row"><span class="k">Name</span><span class="v">${esc(d.fullName)}</span></div>
+        <div class="row"><span class="k">Card Type</span><span class="v">${esc(d.tier)}</span></div>
+        <div class="row"><span class="k">Role</span><span class="v">${esc(d.roleLine || '—')}</span></div>
+        <div class="row"><span class="k">Reference</span><span class="v">${esc(d.ref)}</span></div>
+      </div>
+      <p class="note">This identity card was issued and is verified by SkyGlobe Group. For privacy, the holder's photo, contact details, nationality and address are never shown on this public verification page.</p>`;
+  }catch(e){
+    box.innerHTML = '<div class="ic">⚠️</div><h1>Verification unavailable</h1><p class="note">Please try again shortly.</p>';
+  }
+}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+run();
+</script>
+<script src="/dept-contact.js?v=7" defer></script>
+<div style="position:fixed;left:14px;bottom:14px;z-index:99990;display:flex;gap:8px">
+<button onclick="history.back()" aria-label="Back to previous page" title="Back" style="width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,168,76,.45);background:rgba(7,17,35,.88);color:#e9c86a;font-size:1.15rem;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.4);line-height:1">‹</button>
+<button onclick="history.forward()" aria-label="Forward" title="Forward" style="width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,168,76,.45);background:rgba(7,17,35,.88);color:#e9c86a;font-size:1.15rem;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.4);line-height:1">›</button>
+</div>
+</body>
+</html>

@@ -1,0 +1,1514 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YUNEX — Your Economic Home | SkyGlobe Group</title>
+<meta name="description" content="YUNEX — trade, invest, and grow across a verified global marketplace. Powered by SkyGlobe Group, verified by TERRA, guided by NORIA.">
+<link rel="icon" href="/yunex-logo-t.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0a1230;--navy2:#111a44;--line:rgba(255,255,255,.1);--blue:#3d5af1;--purple:#b326d9;--ink:#0a1230;--mut:#8b93b8}
+body{font-family:Inter,system-ui,sans-serif;background:#f6f7fb;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.grad{background:linear-gradient(120deg,var(--blue),var(--purple))}
+/* Top bar */
+.top{position:sticky;top:0;z-index:40;background:rgba(10,18,48,.96);backdrop-filter:blur(10px);color:#fff;border-bottom:1px solid var(--line)}
+.top .row{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:12px 20px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.04em}
+.brand img{width:34px;height:34px;object-fit:contain}
+.brand small{display:block;font-size:.56rem;letter-spacing:.22em;color:#9fb0e8;font-weight:600}
+.search{flex:1;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:12px;padding:9px 14px;color:#cdd6f5;min-width:0}
+.search input{flex:1;background:none;border:none;color:#fff;font-size:.9rem;outline:none;min-width:0}
+.top .acct{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.btn{border:none;cursor:pointer;font-family:inherit;font-weight:700;border-radius:11px;padding:9px 16px;font-size:.86rem}
+.btn.g{color:#fff}.btn.o{background:transparent;border:1px solid var(--line);color:#fff}
+.btn.sm{padding:7px 13px;font-size:.8rem}
+/* Section nav */
+.nav{position:sticky;top:59px;z-index:30;background:#fff;border-bottom:1px solid #e8eaf2}
+.nav .row{max-width:1180px;margin:0 auto;display:flex;gap:4px;padding:0 14px;overflow-x:auto}
+.nav button{background:none;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:.9rem;color:#67708f;padding:15px 16px;border-bottom:3px solid transparent;white-space:nowrap}
+.nav button.on{color:var(--blue);border-bottom-color:var(--purple)}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px 80px}
+.view{display:none}.view.on{display:block}
+/* Hero */
+.hero{border-radius:22px;padding:40px 34px;color:#fff;position:relative;overflow:hidden}
+.hero h1{font-size:2rem;font-weight:900;letter-spacing:-.01em;line-height:1.15;max-width:620px}
+.hero p{margin-top:12px;color:#dfe4ff;max-width:560px;font-size:1.02rem;line-height:1.6}
+.hero .marks{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:7px 15px;font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:7px}
+/* Pillars */
+.grid{display:grid;gap:16px;margin-top:22px}
+.g5{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:#fff;border:1px solid #e8eaf2;border-radius:16px;padding:22px;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(10,18,48,.1)}
+.card .ic{font-size:1.7rem}
+.card h3{margin-top:12px;font-size:1.05rem}
+.card p{color:#67708f;font-size:.86rem;margin-top:6px;line-height:1.55}
+.sec-h{font-size:1.25rem;font-weight:800;margin:6px 0 2px}
+.sec-s{color:#67708f;font-size:.9rem;margin-bottom:6px}
+/* Panels */
+.panel{background:#fff;border:1px solid #e8eaf2;border-radius:18px;padding:26px;margin-top:18px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;font-size:.74rem;font-weight:700;color:#67708f;text-transform:uppercase;letter-spacing:.06em;margin:0 0 5px}
+input,select,textarea{width:100%;border:1px solid #d7dbe8;border-radius:11px;padding:11px 13px;font-family:inherit;font-size:.92rem;background:#fbfcff;color:var(--ink)}
+.st{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.82rem;padding:5px 13px;border-radius:100px}
+.st.ok{background:#e6f7ee;color:#12864e}.st.pend{background:#fff4e0;color:#b5730a}.st.no{background:#f1f3f9;color:#67708f}
+.empty{text-align:center;padding:60px 20px;color:#8b93b8}
+.empty .ic{font-size:2.6rem}
+.muted{color:#8b93b8;font-size:.86rem}
+.notice{background:linear-gradient(120deg,rgba(61,90,241,.08),rgba(179,38,217,.08));border:1px solid rgba(61,90,241,.2);border-radius:14px;padding:16px 18px;font-size:.9rem;color:#334;line-height:1.6}
+@media(max-width:640px){.row2{grid-template-columns:1fr}.hero h1{font-size:1.55rem}.brand small{display:none}}
+/* Auth modal */
+.modal{position:fixed;inset:0;background:rgba(10,18,48,.55);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}
+.modal.on{display:flex}
+.modal .box{background:#fff;border-radius:20px;padding:30px;max-width:400px;width:100%}
+.modal h2{font-size:1.3rem}.modal .tabs{display:flex;gap:8px;margin:16px 0}
+.modal .tabs button{flex:1;padding:9px;border-radius:10px;border:1px solid #d7dbe8;background:#fbfcff;font-weight:700;cursor:pointer;font-family:inherit;color:#67708f}
+.modal .tabs button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.modal input{margin-bottom:10px}
+.err{color:#c62828;font-size:.84rem;margin-top:4px;min-height:1em}
+</style>
+
+<div class="top"><div class="row">
+  <a class="brand" href="/yunex"><img src="/yunex-logo-t.png" alt="YUNEX"><span>YUNEX<small>A SKYGLOBE GROUP PLATFORM</small></span></a>
+  <div class="search"><span>🔎</span><input id="q" placeholder="Search products, suppliers, services, opportunities…"><button class="btn g grad sm" onclick="doSearch()">Search</button></div>
+  <div class="acct" id="acct"><button class="btn o" onclick="openAuth('login')">Log in</button><button class="btn g grad" onclick="openAuth('signup')">Join YUNEX</button></div>
+</div></div>
+
+<div class="nav"><div class="row" id="nav">
+  <button class="on" data-v="home" onclick="go('home')">🏠 Home</button>
+  <button data-v="market" onclick="go('market')">🛍️ Marketplace</button>
+  <button data-v="wallet" onclick="go('wallet')">💳 Wallet</button>
+  <button data-v="business" onclick="go('business')">🏢 Business Centre</button>
+  <button data-v="deals" onclick="go('deals')">🤝 Deals</button>
+  <button data-v="community" onclick="go('community')">🌍 Community</button>
+  <button data-v="id" onclick="go('id')">🪪 My SKYGLOBE ID</button>
+</div></div>
+
+<div class="wrap">
+  <!-- HOME -->
+  <section class="view on" id="v-home">
+    <!-- HERO -->
+    <div class="hero grad">
+      <div style="font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#dfe4ff;font-weight:700;margin-bottom:10px">The Infrastructure Powering the Real Economy</div>
+      <h1>Trade, invest and grow — on one verified global network.</h1>
+      <p>Move money, source products, invest, sell and build — with people and businesses whose identity is verified before the first handshake. <b>No verification, no trade.</b></p>
+      <div class="marks">
+        <span class="chip">🛡️ Verified by TERRA</span>
+        <span class="chip">💳 Payments by YUNEX</span>
+        <span class="chip">🧠 Guided by NORIA</span>
+      </div>
+      <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn" style="background:#fff;color:#3d5af1" onclick="go('market')">Explore the Marketplace</button>
+        <button class="btn o" onclick="if(ME){go('id')}else{openAuth('signup')}">Get verified</button>
+      </div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:20px" id="quickActions">
+      <div class="card" style="text-align:center;padding:16px" onclick="go('market')"><div class="ic">🛍️</div><div style="font-weight:700;font-size:.9rem;margin-top:6px">Buy</div></div>
+      <div class="card" style="text-align:center;padding:16px" onclick="ME&&ME.can_sell?go('business'):(ME?go('id'):openAuth('signup'))"><div class="ic">🏷️</div><div style="font-weight:700;font-size:.9rem;margin-top:6px">Sell</div></div>
+      <div class="card" style="text-align:center;padding:16px" onclick="MARKET_PILLAR='trade';go('market')"><div class="ic">🔁</div><div style="font-weight:700;font-size:.9rem;margin-top:6px">Trade</div></div>
+      <div class="card" style="text-align:center;padding:16px" onclick="MARKET_PILLAR='investment';go('market')"><div class="ic">📈</div><div style="font-weight:700;font-size:.9rem;margin-top:6px">Invest</div></div>
+      <div class="card" style="text-align:center;padding:16px" onclick="MARKET_PILLAR='services';go('market')"><div class="ic">🛠️</div><div style="font-weight:700;font-size:.9rem;margin-top:6px">Services</div></div>
+      <div class="card" style="text-align:center;padding:16px" onclick="go('deals')"><div class="ic">🤝</div><div style="font-weight:700;font-size:.9rem;margin-top:6px">Deals</div></div>
+    </div>
+
+    <!-- MY DASHBOARD (adaptive) -->
+    <div id="homeDash"></div>
+
+    <!-- THE SEVEN ECONOMIC LAYERS -->
+    <h2 class="sec-h" style="margin-top:28px">One platform. Seven economic layers.</h2>
+    <div class="sec-s">Each a complete world of its own — all sharing one identity, one wallet, one standard of trust.</div>
+    <div class="grid g3" style="margin-top:14px">
+      <div class="card" onclick="MARKET_PILLAR='consumer';go('market')"><div class="ic">🛍️</div><h3>Commerce</h3><p>Retail, wholesale and digital goods across every category.</p></div>
+      <div class="card" onclick="MARKET_PILLAR='trade';go('market')"><div class="ic">🔁</div><h3>Trade</h3><p>Cross-border B2B — verified suppliers, sourcing and settlement.</p></div>
+      <div class="card" onclick="MARKET_PILLAR='investment';go('market')"><div class="ic">📈</div><h3>Investment</h3><p>Verified projects and opportunities seeking capital and partners.</p></div>
+      <div class="card" onclick="MARKET_PILLAR='assets';go('market')"><div class="ic">🏝️</div><h3>Assets</h3><p>Land, property, vehicles and machinery — verified owners.</p></div>
+      <div class="card" onclick="MARKET_PILLAR='business';go('market')"><div class="ic">🏢</div><h3>Business</h3><p>Verified company profiles, sourcing, distribution and growth.</p></div>
+      <div class="card" onclick="MARKET_PILLAR='services';go('market')"><div class="ic">🛠️</div><h3>Services</h3><p>Lawyers, engineers, designers, developers and consultants.</p></div>
+      <div class="card" onclick="go('wallet')"><div class="ic">💰</div><h3>Finance</h3><p>Wallet, transfers, escrow and settlement — with licensed partners.</p></div>
+    </div>
+
+    <!-- CORRIDORS -->
+    <h2 class="sec-h" style="margin-top:28px">Global trade corridors</h2>
+    <div class="sec-s">Connecting the world's major economic regions — infrastructure endures as routes evolve.</div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:12px" id="homeCorridors"></div>
+
+    <!-- GLOBAL STATISTICS -->
+    <div class="panel" style="margin-top:24px;background:linear-gradient(135deg,#0a1230,#111a44);border:none">
+      <div style="color:#dfe4ff;font-weight:800;font-size:1.1rem">The network, in numbers</div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:14px;margin-top:14px" id="homeStats"></div>
+    </div>
+
+    <!-- TRUST CENTRE -->
+    <h2 class="sec-h" style="margin-top:28px">🛡️ Trust Centre — powered by TERRA</h2>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="card"><div class="ic">🪪</div><h3>Verified Identities</h3><p>Every participant passes TERRA identity (and business) verification with a live check before they can trade.</p></div>
+      <div class="card"><div class="ic">🔒</div><h3>Escrow Protection</h3><p>Funds are held safely and released only when the buyer confirms delivery.</p></div>
+      <div class="card"><div class="ic">🛡️</div><h3>Secured End-to-End</h3><p>Encryption in transit and at rest, hashed passwords, private KYC storage and a full audit trail.</p></div>
+    </div>
+
+    <!-- FOOTER -->
+    <div style="margin-top:30px;padding:24px 0;border-top:1px solid #e8eaf2;text-align:center;color:#8b93b8;font-size:.82rem">
+      <div style="font-weight:800;letter-spacing:.2em;color:#0a1230;margin-bottom:8px">YUNEX <span style="font-weight:500;color:#8b93b8">· A SkyGlobe Group Platform</span></div>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:10px">
+        <a href="/yunex" style="color:#67708f">About</a><a href="https://skyglobegroup.com/academy" style="color:#67708f">Academy</a><a href="https://skyglobegroup.com" style="color:#67708f">SkyGlobe Group</a><a href="https://wa.me/17373998522" style="color:#67708f">Support</a>
+      </div>
+      <div>© <span id="fyear"></span> SkyGlobe Group · One World. One Mission. ✦ · Verified on skyglobegroup.com</div>
+    </div>
+  </section>
+
+  <!-- MARKETPLACE -->
+  <section class="view" id="v-market">
+    <h2 class="sec-h">Marketplace</h2>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div class="sec-s">Browse verified listings across every pillar. Every seller is verified by TERRA.</div>
+      <label style="display:flex;align-items:center;gap:6px;font-size:.8rem;color:#67708f">💱 Show prices in <select id="curPick" onchange="setCurrency(this.value)" style="width:auto;padding:6px 10px"></select></label>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 2px">
+      <button class="btn g grad sm" id="mtabBrowse" onclick="marketTab('browse')">🛍️ Browse</button>
+      <button class="btn o sm" id="mtabTrending" style="color:#67708f;border-color:#d7dbe8" onclick="marketTab('trending')">🔥 Trending</button>
+      <button class="btn o sm" id="mtabSaved" style="color:#67708f;border-color:#d7dbe8" onclick="marketTab('saved')">🤍 Saved</button>
+    </div>
+    <div id="pillarTabs" style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px"></div>
+    <div id="corridorTabs" style="display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 2px"></div>
+    <div class="grid g3" id="listings"><div class="empty" style="grid-column:1/-1"><div class="ic">⏳</div><p class="muted" style="margin-top:8px">Loading listings…</p></div></div>
+  </section>
+
+  <!-- NORIA SEARCH -->
+  <section class="view" id="v-search">
+    <button class="btn o sm" style="color:#67708f;border-color:#d7dbe8;margin-bottom:12px" onclick="go('market')">← Back to Marketplace</button>
+    <h2 class="sec-h" id="searchTitle">Search</h2>
+    <div class="sec-s">NORIA searched the whole economy — products, opportunities, events and verified companies.</div>
+    <div id="searchResults" style="margin-top:12px"></div>
+  </section>
+
+  <!-- WALLET -->
+  <section class="view" id="v-wallet">
+    <h2 class="sec-h">YUNEX Wallet</h2>
+    <div class="sec-s">Your money in motion — escrow, settlement and transactions. Powered by YUNEX Pay.</div>
+    <div id="walletContent"></div>
+  </section>
+
+  <!-- BUSINESS CENTRE -->
+  <section class="view" id="v-business">
+    <h2 class="sec-h">Business Centre</h2>
+    <div class="sec-s">Manage your presence as a verified seller or business.</div>
+    <div id="bizGate"></div>
+  </section>
+
+  <!-- DEALS -->
+  <section class="view" id="v-deals">
+    <h2 class="sec-h">Deal Centre</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px">
+      <button class="btn g grad sm" id="dtabDeals" onclick="dealTab('deals')">🤝 My Deals</button>
+      <button class="btn o sm" id="dtabSourcing" style="color:#67708f;border-color:#d7dbe8" onclick="dealTab('sourcing')">📋 Sourcing (RFQ)</button>
+      <button class="btn o sm" id="dtabMyrfq" style="color:#67708f;border-color:#d7dbe8" onclick="dealTab('myrfq')">🗂️ My Requests</button>
+      <button class="btn o sm" id="dtabDisputes" style="color:#67708f;border-color:#d7dbe8" onclick="dealTab('disputes')">⚖️ Disputes</button>
+    </div>
+    <div id="dealsPane"><div id="dealsList" style="margin-top:14px"></div></div>
+    <div id="sourcingPane" style="display:none"></div>
+    <div id="myrfqPane" style="display:none"></div>
+    <div id="disputesPane" style="display:none"></div>
+  </section>
+
+  <!-- DEAL THREAD -->
+  <section class="view" id="v-deal">
+    <button class="btn o sm" style="color:#67708f;border-color:#d7dbe8;margin-bottom:12px" onclick="go('deals')">← Back to Deals</button>
+    <div id="dealThread"></div>
+  </section>
+
+  <!-- COMMUNITY -->
+  <section class="view" id="v-community">
+    <h2 class="sec-h">Community</h2>
+    <div class="sec-s">The verified business network — knowledge, opportunities and trusted voices.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px">
+      <button class="btn g grad sm" id="ctabFeed" onclick="commTab('feed')">🗣️ Feed</button>
+      <button class="btn o sm" id="ctabEvents" style="color:#67708f;border-color:#d7dbe8" onclick="commTab('events')">📅 Events & Opportunities</button>
+    </div>
+    <div id="commFeedPane">
+      <div id="communityCompose"></div>
+      <div id="communityTopics" style="margin:14px 0"></div>
+      <div id="communityFeed" style="display:grid;gap:14px"></div>
+    </div>
+    <div id="commEventsPane" style="display:none">
+      <div id="eventsCompose"></div>
+      <div id="eventsTypes" style="margin:14px 0"></div>
+      <div id="eventsFeed" style="display:grid;gap:14px"></div>
+    </div>
+  </section>
+
+  <!-- STOREFRONT -->
+  <section class="view" id="v-storefront">
+    <button class="btn o sm" style="color:#67708f;border-color:#d7dbe8;margin-bottom:12px" onclick="go('market')">← Back to Marketplace</button>
+    <div id="storefrontContent"></div>
+  </section>
+
+  <!-- SKYGLOBE ID -->
+  <section class="view" id="v-id">
+    <div id="idContent"><div class="panel"><div class="empty"><div class="ic">🪪</div><p style="margin-top:8px;font-weight:700">Log in to see your SKYGLOBE ID</p><p class="muted">One account for the whole ecosystem — Academy, Travel, YUNEX and more.</p><button class="btn g grad" style="margin-top:14px" onclick="openAuth('login')">Log in</button></div></div></div>
+  </section>
+</div>
+
+<!-- GUIDED LIVE SELFIE OVERLAY -->
+<div id="selfieOverlay" style="display:none;position:fixed;inset:0;z-index:80;background:#0a1230;flex-direction:column;align-items:center;justify-content:center;padding:20px">
+  <div style="color:#fff;text-align:center;margin-bottom:8px"><div style="font-size:.62rem;letter-spacing:.24em;color:#9fb3dd;text-transform:uppercase">🛡️ TERRA Live Identity Check</div></div>
+  <div style="position:relative;width:280px;height:340px;max-width:80vw">
+    <video id="selfieVideo" playsinline muted style="width:100%;height:100%;object-fit:cover;border-radius:50%/45%;transform:scaleX(-1);background:#000"></video>
+    <div style="position:absolute;inset:0;border-radius:50%/45%;box-shadow:0 0 0 3px rgba(61,90,241,.8),0 0 0 2000px rgba(10,18,48,.55);pointer-events:none"></div>
+  </div>
+  <div id="selfieGuide" style="color:#fff;text-align:center;margin-top:22px;max-width:320px">
+    <div class="st-t" style="font-size:1.15rem;font-weight:800">Center your face in the oval</div>
+    <div class="st-s" style="color:#9fb3dd;font-size:.88rem;margin-top:6px">Hold your phone at eye level in good light</div>
+  </div>
+  <div id="selfieDots" style="display:flex;gap:8px;margin-top:18px"></div>
+  <button onclick="closeSelfie()" style="margin-top:24px;background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;font-family:inherit;font-weight:600;padding:9px 22px;border-radius:100px;cursor:pointer">Cancel</button>
+  <div style="color:#6b7bb0;font-size:.68rem;margin-top:14px;max-width:300px;text-align:center">🔒 Your live check is private, encrypted, and reviewed only by a TERRA verification officer.</div>
+</div>
+
+<!-- LISTING MODAL -->
+<div class="modal" id="listingModal"><div class="box" style="max-width:560px;max-height:88vh;overflow:auto">
+  <div id="listingModalBody"></div>
+  <button class="btn o" style="width:100%;margin-top:14px;color:#67708f;border-color:#d7dbe8" onclick="closeListing()">Close</button>
+</div></div>
+
+<!-- AUTH MODAL -->
+<div class="modal" id="authModal"><div class="box">
+  <h2 id="authTitle">Join YUNEX</h2>
+  <p class="muted" style="margin-top:4px">One SKYGLOBE ID for the entire ecosystem.</p>
+  <div class="tabs"><button id="tabLogin" onclick="authTab('login')">Log in</button><button id="tabSignup" class="on" onclick="authTab('signup')">Sign up</button></div>
+  <div id="nameWrap"><input id="au_name" placeholder="Full name"></div>
+  <input id="au_email" type="email" placeholder="Email">
+  <input id="au_pass" type="password" placeholder="Password (min 6 characters)">
+  <div class="err" id="au_err"></div>
+  <button class="btn g grad" style="width:100%;padding:12px" onclick="submitAuth()" id="au_btn">Create my SKYGLOBE ID</button>
+  <div id="forgotRow" style="text-align:center;margin-top:10px;display:none"><a href="#" onclick="showForgot();return false" style="color:#3d5af1;font-size:.84rem">Forgot your password?</a></div>
+  <button class="btn o" style="width:100%;margin-top:8px;color:#67708f;border-color:#d7dbe8" onclick="closeAuth()">Cancel</button>
+</div></div>
+
+<script>
+const API='';
+let TOKEN=localStorage.getItem('sky_token')||'';
+let ME=null, authMode='signup';
+const $=id=>document.getElementById(id);
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function H(){return TOKEN?{authorization:'Bearer '+TOKEN}:{};}
+
+function go(v){
+  document.querySelectorAll('.view').forEach(s=>s.classList.remove('on'));
+  $('v-'+v).classList.add('on');
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  if(v==='id') renderID();
+  if(v==='business') renderBiz();
+  if(v==='market') loadMarket();
+  if(v==='deals') dealTab('deals');
+  if(v==='home') loadHome();
+  if(v==='wallet') loadWallet();
+  if(v==='community') loadCommunity();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function doSearch(){ const q=$('q').value.trim(); if(!q){ go('market'); return; } openSearch(q); }
+/* NORIA unified search */
+function stars(avg){ const n=Math.round(avg||0); let s=''; for(let i=1;i<=5;i++)s+=`<span style="color:${i<=n?'#f5a623':'#d7dbe8'}">★</span>`; return s; }
+function ratingLine(r){ if(!r||!r.count) return '<span class="muted" style="font-size:.76rem">No ratings yet</span>'; return `<span style="font-size:.82rem">${stars(r.average)} <b>${r.average.toFixed(1)}</b> <span class="muted">(${r.count})</span></span>`; }
+async function openSearch(q){
+  go('search'); $('searchTitle').textContent='Results for “'+q+'”';
+  const el=$('searchResults'); el.innerHTML='<div class="panel"><div class="muted">NORIA is searching…</div></div>';
+  try{
+    const d=await fetch(API+'/api/yunex/search?q='+encodeURIComponent(q)).then(r=>r.json());
+    if(!d.total){ el.innerHTML='<div class="panel"><div class="empty"><div class="ic">🔍</div><p style="margin-top:8px;font-weight:700">Nothing found for “'+esc(q)+'”</p><p class="muted">Try different words, or browse the marketplace pillars.</p></div></div>'; return; }
+    let html='';
+    if(d.listings.length){ html+=`<div class="sec-h" style="font-size:1.05rem;margin-top:4px">🛍️ Products & listings (${d.listings.length})</div><div class="grid g3" style="margin:10px 0 18px">${d.listings.map(l=>listingCard(l)).join('')}</div>`; }
+    if(d.companies.length){ html+=`<div class="sec-h" style="font-size:1.05rem">🏢 Verified companies (${d.companies.length})</div><div class="grid g3" style="margin:10px 0 18px">${d.companies.map(c=>`<div class="card" style="cursor:pointer" onclick="openStorefront('${esc(c.handle)}')"><div style="display:flex;align-items:center;gap:8px"><span style="background:${c.tier.color};color:#fff;padding:3px 9px;border-radius:100px;font-size:.68rem;font-weight:700">${c.tier.icon} ${esc(c.tier.label)}</span></div><h3 style="margin-top:8px;font-size:1rem">${esc(c.name)}</h3>${c.tagline?`<div class="muted" style="font-size:.82rem">${esc(c.tagline)}</div>`:''}<div style="margin-top:6px">${(c.trust_marks||[]).map(m=>`<span class="st ok" style="font-size:.66rem">${terraBadge(11)} ${esc(m.label.replace(' Verified',''))}</span>`).join(' ')}</div></div>`).join('')}</div>`; }
+    if(d.rfqs.length){ html+=`<div class="sec-h" style="font-size:1.05rem">📋 Sourcing opportunities (${d.rfqs.length})</div><div style="margin:10px 0 18px;display:grid;gap:8px">${d.rfqs.map(r=>`<div class="panel" style="cursor:pointer;padding:14px" onclick="go('deals');dealTab('sourcing')"><div style="font-weight:700">${esc(r.title)}</div><div class="muted" style="font-size:.82rem">${r.budget!=null?'Budget '+fmtCur(r.budget,r.currency)+' '+r.currency:''}${r.quantity?' · '+esc(r.quantity):''}</div></div>`).join('')}</div>`; }
+    if(d.events.length){ html+=`<div class="sec-h" style="font-size:1.05rem">📅 Events & opportunities (${d.events.length})</div><div style="margin:10px 0 18px;display:grid;gap:8px">${d.events.map(e=>`<div class="panel" style="cursor:pointer;padding:14px" onclick="go('community');commTab('events')"><div style="font-weight:700">${esc(e.title)}</div><div class="muted" style="font-size:.82rem">${esc(e.type)}${e.starts_at?' · '+esc(e.starts_at):''}${e.location?' · '+esc(e.location):''}</div></div>`).join('')}</div>`; }
+    el.innerHTML=html;
+  }catch(e){ el.innerHTML='<div class="panel"><div class="muted">Search failed. Try again.</div></div>'; }
+}
+
+/* Marketplace */
+let MARKET_PILLAR='', MARKET_Q='', MARKET_PILLARS=null, MARKET_CORRIDOR='', CORRIDORS=null, MARKET_TAB='browse';
+let FX=null, MYCUR=localStorage.getItem('sky_cur')||'USD';
+async function loadFX(){ try{ FX=await fetch(API+'/api/yunex/currencies').then(r=>r.json()); renderCurrencyPicker(); }catch(e){} }
+function convert(amount,from){ if(!FX||!FX.rates[from]||!FX.rates[MYCUR])return null; return amount/FX.rates[from]*FX.rates[MYCUR]; }
+function fmtCur(amount,cur){ const sym=(FX&&FX.symbols[cur])||''; const dp=['JPY','KRW','NGN','XOF','XAF'].includes(cur)?0:2; return sym+Number(amount).toLocaleString(undefined,{maximumFractionDigits:dp}); }
+// Premium TERRA Verified badge — shield + orbit + check (reusable, modern).
+function terraBadge(size){size=size||16;return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" style="vertical-align:-2px" aria-label="TERRA Verified"><defs><linearGradient id="tb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e57c9"/><stop offset="1" stop-color="#0d3b7a"/></linearGradient></defs><path d="M12 1.6l8 3v6.2c0 5-3.4 8.9-8 10.6-4.6-1.7-8-5.6-8-10.6V4.6l8-3z" fill="url(#tb)"/><path d="M12 1.6l8 3v6.2c0 5-3.4 8.9-8 10.6V1.6z" fill="#0a2f66" opacity=".25"/><ellipse cx="12" cy="11" rx="7" ry="3" fill="none" stroke="#D4A73A" stroke-width=".7" opacity=".9"/><path d="M8.4 11.6l2.4 2.4 4.8-4.8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;}
+function money(l){
+  if(l.price==null) return '<span class="muted">Contact for price</span>';
+  const own=fmtCur(l.price,l.currency)+' <span class="muted" style="font-size:.78rem">'+l.currency+'</span>';
+  if(MYCUR&&MYCUR!==l.currency&&FX){ const c=convert(l.price,l.currency); if(c!=null) return '<b>≈ '+fmtCur(c,MYCUR)+'</b> <span class="muted" style="font-size:.76rem">'+MYCUR+'</span><div class="muted" style="font-size:.72rem">Seller lists at '+own+'</div>'; }
+  return '<b>'+own+'</b>';
+}
+function renderCurrencyPicker(){ const el=document.getElementById('curPick'); if(!el||!FX)return; el.innerHTML=FX.list.map(c=>`<option ${c===MYCUR?'selected':''}>${c}</option>`).join(''); }
+function setCurrency(c){ MYCUR=c; localStorage.setItem('sky_cur',c); if($('v-market').classList.contains('on'))loadMarket(); }
+function listingCard(l){
+  const marks=(l.seller.trust_marks||[]).map(m=>`<span class="st ok" style="background:${m.color}1a;color:${m.color};padding:3px 9px;font-size:.7rem">${terraBadge(13)} ${esc(m.label.replace(' Verified',''))}</span>`).join(' ');
+  const img=(l.images&&l.images[0])?`<div style="height:150px;border-radius:12px;background:#eef1f8 center/cover url('${esc(l.images[0])}');margin:-4px -4px 12px"></div>`:`<div style="height:110px;border-radius:12px;background:linear-gradient(120deg,#eef1fb,#f6f0fb);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:-4px -4px 12px">${l.pillar_icon}</div>`;
+  return `<div class="card" style="cursor:pointer" onclick="openListing('${l.ref}')">
+    ${img}
+    <div style="font-size:.7rem;font-weight:700;color:#8b5cf6;text-transform:uppercase;letter-spacing:.05em">${l.pillar_icon} ${esc(l.pillar_label)}${l.category?' · '+esc(l.category):''}</div>${l.corridor_label?`<div style="font-size:.68rem;color:#3d5af1;margin-top:2px">${l.corridor_flag} ${esc(l.corridor_label)}</div>`:''}
+    <h3 style="margin-top:5px;font-size:1rem">${esc(l.title)}</h3>
+    <div style="margin-top:8px">${money(l)}</div>
+    ${l.saves?`<div style="font-size:.72rem;color:#c0392b;margin-top:4px">❤️ ${l.saves} saved</div>`:''}
+    ${l.location?`<div class="muted" style="font-size:.8rem;margin-top:4px">📍 ${esc(l.location)}</div>`:''}
+    <div style="margin-top:10px;padding-top:10px;border-top:1px solid #eef0f6;display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap">
+      <span class="muted" style="font-size:.8rem">${esc(l.seller.name)}</span>${marks}
+    </div>
+  </div>`;
+}
+function marketTab(t){
+  MARKET_TAB=t;
+  const set=(id,on)=>{ const b=$(id); b.className=on?'btn g grad sm':'btn o sm'; b.style.cssText=on?'':'color:#67708f;border-color:#d7dbe8'; };
+  set('mtabBrowse',t==='browse'); set('mtabTrending',t==='trending'); set('mtabSaved',t==='saved');
+  const showFilters=t==='browse'; $('pillarTabs').style.display=showFilters?'':'none'; $('corridorTabs').style.display=showFilters?'':'none';
+  loadMarket();
+}
+async function loadMarket(){
+  const grid=$('listings'); grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="ic">⏳</div><p class="muted" style="margin-top:8px">Loading…</p></div>';
+  try{
+    if(MARKET_TAB==='trending'){
+      const d=await fetch(API+'/api/yunex/trending').then(r=>r.json());
+      grid.innerHTML=d.listings.length?d.listings.map(l=>listingCard(l)).join(''):'<div class="empty" style="grid-column:1/-1"><div class="ic">🔥</div><p style="margin-top:8px;font-weight:700">Nothing trending yet</p><p class="muted">Popular listings will surface here.</p></div>';
+      return;
+    }
+    if(MARKET_TAB==='saved'){
+      if(!ME){ grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="ic">🤍</div><p style="margin-top:8px;font-weight:700">Log in to see saved items</p><button class="btn g grad" style="margin-top:12px" onclick="openAuth(\'login\')">Log in</button></div>'; return; }
+      const d=await fetch(API+'/api/yunex/saved',{headers:H()}).then(r=>r.json());
+      grid.innerHTML=d.listings.length?d.listings.map(l=>listingCard(l)).join(''):'<div class="empty" style="grid-column:1/-1"><div class="ic">🤍</div><p style="margin-top:8px;font-weight:700">No saved items yet</p><p class="muted">Tap the heart on any listing to save it here.</p></div>';
+      return;
+    }
+    const qs=new URLSearchParams(); if(MARKET_PILLAR)qs.set('pillar',MARKET_PILLAR); if(MARKET_CORRIDOR)qs.set('corridor',MARKET_CORRIDOR); if(MARKET_Q)qs.set('q',MARKET_Q);
+    const r=await fetch(API+'/api/yunex/listings?'+qs.toString()); const d=await r.json();
+    MARKET_PILLARS=d.pillars; renderPillarTabs(); renderCorridorTabs();
+    if(!d.listings.length){ grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="ic">🛍️</div><p style="margin-top:8px;font-weight:700">No listings yet'+(MARKET_Q||MARKET_PILLAR?' for this filter':'')+'</p><p class="muted">Verified sellers publish products, services, assets and opportunities here.</p></div>'; return; }
+    grid.innerHTML=d.listings.map(l=>listingCard(l)).join('');
+  }catch(e){ grid.innerHTML='<div class="empty" style="grid-column:1/-1"><p class="muted">Could not load listings.</p></div>'; }
+}
+function renderPillarTabs(){
+  if(!MARKET_PILLARS) return;
+  const tabs=$('pillarTabs');
+  const all=[{key:'',label:'All',icon:'✦'},...MARKET_PILLARS];
+  tabs.innerHTML=all.map(p=>`<button onclick="MARKET_PILLAR='${p.key}';loadMarket()" style="cursor:pointer;font-family:inherit;font-weight:700;font-size:.82rem;border-radius:100px;padding:7px 14px;border:1px solid ${MARKET_PILLAR===p.key?'#8b5cf6':'#e0e3ee'};background:${MARKET_PILLAR===p.key?'linear-gradient(120deg,#3d5af1,#b326d9)':'#fff'};color:${MARKET_PILLAR===p.key?'#fff':'#67708f'}">${p.icon} ${esc(p.label)}</button>`).join('');
+}
+async function renderCorridorTabs(){
+  if(!CORRIDORS){ try{ CORRIDORS=(await fetch(API+'/api/yunex/corridors').then(r=>r.json())).corridors; }catch(e){ CORRIDORS=[]; } }
+  const el=document.getElementById('corridorTabs'); if(!el)return;
+  const all=[{key:'',label:'All corridors',flag:'🌐'},...CORRIDORS];
+  el.innerHTML='<span style="font-size:.74rem;color:#8b93b8;align-self:center;margin-right:2px">Corridor:</span>'+all.map(c=>`<button onclick="MARKET_CORRIDOR='${c.key}';loadMarket()" style="cursor:pointer;font-family:inherit;font-weight:600;font-size:.78rem;border-radius:100px;padding:5px 12px;border:1px solid ${MARKET_CORRIDOR===c.key?'#3d5af1':'#e0e3ee'};background:${MARKET_CORRIDOR===c.key?'#eef2ff':'#fff'};color:${MARKET_CORRIDOR===c.key?'#3d5af1':'#67708f'}">${c.flag} ${esc(c.label.replace(' Corridor',''))}</button>`).join('');
+}
+async function openListing(ref){
+  try{
+    const l=await fetch(API+'/api/yunex/listings/'+ref).then(r=>r.json());
+    if(l.error){ alert(l.error); return; }
+    const marks=(l.seller.trust_marks||[]).map(m=>`<span class="st ok" style="background:${m.color}1a;color:${m.color}">${terraBadge(15)} ${esc(m.label)}</span>`).join(' ');
+    const d=l.details||{};
+    const hasImgs=l.images&&l.images.length;
+    const gallery=hasImgs?`
+      <div id="lgMain" style="width:100%;height:280px;border-radius:14px;background:#f2f4fa center/contain no-repeat url('${esc(l.images[0])}')"></div>
+      ${l.images.length>1?`<div style="display:flex;gap:8px;margin-top:8px;overflow-x:auto">${l.images.map((s,i)=>`<img src="${esc(s)}" onclick="document.getElementById('lgMain').style.backgroundImage='url(&quot;${esc(s)}&quot;)'" style="width:58px;height:58px;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid #e0e3ee;flex:0 0 auto">`).join('')}</div>`:''}`:
+      `<div style="height:220px;border-radius:14px;background:linear-gradient(120deg,#eef1fb,#f6f0fb);display:flex;align-items:center;justify-content:center;font-size:3.4rem">${l.pillar_icon}</div>`;
+    const specRows=[
+      d.brand?['Brand',d.brand]:null, d.manufacturer?['Manufacturer',d.manufacturer]:null,
+      d.origin?['Country of origin',d.origin]:null, d.condition?['Condition',d.condition]:null,
+      d.warranty?['Warranty',d.warranty]:null, d.min_order?['Minimum order',d.min_order]:null,
+      l.quantity?['Availability',l.quantity]:null,
+      ...(d.specs||[]).map(s=>[s.k,s.v]),
+    ].filter(Boolean);
+    const specTable=specRows.length?`<table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:.86rem">${specRows.map((r,i)=>`<tr style="background:${i%2?'#f8fafc':'#fff'}"><td style="padding:8px 12px;color:#67708f;font-weight:600;width:42%;border-bottom:1px solid #eef0f6">${esc(r[0])}</td><td style="padding:8px 12px;color:#111827;border-bottom:1px solid #eef0f6">${esc(r[1])}</td></tr>`).join('')}</table>`:'';
+    $('listingModalBody').innerHTML=`
+      ${gallery}
+      <div style="font-size:.72rem;font-weight:700;color:#8b5cf6;text-transform:uppercase;letter-spacing:.05em;margin-top:14px">${l.pillar_icon} ${esc(l.pillar_label)}${l.category?' · '+esc(l.category):''}</div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+        <h2 style="margin:6px 0 2px">${esc(l.title)}</h2>
+        <button id="saveBtn_${l.ref}" onclick="toggleSave('${l.ref}')" title="Save" style="background:none;border:none;cursor:pointer;font-size:1.5rem;line-height:1;margin-top:6px">${l.saved?'❤️':'🤍'}</button>
+      </div>
+      ${d.brand?`<div class="muted" style="font-size:.84rem">by ${esc(d.brand)}</div>`:''}
+      <div style="font-size:1.4rem;margin-top:10px">${money(l)}</div>
+      ${d.unit?`<div class="muted" style="font-size:.82rem">per ${esc(d.unit)}${d.min_order?' · min order '+esc(d.min_order):''}</div>`:''}
+      ${l.location?`<div class="muted" style="margin-top:6px">📍 ${esc(l.location)}</div>`:''}
+      ${specTable?`<div style="font-weight:700;margin-top:16px">Specifications</div>${specTable}`:''}
+      ${l.description?`<div style="font-weight:700;margin-top:16px">Description</div><p style="margin-top:6px;line-height:1.7;color:#334;white-space:pre-wrap">${esc(l.description)}</p>`:''}
+      <div class="panel" style="margin-top:16px;padding:16px">
+        <div style="font-weight:700">${esc(l.seller.name)} ${l.seller.country?'· '+esc(l.seller.country):''}</div>
+        <div style="margin-top:4px">${ratingLine(l.seller.rating)}</div>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">${marks}</div>
+        ${l.seller.handle?`<button class="btn o sm" style="color:#3d5af1;border-color:#c9d2f5;margin-top:10px" onclick="closeListing();openStorefront('${esc(l.seller.handle)}')">🏢 View verified company page →</button>`:''}
+        <div class="notice" style="margin-top:12px">🛡️ This seller is verified by the TERRA Credential Network. Negotiate, agree a price, and pay into secure escrow — funds release to the seller only when you confirm delivery.</div>
+        <button class="btn g grad" style="width:100%;margin-top:12px" onclick="startDeal('${l.ref}')">🤝 Contact seller / Make an offer</button>
+        <div class="muted" id="startDealMsg" style="margin-top:6px;font-size:.8rem"></div>
+      </div>
+      <div id="relatedBox" style="margin-top:16px"></div>`;
+    $('listingModal').classList.add('on');
+    loadRelated(l.ref);
+  }catch(e){ alert('Could not open listing.'); }
+}
+async function toggleSave(ref){
+  if(!ME){ openAuth('login'); return; }
+  const r=await fetch(API+'/api/yunex/saved/'+ref,{method:'POST',headers:H()});
+  const d=await r.json(); if(!r.ok)return;
+  const b=$('saveBtn_'+ref); if(b)b.textContent=d.saved?'❤️':'🤍';
+}
+async function loadRelated(ref){
+  try{
+    const d=await fetch(API+'/api/yunex/listings/'+ref+'/related').then(r=>r.json());
+    const box=$('relatedBox'); if(!box)return;
+    if(!d.listings.length){ box.innerHTML=''; return; }
+    box.innerHTML=`<div style="font-weight:700;margin-bottom:8px">Related listings</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">${d.listings.map(l=>`<div class="card" style="cursor:pointer;padding:10px" onclick="openListing('${l.ref}')"><div style="font-size:.66rem;font-weight:700;color:#8b5cf6;text-transform:uppercase">${l.pillar_icon} ${esc(l.category||l.pillar_label)}</div><div style="font-weight:600;font-size:.86rem;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(l.title)}</div><div style="margin-top:4px;font-size:.9rem">${money(l)}</div></div>`).join('')}</div>`;
+  }catch(e){}
+}
+function closeListing(){ $('listingModal').classList.remove('on'); }
+
+/* auth */
+const AUTH_BOX_HTML=document.querySelector('#authModal .box').innerHTML;
+function openAuth(m){ document.querySelector('#authModal .box').innerHTML=AUTH_BOX_HTML; authTab(m); $('authModal').classList.add('on'); }
+function closeAuth(){ $('authModal').classList.remove('on'); }
+function authTab(m){ authMode=m; $('tabLogin').classList.toggle('on',m==='login'); $('tabSignup').classList.toggle('on',m==='signup');
+  $('nameWrap').style.display=m==='signup'?'block':'none'; const fr=$('forgotRow'); if(fr)fr.style.display=m==='login'?'block':'none'; $('authTitle').textContent=m==='signup'?'Join YUNEX':'Welcome back';
+  $('au_btn').textContent=m==='signup'?'Create my SKYGLOBE ID':'Log in'; }
+async function submitAuth(){
+  $('au_err').textContent='';
+  const email=$('au_email').value.trim(), password=$('au_pass').value, name=$('au_name').value.trim();
+  if(!email||!password){$('au_err').textContent='Email and password are required.';return;}
+  const url=authMode==='signup'?'/api/auth/signup':'/api/auth/login';
+  const body=authMode==='signup'?{name,email,password}:{email,password};
+  try{
+    const r=await fetch(API+url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});
+    const d=await r.json();
+    if(!r.ok||!d.success){$('au_err').textContent=d.error||'Could not sign in.';return;}
+    TOKEN=d.token; localStorage.setItem('sky_token',TOKEN);
+    if(authMode==='signup'&&d.email_verified===false){ showVerifyEmail(email); return; }
+    closeAuth(); await loadMe(); go('id');
+  }catch(e){$('au_err').textContent='Network error. Please try again.';}
+}
+function showVerifyEmail(email){
+  $('authTitle').textContent='Confirm your email';
+  document.querySelector('#authModal .box').innerHTML=`
+    <h2 id="authTitle">Confirm your email</h2>
+    <p class="muted" style="margin-top:4px">We sent a 6-digit code to <b>${esc(email)}</b>. Enter it to activate your account. (It's also in your in-app inbox.)</p>
+    <input id="ve_code" placeholder="6-digit code" style="margin:14px 0 8px;letter-spacing:.3em;text-align:center;font-size:1.1rem">
+    <div class="err" id="ve_err"></div>
+    <button class="btn g grad" style="width:100%;padding:12px" onclick="doVerifyEmail('${esc(email)}')">Confirm email</button>
+    <button class="btn o" style="width:100%;margin-top:8px;color:#67708f;border-color:#d7dbe8" onclick="resendVerify('${esc(email)}')">Resend code</button>
+    <button class="btn o" style="width:100%;margin-top:8px;color:#67708f;border-color:#d7dbe8" onclick="skipVerify()">Do this later</button>`;
+}
+async function doVerifyEmail(email){
+  const code=$('ve_code').value.trim();
+  const r=await fetch(API+'/api/auth/verify-email',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,code})});
+  const d=await r.json();
+  if(!r.ok||!d.success){$('ve_err').textContent=d.error||'Could not verify.';return;}
+  closeAuth(); await loadMe(); go('id');
+}
+async function resendVerify(email){ await fetch(API+'/api/auth/resend-verification',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email})}); $('ve_err').style.color='#12864e'; $('ve_err').textContent='A new code was sent.'; }
+async function skipVerify(){ closeAuth(); await loadMe(); go('id'); }
+function showForgot(){
+  document.querySelector('#authModal .box').innerHTML=`
+    <h2>Reset your password</h2>
+    <p class="muted" style="margin-top:4px">Enter your email and we'll send a reset code.</p>
+    <input id="fp_email" type="email" placeholder="Email" style="margin:14px 0 8px">
+    <div class="err" id="fp_err"></div>
+    <button class="btn g grad" style="width:100%;padding:12px" onclick="sendForgot()">Send reset code</button>
+    <button class="btn o" style="width:100%;margin-top:8px;color:#67708f;border-color:#d7dbe8" onclick="closeAuth()">Cancel</button>`;
+}
+async function sendForgot(){
+  const email=$('fp_email').value.trim(); if(!email){$('fp_err').textContent='Enter your email.';return;}
+  await fetch(API+'/api/auth/forgot-password',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email})});
+  document.querySelector('#authModal .box').innerHTML=`
+    <h2>Check your email</h2>
+    <p class="muted" style="margin-top:4px">If an account exists for <b>${esc(email)}</b>, a reset code is on its way. Enter it below with your new password.</p>
+    <input id="rp_code" placeholder="6-digit code" style="margin:14px 0 8px;letter-spacing:.3em;text-align:center">
+    <input id="rp_pass" type="password" placeholder="New password (min 6 characters)" style="margin-bottom:8px">
+    <div class="err" id="rp_err"></div>
+    <button class="btn g grad" style="width:100%;padding:12px" onclick="doReset('${esc(email)}')">Set new password</button>
+    <button class="btn o" style="width:100%;margin-top:8px;color:#67708f;border-color:#d7dbe8" onclick="closeAuth()">Cancel</button>`;
+}
+async function doReset(email){
+  const code=$('rp_code').value.trim(), password=$('rp_pass').value;
+  const r=await fetch(API+'/api/auth/reset-password',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,code,password})});
+  const d=await r.json();
+  if(!r.ok||!d.success){$('rp_err').textContent=d.error||'Could not reset.';return;}
+  TOKEN=d.token; localStorage.setItem('sky_token',TOKEN); closeAuth(); await loadMe(); go('id');
+}
+function logout(){ TOKEN=''; localStorage.removeItem('sky_token'); ME=null; renderAcct(); go('home'); }
+
+async function loadMe(){
+  if(!TOKEN){ ME=null; renderAcct(); return; }
+  try{
+    const r=await fetch(API+'/api/skyglobe-id/me',{headers:H()});
+    if(!r.ok){ if(r.status===401){logout();} ME=null; renderAcct(); return; }
+    ME=await r.json(); renderAcct();
+  }catch(e){ ME=null; renderAcct(); }
+}
+function renderAcct(){
+  const el=$('acct');
+  if(!ME){ el.innerHTML='<button class="btn o" onclick="openAuth(\'login\')">Log in</button><button class="btn g grad" onclick="openAuth(\'signup\')">Join YUNEX</button>'; return; }
+  const initial=(ME.name||ME.email||'?').trim().charAt(0).toUpperCase();
+  const badge=ME.can_sell?'<span class="chip" style="background:rgba(255,255,255,.16)">✔ Verified</span>':'';
+  el.innerHTML=badge+'<button class="btn o" onclick="go(\'id\')">🪪 '+esc(ME.name||ME.email.split('@')[0])+'</button><button class="btn o sm" onclick="logout()">Log out</button>';
+}
+
+/* SKYGLOBE ID view */
+function stTag(s){ return s==='verified'?'<span class="st ok">✔ Verified</span>':s==='pending'?'<span class="st pend">⏳ Under review</span>':s==='not_applicable'?'<span class="st no">—</span>':'<span class="st no">Not verified</span>'; }
+async function renderID(){
+  if(!ME){ return; }
+  const el=$('idContent');
+  const roles=(ME.roles||[]);
+  const lvlPct=Math.round((ME.level||1)/6*100);
+  const tsColor=ME.trust_score>=70?'#12864e':ME.trust_score>=40?'#b5730a':'#8b93b8';
+  el.innerHTML=`
+    <!-- DIGITAL ID CARD -->
+    <div class="panel" style="background:linear-gradient(120deg,#3d5af1,#b326d9);color:#fff;border:none;padding:0;overflow:hidden">
+      <div style="padding:22px 24px;position:relative">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="width:58px;height:58px;border-radius:16px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:800">${esc((ME.name||ME.email||'?').charAt(0).toUpperCase())}</div>
+            <div><div style="font-size:1.25rem;font-weight:800">${esc(ME.name||'Your name')}</div><div style="color:#dfe4ff;font-size:.84rem">${esc(ME.email)}${ME.country?' · '+esc(ME.country):''}</div></div>
+          </div>
+          <div style="text-align:right"><div style="font-size:.6rem;letter-spacing:.2em;color:#c9d3ff;text-transform:uppercase">SKYGLOBE ID</div><div style="font-weight:800;font-family:monospace;letter-spacing:.05em">${esc(ME.id_number||'')}</div></div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+          <span class="chip">Level ${ME.level} · ${esc(ME.level_label)}</span>
+          ${(ME.trust_marks||[]).map(m=>`<span class="chip">${terraBadge(13)} ${esc(m.label.replace(' Verified',''))}</span>`).join('')}
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,.08);padding:12px 24px;display:flex;align-items:center;gap:14px">
+        <div style="flex:1"><div style="font-size:.66rem;color:#c9d3ff;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Trust Score</div><div style="height:8px;border-radius:100px;background:rgba(255,255,255,.2)"><div style="height:8px;border-radius:100px;background:#fff;width:${ME.trust_score}%"></div></div></div>
+        <div style="font-size:1.4rem;font-weight:900">${ME.trust_score}<span style="font-size:.8rem;font-weight:500;color:#c9d3ff">/100</span></div>
+      </div>
+    </div>
+
+    <!-- LEVEL PROGRESS -->
+    <div class="panel">
+      <div class="sec-h" style="font-size:1.05rem">Your verification level</div>
+      <div class="sec-s">Unlock more of the ecosystem as you verify. Level ${ME.level} of 6.</div>
+      <div style="display:flex;gap:6px;margin-top:12px">
+        ${[['1','Registered'],['2','Individual'],['3','Professional'],['4','Business'],['5','Enterprise'],['6','Institution']].map(([n,l])=>`<div style="flex:1;text-align:center"><div style="height:6px;border-radius:100px;background:${Number(n)<=ME.level?'linear-gradient(120deg,#3d5af1,#b326d9)':'#e8eaf2'}"></div><div style="font-size:.62rem;color:${Number(n)<=ME.level?'#3d5af1':'#8b93b8'};margin-top:4px;font-weight:${Number(n)<=ME.level?'700':'500'}">${l}</div></div>`).join('')}
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="sec-h" style="font-size:1.05rem">🛡️ TERRA Verification</div>
+      <div class="sec-s">Your trust status. This is what unlocks trading on YUNEX.</div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px">
+        <div><label>Email</label>${stTag(ME.verification.email)}</div>
+        <div><label>Identity</label>${stTag(ME.verification.identity)}</div>
+        <div><label>Business</label>${stTag(ME.verification.business)}</div>
+        <div><label>Can trade on YUNEX?</label>${ME.can_sell?'<span class="st ok">✔ Yes — verified</span>':'<span class="st no">Not yet</span>'}</div>
+      </div>
+      ${ME.verification.email!=='verified'?`<div style="margin-top:12px"><button class="btn o sm" style="color:#3d5af1;border-color:#c9d2f5" onclick="resendVerify(ME.email);alert('A verification code was sent to your email and in-app inbox.')">Verify my email</button></div>`:''}
+      ${ME.verification.identity==='verified'?'':`<div style="margin-top:16px"><button class="btn g grad" onclick="showVerify('identity')">Verify my identity with TERRA</button></div>`}
+      ${roles.includes('business')&&ME.verification.business!=='verified'?`<div style="margin-top:10px"><button class="btn g grad" onclick="showVerify('business')">Verify my business with TERRA</button></div>`:''}
+      <div id="verifyForm"></div>
+      <div id="verifyList" style="margin-top:14px"></div>
+    </div>
+
+    <div class="panel">
+      <div class="sec-h" style="font-size:1.05rem">Roles</div>
+      <div class="sec-s">Your account can hold many roles at once. A role is an intent — trading still requires verification.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">${roles.length?roles.map(r=>`<span class="st no" style="text-transform:capitalize">${esc(r)}</span>`).join(''):'<span class="muted" style="font-size:.85rem">No roles yet.</span>'}</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${['buyer','seller','business','investor'].filter(r=>!roles.includes(r)).map(r=>`<button class="btn o sm" style="color:#3d5af1;border-color:#c9d2f5" onclick="addRole('${r}')">+ ${r[0].toUpperCase()+r.slice(1)}</button>`).join('')}
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="sec-h" style="font-size:1.05rem">Profile</div>
+      <div class="row2" style="margin-top:10px">
+        <div><label>Email ${ME.verification.email==='verified'?'<span style="color:#12864e">✔ verified</span>':'<span style="color:#b5730a">unverified</span>'}</label><input value="${esc(ME.email||'')}" disabled style="background:#f2f4fa;color:#67708f"></div>
+        <div><label>SKYGLOBE ID</label><input value="${esc(ME.id_number||'')}" disabled style="background:#f2f4fa;color:#67708f;font-family:monospace"></div>
+        <div><label>Full name</label><input id="p_name" value="${esc(ME.name||'')}"></div>
+        <div><label>Phone</label><input id="p_phone" value="${esc(ME.phone||'')}"></div>
+        <div><label>Country</label><input id="p_country" value="${esc(ME.country||'')}"></div>
+        <div><label>City / Residence</label><input id="p_res" value="${esc((ME.profile||{}).residence||'')}"></div>
+      </div>
+      <div class="muted" style="font-size:.74rem;margin-top:8px">🔒 Your email and personal details are private — never shown publicly. Buyers and sellers only ever see your name and verification status.</div>
+      <button class="btn g grad" style="margin-top:14px" onclick="saveProfile()">Save profile</button>
+      <span class="muted" id="p_msg" style="margin-left:10px"></span>
+    </div>
+
+    <!-- SECURITY CENTRE -->
+    <div class="panel">
+      <div class="sec-h" style="font-size:1.05rem">🔒 Security Centre</div>
+      <div class="sec-s">Change your password and review recent sign-ins.</div>
+      <div class="row2" style="margin-top:10px">
+        <div><label>Current password</label><input id="sec_cur" type="password" placeholder="Current password"></div>
+        <div><label>New password</label><input id="sec_new" type="password" placeholder="New password (min 6)"></div>
+      </div>
+      <button class="btn g grad" style="margin-top:12px" onclick="changePw()">Change password</button>
+      <span class="muted" id="sec_msg" style="margin-left:10px"></span>
+      <div style="margin-top:16px"><label>Recent sign-ins</label><div id="sec_sessions" class="muted" style="font-size:.84rem">Loading…</div></div>
+    </div>
+
+    <!-- MY DOCUMENTS -->
+    <div class="panel">
+      <div class="sec-h" style="font-size:1.05rem">🗂️ My Documents & Certificates</div>
+      <div class="sec-s">Every certificate and document issued to you, verifiable anytime.</div>
+      <div id="id_docs" style="margin-top:10px"><div class="muted">Loading…</div></div>
+    </div>
+
+    <!-- ACTIVITY -->
+    <div class="panel">
+      <div class="sec-h" style="font-size:1.05rem">🛰️ Activity History</div>
+      <div id="id_activity" style="margin-top:8px"><div class="muted">Loading…</div></div>
+    </div>`;
+  loadVerifyList(); loadSessions(); loadIdDocs(); loadIdActivity();
+}
+async function changePw(){
+  const cur=$('sec_cur').value, nw=$('sec_new').value;
+  if(!nw||nw.length<6){ $('sec_msg').textContent='New password must be 6+ characters.'; return; }
+  const r=await fetch(API+'/api/skyglobe-id/change-password',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify({currentPassword:cur,newPassword:nw})});
+  const d=await r.json();
+  $('sec_msg').style.color=r.ok?'#12864e':'#c0392b'; $('sec_msg').textContent=r.ok?'✔ Password changed':(d.error||'Failed');
+  if(r.ok){ $('sec_cur').value=''; $('sec_new').value=''; }
+}
+async function loadSessions(){
+  try{ const list=await fetch(API+'/api/skyglobe-id/sessions',{headers:H()}).then(r=>r.json());
+    const el=$('sec_sessions'); if(!el)return;
+    el.innerHTML=(!list.length)?'No recent sign-ins recorded.':list.slice(0,6).map(s=>`<div style="padding:4px 0;border-bottom:1px solid #f0f2f7">${s.at?new Date(s.at).toLocaleString():''}${s.ip?' · '+esc(s.ip):''}</div>`).join('');
+  }catch(e){}
+}
+async function loadIdDocs(){
+  const el=$('id_docs'); if(!el)return;
+  try{ const docs=await fetch(API+'/api/client/documents',{headers:H()}).then(r=>r.json());
+    if(!Array.isArray(docs)||!docs.length){ el.innerHTML='<div class="muted" style="font-size:.85rem">No documents yet. Certificates and files delivered to you appear here.</div>'; return; }
+    const ic={'Academy Certificate':'🎓','Work Certificate':'🏢','Certificate of Recognition':'🏛️','Identity Card':'🪪','Legal Document':'📜'};
+    el.innerHTML=docs.map(d=>`<div style="display:flex;align-items:center;gap:10px;border:1px solid #e8eaf2;border-radius:10px;padding:9px 12px;margin-bottom:6px"><span style="font-size:1.1rem">${ic[d.kind]||'📄'}</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:.85rem">${esc(d.kind||'Document')}</div><div class="muted" style="font-size:.74rem">${esc(d.ref||'')}</div></div>${d.view_token?`<a class="btn o sm" style="color:#3d5af1;border-color:#c9d2f5" href="/view/${esc(d.view_token)}" target="_blank">Open</a>`:''}</div>`).join('');
+  }catch(e){ el.innerHTML='<div class="muted">Could not load documents.</div>'; }
+}
+async function loadIdActivity(){
+  const el=$('id_activity'); if(!el)return;
+  try{ const acts=await fetch(API+'/api/skyglobe-id/activity',{headers:H()}).then(r=>r.json());
+    if(!Array.isArray(acts)||!acts.length){ el.innerHTML='<div class="muted" style="font-size:.85rem">No activity yet.</div>'; return; }
+    el.innerHTML=acts.slice(0,15).map(a=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid #f0f2f7;font-size:.82rem"><span>${esc(a.detail||a.action||'')}</span><span class="muted" style="white-space:nowrap">${a.at?new Date(a.at).toLocaleDateString():''}</span></div>`).join('');
+  }catch(e){}
+}
+async function addRole(role){ await fetch(API+'/api/skyglobe-id/roles',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify({role})}); await loadMe(); renderID(); }
+async function saveProfile(){
+  const body={name:$('p_name').value.trim(),phone:$('p_phone').value.trim(),country:$('p_country').value.trim(),profile:{residence:$('p_res').value.trim()}};
+  const r=await fetch(API+'/api/skyglobe-id/profile',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify(body)});
+  $('p_msg').textContent=r.ok?'✔ Saved':'Could not save'; await loadMe();
+}
+function showVerify(kind){
+  const isBiz=kind==='business';
+  $('verifyForm').innerHTML=`
+    <div class="notice" style="margin-top:16px">
+      <b>${isBiz?'Business':'Identity'} verification by TERRA.</b> Provide your real legal ${isBiz?'business':'identity'} details. The TERRA Trust desk reviews every submission before approval — this is what makes YUNEX trustworthy.
+      <div class="row2" style="margin-top:12px">
+        <div><label>Full legal name</label><input id="v_name" value="${esc(ME.name||'')}"></div>
+        <div><label>Country</label><input id="v_country" value="${esc(ME.country||'')}"></div>
+        ${isBiz?`<div><label>Business name</label><input id="v_biz"></div><div><label>Business registration Nº</label><input id="v_reg"></div>`:
+          `<div><label>Document type</label><select id="v_doctype"><option value="passport">Passport</option><option value="national_id">National ID</option><option value="drivers_license">Driver's licence</option></select></div><div><label>Document number</label><input id="v_docref"></div>`}
+      </div>
+      <div class="row2" style="margin-top:12px">
+        <div>
+          <label>${isBiz?'Business registration document':'Photo of your ID document'}</label>
+          <input type="file" accept="image/*" onchange="kycPick(this,'doc')" style="font-size:.85rem">
+          <div id="kycDocPrev"></div>
+        </div>
+        <div>
+          <label>Live selfie ${isBiz?'of the owner':''}</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn o sm" style="color:#3d5af1;border-color:#c9d2f5" onclick="startSelfie()">📷 Take live selfie</button><input type="file" accept="image/*" capture="user" onchange="kycPick(this,'selfie')" style="font-size:.82rem"></div>
+          <video id="kycVid" playsinline style="display:none;width:100%;max-width:220px;border-radius:10px;margin-top:8px"></video>
+          <div id="kycSelfiePrev"></div>
+        </div>
+      </div>
+      <div class="muted" style="font-size:.78rem;margin-top:8px">🔒 Your document and selfie are stored privately and encrypted at rest — visible only to the TERRA verification officer, retained securely for dispute and compliance. Never shown publicly.</div>
+      <button class="btn g grad" style="margin-top:12px" onclick="submitVerify('${kind}')">Submit to TERRA</button>
+      <span class="muted" id="v_msg" style="margin-left:10px"></span>
+    </div>`;
+}
+let KYC_DOC=null, KYC_SELFIE=null, KYC_STREAM=null, KYC_LIVENESS=0;
+function kycCompress(dataUrl,cb){ const img=new Image(); img.onload=()=>{ const max=1100,sc=Math.min(1,max/Math.max(img.width,img.height)); const cv=document.createElement('canvas'); cv.width=Math.round(img.width*sc); cv.height=Math.round(img.height*sc); cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height); cb(cv.toDataURL('image/jpeg',0.85)); }; img.src=dataUrl; }
+function kycPick(input,which){ const f=input.files[0]; if(!f)return; const r=new FileReader(); r.onload=()=>kycCompress(r.result,d=>{ if(which==='doc'){KYC_DOC=d;$('kycDocPrev').innerHTML='<img src="'+d+'" style="width:100%;max-width:200px;border-radius:8px;margin-top:6px">';} else {KYC_SELFIE=d;$('kycSelfiePrev').innerHTML='<img src="'+d+'" style="width:100%;max-width:160px;border-radius:8px;margin-top:6px">';} }); r.readAsDataURL(f); }
+// ── Guided live-selfie liveness capture (fintech KYC standard) ───────────────
+// A full-screen guided flow: position face in the oval → follow the on-screen
+// directions (look straight, blink, turn slightly) → the system captures a
+// short live sequence and a clear frame. Motion between frames is measured as a
+// basic liveness signal; the final match & liveness is confirmed by the TERRA
+// officer (human-in-the-loop, as regulated KYC requires).
+let SELFIE_STREAM=null;
+async function startSelfie(){
+  const ov=document.getElementById('selfieOverlay');
+  ov.style.display='flex';
+  const v=document.getElementById('selfieVideo');
+  const guide=document.getElementById('selfieGuide');
+  try{
+    SELFIE_STREAM=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:720},height:{ideal:720}}});
+    v.srcObject=SELFIE_STREAM; await v.play();
+  }catch(e){ closeSelfie(); $('kycSelfiePrev').innerHTML='<div class="muted" style="font-size:.78rem">Camera unavailable — please upload a clear selfie photo instead.</div>'; return; }
+  const steps=[
+    {t:'Center your face in the oval',s:'Hold your phone at eye level in good light',ms:2200},
+    {t:'Look straight into the camera',s:'Keep a neutral expression',ms:2000},
+    {t:'Now blink slowly',s:'This confirms you are live',ms:2000},
+    {t:'Hold still…',s:'Capturing your secure selfie',ms:1400},
+  ];
+  let frames=[];
+  const grab=()=>{ const cv=document.createElement('canvas'); cv.width=v.videoWidth; cv.height=v.videoHeight; const cx=cv.getContext('2d'); cx.drawImage(v,0,0); return cv; };
+  for(let i=0;i<steps.length;i++){
+    guide.querySelector('.st-t').textContent=steps[i].t;
+    guide.querySelector('.st-s').textContent=steps[i].s;
+    document.getElementById('selfieDots').innerHTML=steps.map((_,j)=>`<span style="width:8px;height:8px;border-radius:50%;background:${j<=i?'#3d5af1':'rgba(255,255,255,.3)'}"></span>`).join('');
+    await new Promise(r=>setTimeout(r,steps[i].ms));
+    frames.push(grab());
+  }
+  // Liveness heuristic: measure pixel difference between the first and blink frames.
+  let motion=0;
+  try{
+    const a=frames[1], b2=frames[2]; const w=64,h=64;
+    const ca=document.createElement('canvas');ca.width=w;ca.height=h;ca.getContext('2d').drawImage(a,0,0,w,h);
+    const cb=document.createElement('canvas');cb.width=w;cb.height=h;cb.getContext('2d').drawImage(b2,0,0,w,h);
+    const da=ca.getContext('2d').getImageData(0,0,w,h).data, db=cb.getContext('2d').getImageData(0,0,w,h).data;
+    let diff=0; for(let i=0;i<da.length;i+=4){ diff+=Math.abs(da[i]-db[i]); } motion=diff/(w*h);
+  }catch(e){}
+  const clear=frames[1]||frames[0];
+  kycCompress(clear.toDataURL('image/jpeg',0.92),d=>{
+    KYC_SELFIE=d;
+    $('kycSelfiePrev').innerHTML='<img src="'+d+'" style="width:100%;max-width:160px;border-radius:10px;margin-top:6px;border:2px solid #12864e"><div style="font-size:.74rem;color:#12864e;font-weight:600;margin-top:2px">✔ Live selfie captured'+(motion>3?' · liveness detected':'')+'</div>';
+  });
+  closeSelfie();
+}
+function closeSelfie(){
+  const ov=document.getElementById('selfieOverlay'); if(ov)ov.style.display='none';
+  if(SELFIE_STREAM){ SELFIE_STREAM.getTracks().forEach(t=>t.stop()); SELFIE_STREAM=null; }
+}
+async function submitVerify(kind){
+  const body={kind,fullName:$('v_name').value.trim(),country:$('v_country').value.trim()};
+  if(kind==='business'){ body.businessName=$('v_biz').value.trim(); body.businessRegNo=$('v_reg').value.trim(); }
+  else { body.documentType=$('v_doctype').value; body.documentRef=$('v_docref').value.trim(); }
+  if(KYC_DOC)body.documentImage=KYC_DOC; if(KYC_SELFIE){body.selfieImage=KYC_SELFIE;body.liveness=KYC_LIVENESS;}
+  if(kind==='identity'&&!KYC_SELFIE){$('v_msg').textContent='A live selfie is required — tap “Take live selfie”.';return;}
+  if(kind==='identity'&&!KYC_DOC){$('v_msg').textContent='A photo of your ID document is required.';return;}
+  $('v_msg').textContent='Submitting…';
+  const r=await fetch(API+'/api/yunex/verify/request',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify(body)});
+  const d=await r.json();
+  $('v_msg').textContent=r.ok?('✔ Submitted ('+d.ref+') — under review'):(d.error||'Could not submit');
+  if(r.ok){ KYC_DOC=null;KYC_SELFIE=null; $('verifyForm').innerHTML=''; loadVerifyList(); }
+}
+async function loadVerifyList(){
+  try{
+    const r=await fetch(API+'/api/yunex/verify/status',{headers:H()});
+    const list=await r.json(); if(!Array.isArray(list)||!list.length){ $('verifyList').innerHTML=''; return; }
+    $('verifyList').innerHTML='<label>Your verification requests</label>'+list.map(v=>`<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid #e8eaf2;border-radius:10px;padding:9px 12px;margin-bottom:6px"><div><b style="text-transform:capitalize">${esc(v.kind)}</b> <span class="muted">· ${esc(v.ref)}</span>${v.note?'<div class="muted" style="font-size:.78rem">'+esc(v.note)+'</div>':''}</div>${stTag(v.status)}</div>`).join('');
+  }catch(e){}
+}
+
+/* Business Centre gate */
+function renderBiz(){
+  const el=$('bizGate');
+  if(!ME){ el.innerHTML='<div class="panel"><div class="empty"><div class="ic">🏢</div><p style="margin-top:8px;font-weight:700">Log in to open your Business Centre</p><button class="btn g grad" style="margin-top:12px" onclick="openAuth(\'login\')">Log in</button></div></div>'; return; }
+  if(!ME.can_sell){
+    el.innerHTML=`<div class="panel"><div class="notice">🛡️ <b>No verification, no trade.</b> To sell, list assets, or offer services on YUNEX, your identity${ (ME.roles||[]).includes('business')?' and business':'' } must be verified by TERRA. This protects every buyer and gives you a verified trust mark that investors and partners can check worldwide.</div>
+      <div style="margin-top:16px"><button class="btn g grad" onclick="go('id')">Go to My SKYGLOBE ID to get verified →</button></div></div>`;
+    return;
+  }
+  el.innerHTML=`
+    <div id="bizOverview"></div>
+    <div id="bizInsights"></div>
+    <div id="bizProfile"></div>
+    <div class="panel">
+      <div class="sec-h" style="font-size:1.05rem">➕ Create a listing</div>
+      <div class="sec-s">Publish across any pillar. Buyers see it instantly with your verified trust mark.</div>
+      <div class="row2" style="margin-top:10px">
+        <div><label>Pillar</label><select id="nl_pillar" onchange="fillCategories()"><option value="consumer">🛍️ Marketplace</option><option value="trade">🔁 Trade</option><option value="services">🛠️ Services</option><option value="assets">🏝️ Assets</option><option value="investment">📈 Investment</option><option value="business">🏢 Business</option><option value="finance">💰 Finance</option><option value="digital">💻 Digital</option></select></div>
+        <div><label>Category</label><select id="nl_cat"></select></div>
+        <div style="grid-column:1/-1"><label>Title</label><input id="nl_title" placeholder="e.g. Solar Power Bank 30000mAh — Wholesale"></div>
+        <div><label>Price</label><input id="nl_price" type="number" placeholder="e.g. 45"></div>
+        <div><label>Currency</label><select id="nl_cur"></select></div>
+        <div><label>Unit</label><input id="nl_unit" placeholder="e.g. piece, tonne, box"></div>
+        <div><label>Minimum order</label><input id="nl_moq" placeholder="e.g. 50 units"></div>
+        <div><label>Quantity / stock available</label><input id="nl_qty" placeholder="e.g. 500 units in stock"></div>
+        <div><label>Location</label><input id="nl_loc" placeholder="City, Country"></div>
+        <div><label>Trade corridor (optional)</label><select id="nl_corridor"><option value="">— None —</option><option value="china">🇨🇳 China</option><option value="gulf">🌙 Gulf</option><option value="europe">🇪🇺 Europe</option><option value="america">🌎 America</option><option value="oceania">🌏 Oceania</option><option value="africa">🌍 Africa</option></select></div>
+        <div><label>Brand</label><input id="nl_brand" placeholder="e.g. SunCharge"></div>
+        <div><label>Manufacturer</label><input id="nl_maker" placeholder="e.g. SunCharge Ltd"></div>
+        <div><label>Country of origin</label><input id="nl_origin" placeholder="e.g. Ghana"></div>
+        <div><label>Condition</label><select id="nl_cond"><option value="">—</option><option>New</option><option>Used - Like New</option><option>Used - Good</option><option>Refurbished</option><option>For Parts</option><option>N/A</option></select></div>
+        <div><label>Warranty</label><input id="nl_warr" placeholder="e.g. 12 months"></div>
+        <div style="grid-column:1/-1"><label>Description</label><textarea id="nl_desc" rows="3" placeholder="Describe quality, terms, shipping…"></textarea></div>
+      </div>
+      <label style="margin-top:12px">Specifications (optional)</label>
+      <div id="nl_specs"></div>
+      <button type="button" class="btn o sm" style="color:#3d5af1;border-color:#c9d2f5;margin-top:6px" onclick="addSpecRow()">+ Add specification</button>
+      <div style="margin-top:14px"><label>Product photos (up to 8 — first is the cover)</label>
+        <input type="file" accept="image/*" multiple onchange="pickListingImages(this)" style="font-size:.85rem">
+        <div id="nl_imgs" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div>
+      </div>
+      <button class="btn g grad" style="margin-top:14px" onclick="createListing()">Publish listing</button>
+      <span class="muted" id="nl_msg" style="margin-left:10px"></span>
+    </div>
+    <div class="panel">
+      <div class="sec-h" style="font-size:1.05rem">My listings</div>
+      <div id="myListings" style="margin-top:8px"><div class="muted">Loading…</div></div>
+    </div>`;
+  fillCurrencies(); fillCategories(); loadMyListings(); loadBizOverview(); loadBizInsights(); loadBizProfile();
+}
+async function loadBizInsights(){
+  const el=document.getElementById('bizInsights'); if(!el)return;
+  try{
+    const d=await fetch(API+'/api/yunex/business/insights',{headers:H()}).then(r=>r.json());
+    if(d.error){ el.innerHTML=''; return; }
+    const usd=n=>fmtCur(n,'USD')+' USD';
+    const max=Math.max(1,...d.revenue_series.map(s=>s.amount));
+    const bars=d.revenue_series.map(s=>{const h=Math.round((s.amount/max)*90);return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-size:.62rem;color:#67708f;font-weight:700">${s.amount?fmtCur(s.amount,'USD'):''}</div><div style="width:100%;max-width:38px;height:${Math.max(3,h)}px;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#3d5af1,#b326d9)"></div><div style="font-size:.66rem;color:#8b93aa">${esc(s.label)}</div></div>`;}).join('');
+    const f=d.funnel;
+    const funnel=[['🗣️ Negotiating',f.negotiating,'#8b5cf6'],['🔒 In escrow',f.escrow,'#a87016'],['✅ Completed',f.completed,'#12864e'],['📉 Conversion',f.conversion+'%','#1e57c9']];
+    const pill=d.pillar_breakdown.length?d.pillar_breakdown.map(p=>`<span class="st ok" style="background:#eef1fb;color:#3d5af1;padding:5px 11px;font-size:.76rem">${p.icon} ${esc(p.label)} · <b>${usd(p.value)}</b></span>`).join(' '):'<span class="muted" style="font-size:.82rem">Complete deals to see which pillars perform.</span>';
+    const corr=d.corridor_breakdown.length?d.corridor_breakdown.map(c=>`<span class="st ok" style="background:#f6f0fb;color:#8b5cf6;padding:5px 11px;font-size:.76rem">${esc(c.label)} · ${c.count}</span>`).join(' '):'<span class="muted" style="font-size:.82rem">Assign corridors to listings to map your trade lanes.</span>';
+    const tops=d.top_listings.length?d.top_listings.map((t,i)=>`<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #f0f2f7"><div style="min-width:0"><div style="font-weight:600;font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${i+1}. ${esc(t.title)}</div><div class="muted" style="font-size:.72rem">${t.count} completed deal${t.count>1?'s':''}</div></div><div style="font-weight:800;color:#12864e;white-space:nowrap">${usd(t.value)}</div></div>`).join(''):'<div class="muted" style="font-size:.84rem">Your best-selling listings appear here once deals complete.</div>';
+    el.innerHTML=`<div class="panel">
+      <div class="sec-h" style="font-size:1.05rem">📊 Business Insights</div>
+      <div class="sec-s">Live intelligence from your real deals — nothing invented.</div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:12px">
+        <div class="card" style="padding:14px"><div class="muted" style="font-size:.68rem;text-transform:uppercase;letter-spacing:.06em">Total revenue</div><div style="font-size:1.35rem;font-weight:900;color:#0a1230;margin-top:3px">${usd(d.revenue_total)}</div></div>
+        <div class="card" style="padding:14px"><div class="muted" style="font-size:.68rem;text-transform:uppercase;letter-spacing:.06em">Avg deal value</div><div style="font-size:1.35rem;font-weight:900;color:#0a1230;margin-top:3px">${usd(d.avg_deal_value)}</div></div>
+        <div class="card" style="padding:14px"><div class="muted" style="font-size:.68rem;text-transform:uppercase;letter-spacing:.06em">Unique buyers</div><div style="font-size:1.35rem;font-weight:900;color:#0a1230;margin-top:3px">${d.unique_buyers}</div></div>
+        <div class="card" style="padding:14px"><div class="muted" style="font-size:.68rem;text-transform:uppercase;letter-spacing:.06em">Repeat buyers</div><div style="font-size:1.35rem;font-weight:900;color:#0a1230;margin-top:3px">${d.repeat_buyers}</div></div>
+      </div>
+      <div style="margin-top:18px"><div style="font-weight:700;font-size:.9rem;margin-bottom:8px">Revenue · last 6 months</div>
+        <div style="display:flex;align-items:flex-end;gap:8px;height:130px;padding:8px 4px 0;background:linear-gradient(180deg,#fbfcff,#f4f6fc);border-radius:12px">${bars}</div></div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:16px">
+        ${funnel.map(x=>`<div style="text-align:center"><div style="font-size:1.5rem;font-weight:900;color:${x[2]}">${x[1]}</div><div class="muted" style="font-size:.72rem">${x[0]}</div></div>`).join('')}
+      </div>
+      <div style="margin-top:18px"><div style="font-weight:700;font-size:.9rem;margin-bottom:8px">Top performing listings</div>${tops}</div>
+      <div style="margin-top:16px"><div style="font-weight:700;font-size:.9rem;margin-bottom:8px">Revenue by pillar</div><div style="display:flex;gap:8px;flex-wrap:wrap">${pill}</div></div>
+      <div style="margin-top:14px"><div style="font-weight:700;font-size:.9rem;margin-bottom:8px">Trade corridors</div><div style="display:flex;gap:8px;flex-wrap:wrap">${corr}</div></div>
+    </div>`;
+  }catch(e){ el.innerHTML=''; }
+}
+async function loadBizOverview(){
+  const el=document.getElementById('bizOverview'); if(!el)return;
+  try{
+    const o=await fetch(API+'/api/yunex/business/overview',{headers:H()}).then(r=>r.json());
+    const t=o.tier||{label:'Verified Seller',color:'#12864e',icon:'🥉'};
+    const tiles=[['Active listings',o.active_listings],['Active deals',o.active_deals],['Completed',o.completed_deals],['Earned',fmtCur(o.total_earned,'USD')+' USD']];
+    el.innerHTML=`
+      <div class="panel" style="background:linear-gradient(120deg,#0a1230,#111a44);color:#fff;border:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <div><div style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#9fb3dd">Business Centre</div><div style="font-size:1.2rem;font-weight:800;margin-top:2px">${esc((ME.name||'Your business'))}</div></div>
+          <span style="background:${t.color};color:#fff;padding:6px 14px;border-radius:100px;font-weight:700;font-size:.82rem">${t.icon} ${esc(t.label)}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:14px;margin-top:16px">
+          ${tiles.map(x=>`<div><div style="font-size:1.4rem;font-weight:900;color:#fff">${x[1]}</div><div style="font-size:.68rem;color:#9fb3dd;text-transform:uppercase;letter-spacing:.06em">${x[0]}</div></div>`).join('')}
+        </div>
+      </div>
+      ${o.response_needed>0?`<div class="notice" style="margin-top:12px">⚡ You have <b>${o.response_needed}</b> offer${o.response_needed>1?'s':''} awaiting your response. <a href="#" onclick="go('deals');return false" style="color:#3d5af1">Open Deals →</a></div>`:''}`;
+  }catch(e){}
+}
+async function openStorefront(handle){
+  go('storefront');
+  const el=$('storefrontContent'); el.innerHTML='<div class="panel"><div class="muted">Loading company page…</div></div>';
+  try{
+    const s=await fetch(API+'/api/yunex/storefront/'+encodeURIComponent(handle)).then(r=>r.json());
+    if(s.error){ el.innerHTML='<div class="panel"><div class="empty"><div class="ic">🏢</div><p style="margin-top:8px;font-weight:700">Company page not available</p><p class="muted">This business has no public storefront.</p></div></div>'; return; }
+    const marks=(s.trust_marks||[]).map(m=>`<span class="st ok" style="background:#ffffff22;color:#fff;padding:4px 11px;font-size:.74rem">${terraBadge(14)} ${esc(m.label)}</span>`).join(' ');
+    const since=s.member_since?new Date(s.member_since).toLocaleDateString(undefined,{year:'numeric',month:'long'}):null;
+    const logo=s.logo_url?`<div style="width:82px;height:82px;border-radius:18px;background:#fff center/cover url('${esc(s.logo_url)}');flex-shrink:0"></div>`:`<div style="width:82px;height:82px;border-radius:18px;background:linear-gradient(120deg,#3d5af1,#b326d9);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:2rem;flex-shrink:0">${esc((s.name||'C').charAt(0).toUpperCase())}</div>`;
+    const facts=[s.sector?['Sector',s.sector]:null,s.location?['Location',s.location]:null,s.established?['Established',s.established]:null,since?['On SKYGLOBE since',since]:null].filter(Boolean);
+    const grid=s.listings.length?`<div class="grid g3" style="margin-top:14px">${s.listings.map(l=>{
+      const img=(l.images&&l.images[0])?`<div style="height:140px;border-radius:12px;background:#eef1f8 center/cover url('${esc(l.images[0])}');margin:-4px -4px 12px"></div>`:`<div style="height:100px;border-radius:12px;background:linear-gradient(120deg,#eef1fb,#f6f0fb);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:-4px -4px 12px">${l.pillar_icon}</div>`;
+      return `<div class="card" style="cursor:pointer" onclick="openListing('${l.ref}')">${img}<div style="font-size:.68rem;font-weight:700;color:#8b5cf6;text-transform:uppercase">${l.pillar_icon} ${esc(l.pillar_label)}</div><h3 style="margin-top:4px;font-size:.95rem">${esc(l.title)}</h3><div style="margin-top:6px">${money(l)}</div></div>`;}).join('')}</div>`:'<div class="muted" style="margin-top:14px">No active listings right now.</div>';
+    el.innerHTML=`
+      <div class="panel" style="background:linear-gradient(120deg,#0a1230,#111a44);color:#fff;border:none">
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+          ${logo}
+          <div style="flex:1;min-width:200px">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h2 style="margin:0;color:#fff;font-size:1.5rem">${esc(s.name)}</h2><span style="background:${s.tier.color};color:#fff;padding:4px 12px;border-radius:100px;font-weight:700;font-size:.76rem">${s.tier.icon} ${esc(s.tier.label)}</span></div>
+            ${s.tagline?`<div style="color:#c7d2f0;margin-top:4px">${esc(s.tagline)}</div>`:''}
+            <div style="margin-top:8px">${s.rating&&s.rating.count?`<span style="color:#fff;font-size:.9rem">${stars(s.rating.average)} <b>${s.rating.average.toFixed(1)}</b> <span style="color:#9fb3dd">(${s.rating.count} review${s.rating.count>1?'s':''})</span></span>`:'<span style="color:#9fb3dd;font-size:.82rem">No reviews yet</span>'}</div>
+            <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">${marks}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;margin-top:18px;padding-top:16px;border-top:1px solid #ffffff1a">
+          <div><div style="font-size:1.5rem;font-weight:900">${s.completed_deals}</div><div style="font-size:.68rem;color:#9fb3dd;text-transform:uppercase">Completed deals</div></div>
+          <div><div style="font-size:1.5rem;font-weight:900">${s.active_listings}</div><div style="font-size:.68rem;color:#9fb3dd;text-transform:uppercase">Active listings</div></div>
+          ${s.website?`<div style="grid-column:1/-1"><a href="${esc(s.website)}" target="_blank" rel="noopener" style="color:#9fb3dd;font-size:.85rem">🔗 ${esc(s.website)}</a></div>`:''}
+        </div>
+      </div>
+      ${facts.length?`<div class="panel"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px">${facts.map(f=>`<div><div class="muted" style="font-size:.68rem;text-transform:uppercase;letter-spacing:.06em">${esc(f[0])}</div><div style="font-weight:700;margin-top:2px">${esc(f[1])}</div></div>`).join('')}</div></div>`:''}
+      ${s.description?`<div class="panel"><div class="sec-h" style="font-size:1.05rem">About</div><p style="margin-top:6px;line-height:1.7;color:#334;white-space:pre-wrap">${esc(s.description)}</p></div>`:''}
+      <div class="panel"><div class="sec-h" style="font-size:1.05rem">Listings from ${esc(s.name)}</div>${grid}</div>
+      <div class="panel" id="sfReviews"><div class="muted">Loading reviews…</div></div>`;
+    loadStorefrontReviews(s.handle);
+  }catch(e){ el.innerHTML='<div class="panel"><div class="muted">Could not load company page.</div></div>'; }
+}
+async function loadStorefrontReviews(handle){
+  const box=$('sfReviews'); if(!box)return;
+  try{
+    const d=await fetch(API+'/api/yunex/storefront/'+encodeURIComponent(handle)+'/reviews').then(r=>r.json());
+    const head=`<div class="sec-h" style="font-size:1.05rem">Reviews ${d.rating&&d.rating.count?`· ${stars(d.rating.average)} ${d.rating.average.toFixed(1)} (${d.rating.count})`:''}</div>`;
+    if(!d.reviews||!d.reviews.length){ box.innerHTML=head+'<div class="muted" style="margin-top:6px;font-size:.85rem">No reviews yet. Reviews are earned only through completed, escrow-protected deals.</div>'; return; }
+    box.innerHTML=head+'<div style="margin-top:8px">'+d.reviews.map(r=>`<div style="padding:10px 0;border-bottom:1px solid #f0f2f7"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><div style="font-weight:700;font-size:.88rem">${esc(r.reviewer)}</div><div>${stars(r.rating)}</div></div>${r.listing_title?`<div class="muted" style="font-size:.74rem">on ${esc(r.listing_title)}</div>`:''}${r.comment?`<div style="font-size:.88rem;color:#2a3350;margin-top:4px">${esc(r.comment)}</div>`:''}</div>`).join('')+'</div>';
+  }catch(e){ box.innerHTML='<div class="muted">Could not load reviews.</div>'; }
+}
+let BIZ_LOGO=null;
+async function loadBizProfile(){
+  const el=document.getElementById('bizProfile'); if(!el)return;
+  let pr={};
+  try{ pr=await fetch(API+'/api/yunex/business/profile',{headers:H()}).then(r=>r.json())||{}; }catch(e){}
+  el.innerHTML=`
+    <div class="panel">
+      <div class="sec-h" style="font-size:1.05rem">🏢 Company Profile</div>
+      <div class="sec-s">Your public business page — shown to buyers and partners with your verified tier.</div>
+      ${pr.handle?`<div class="notice" style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">🌍 Your public storefront is live. <button class="btn o sm" style="color:#3d5af1;border-color:#c9d2f5" onclick="openStorefront('${esc(pr.handle)}')">View my company page →</button></div>`:''}
+      <div class="row2" style="margin-top:10px">
+        <div><label>Company name</label><input id="bp_name" value="${esc(pr.name||ME.name||'')}"></div>
+        <div><label>Tagline</label><input id="bp_tag" value="${esc(pr.tagline||'')}" placeholder="One line about your business"></div>
+        <div><label>Sector / industry</label><input id="bp_sector" value="${esc(pr.sector||'')}" placeholder="e.g. Agriculture, Electronics"></div>
+        <div><label>Location</label><input id="bp_loc" value="${esc(pr.location||'')}" placeholder="City, Country"></div>
+        <div><label>Established</label><input id="bp_est" value="${esc(pr.established||'')}" placeholder="e.g. 2015"></div>
+        <div><label>Website</label><input id="bp_web" value="${esc(pr.website||'')}" placeholder="https://"></div>
+        <div style="grid-column:1/-1"><label>About the business</label><textarea id="bp_desc" rows="3" placeholder="Describe what your company does, your strengths, your markets…">${esc(pr.description||'')}</textarea></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap">
+        <label style="margin:0">Logo:</label><input type="file" accept="image/*" onchange="bizLogoPick(this)" style="font-size:.85rem">${pr.logo_url?`<img src="${esc(pr.logo_url)}" style="height:34px;border-radius:6px">`:''}
+      </div>
+      <button class="btn g grad" style="margin-top:12px" onclick="saveBizProfile()">Save company profile</button>
+      <span class="muted" id="bp_msg" style="margin-left:10px"></span>
+    </div>`;
+}
+function bizLogoPick(input){ const f=input.files[0]; if(!f)return; const r=new FileReader(); r.onload=()=>{const img=new Image();img.onload=()=>{const max=400,sc=Math.min(1,max/Math.max(img.width,img.height));const cv=document.createElement('canvas');cv.width=Math.round(img.width*sc);cv.height=Math.round(img.height*sc);cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);BIZ_LOGO=cv.toDataURL('image/png');};img.src=r.result;};r.readAsDataURL(f); }
+async function saveBizProfile(){
+  const g=id=>document.getElementById(id).value.trim();
+  const body={name:g('bp_name'),tagline:g('bp_tag'),sector:g('bp_sector'),location:g('bp_loc'),established:g('bp_est'),website:g('bp_web'),description:g('bp_desc'),logoDataUrl:BIZ_LOGO};
+  if(!body.name){ $('bp_msg').textContent='Company name is required.'; return; }
+  const r=await fetch(API+'/api/yunex/business/profile',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify(body)});
+  const d=await r.json(); $('bp_msg').style.color=r.ok?'#12864e':'#c0392b'; $('bp_msg').textContent=r.ok?'✔ Saved':(d.error||'Failed'); if(r.ok){BIZ_LOGO=null;}
+}
+let CATS=null, NL_IMAGES=[];
+async function ensureCats(){ if(!CATS){ try{ CATS=await fetch(API+'/api/yunex/categories').then(r=>r.json()); }catch(e){ CATS={categories:{}}; } } }
+async function fillCategories(){ await ensureCats(); const p=document.getElementById('nl_pillar').value; const list=(CATS.categories[p]||[]); const sel=document.getElementById('nl_cat'); if(sel)sel.innerHTML='<option value="">— Select —</option>'+list.map(c=>`<option>${esc(c)}</option>`).join(''); }
+function fillCurrencies(){ const sel=document.getElementById('nl_cur'); if(!sel)return; const list=(FX&&FX.list)||['USD','EUR','GBP','NGN','GHS','KES','ZAR']; sel.innerHTML=list.map(c=>`<option>${c}</option>`).join(''); }
+function addSpecRow(k,v){ const wrap=document.getElementById('nl_specs'); const row=document.createElement('div'); row.style.cssText='display:flex;gap:8px;margin-bottom:6px'; row.innerHTML=`<input placeholder="Attribute (e.g. Capacity)" value="${esc(k||'')}" style="flex:1"><input placeholder="Value (e.g. 30000mAh)" value="${esc(v||'')}" style="flex:1"><button type="button" onclick="this.parentElement.remove()" style="border:none;background:#f1f3f9;border-radius:8px;cursor:pointer;padding:0 12px">✕</button>`; wrap.appendChild(row); }
+function pickListingImages(input){ const files=[...input.files].slice(0,8); NL_IMAGES=[]; document.getElementById('nl_imgs').innerHTML=''; files.forEach(f=>{ const r=new FileReader(); r.onload=()=>{ const img=new Image(); img.onload=()=>{ const max=1400,sc=Math.min(1,max/Math.max(img.width,img.height)); const cv=document.createElement('canvas'); cv.width=Math.round(img.width*sc); cv.height=Math.round(img.height*sc); cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height); const d=cv.toDataURL('image/jpeg',0.85); NL_IMAGES.push(d); const el=document.createElement('img'); el.src=d; el.style.cssText='width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid #e0e3ee'; document.getElementById('nl_imgs').appendChild(el); }; img.src=r.result; }; r.readAsDataURL(f); }); }
+async function createListing(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  const specs=[...document.querySelectorAll('#nl_specs > div')].map(r=>{const i=r.querySelectorAll('input');return {k:i[0].value.trim(),v:i[1].value.trim()};}).filter(x=>x.k);
+  const body={pillar:g('nl_pillar')||document.getElementById('nl_pillar').value,category:g('nl_cat'),corridor:document.getElementById('nl_corridor')?document.getElementById('nl_corridor').value:'',title:g('nl_title'),price:g('nl_price'),currency:document.getElementById('nl_cur').value,quantity:g('nl_qty'),location:g('nl_loc'),description:g('nl_desc'),images:NL_IMAGES,
+    details:{brand:g('nl_brand'),manufacturer:g('nl_maker'),origin:g('nl_origin'),condition:document.getElementById('nl_cond').value,warranty:g('nl_warr'),unit:g('nl_unit'),min_order:g('nl_moq'),specs}};
+  if(!body.title){ $('nl_msg').textContent='A title is required.'; return; }
+  $('nl_msg').textContent='Publishing…';
+  try{
+    const r=await fetch(API+'/api/yunex/listings',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify(body)});
+    const d=await r.json();
+    if(!r.ok||!d.success){ $('nl_msg').textContent=d.error||'Could not publish'; return; }
+    $('nl_msg').textContent='✔ Published';
+    NL_IMAGES=[]; renderBiz();
+  }catch(e){ $('nl_msg').textContent='Network error'; }
+}
+async function loadMyListings(){
+  const el=$('myListings'); if(!el) return;
+  try{
+    const list=await fetch(API+'/api/yunex/my-listings',{headers:H()}).then(r=>r.json());
+    if(!Array.isArray(list)||!list.length){ el.innerHTML='<div class="muted">No listings yet — publish your first above.</div>'; return; }
+    el.innerHTML=list.map(l=>`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid #e8eaf2;border-radius:12px;padding:11px 14px;margin-bottom:8px">
+      <div style="font-size:1.2rem">${l.pillar_icon}</div>
+      <div style="flex:1;min-width:150px"><div style="font-weight:700">${esc(l.title)}</div><div class="muted" style="font-size:.8rem">${esc(l.pillar_label)} · ${money(l)} · <span style="text-transform:capitalize">${esc(l.status)}</span></div></div>
+      <div style="display:flex;gap:6px">
+        ${l.status==='active'?`<button class="btn o sm" style="color:#b5730a;border-color:#f0d9b0" onclick="setListing('${l.ref}','paused')">Pause</button>`:l.status==='paused'?`<button class="btn o sm" style="color:#12864e;border-color:#bfe6cf" onclick="setListing('${l.ref}','active')">Activate</button>`:''}
+        ${l.status!=='removed'?`<button class="btn o sm" style="color:#c0392b;border-color:#f0c4bd" onclick="setListing('${l.ref}','removed')">Remove</button>`:'<span class="muted" style="font-size:.8rem">Removed</span>'}
+      </div>
+    </div>`).join('');
+  }catch(e){ el.innerHTML='<div class="muted">Could not load.</div>'; }
+}
+async function setListing(ref,status){
+  if(status==='removed'&&!confirm('Remove this listing?')) return;
+  await fetch(API+'/api/yunex/listings/'+ref+'/status',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify({status})});
+  loadMyListings();
+}
+
+/* ── DEAL CENTRE tabs: Deals · Sourcing (RFQ) · My Requests ── */
+function dealTab(t){
+  const map={deals:'dealsPane',sourcing:'sourcingPane',myrfq:'myrfqPane',disputes:'disputesPane'};
+  Object.values(map).forEach(id=>{const e=$(id);if(e)e.style.display='none';});
+  $(map[t]).style.display='block';
+  ['deals','sourcing','myrfq','disputes'].forEach(k=>{const btn=$('dtab'+k.charAt(0).toUpperCase()+k.slice(1));if(!btn)return;btn.className='btn '+(k===t?'g grad':'o')+' sm';if(k!==t){btn.style.color='#67708f';btn.style.borderColor='#d7dbe8';}else{btn.style.color='';btn.style.borderColor='';}});
+  if(t==='deals')loadDeals();
+  if(t==='sourcing')loadSourcing();
+  if(t==='myrfq')loadMyRfqs();
+  if(t==='disputes')loadDisputes();
+}
+async function loadDisputes(){
+  const el=$('disputesPane'); if(!await go_deals_guard()){el.innerHTML=$('dealsList').innerHTML;return;}
+  el.innerHTML='<div class="panel"><div class="muted">Loading…</div></div>';
+  try{
+    const list=await fetch(API+'/api/yunex/disputes',{headers:H()}).then(r=>r.json());
+    if(!Array.isArray(list)||!list.length){ el.innerHTML='<div class="panel"><div class="empty"><div class="ic">⚖️</div><p style="margin-top:8px;font-weight:700">No disputes</p><p class="muted">If something goes wrong with a funded deal, open it in “My Deals” and raise a dispute. Our TERRA resolution team mediates fairly.</p></div></div>'; return; }
+    const badge={open:['#b5730a','Open'],responded:['#3d5af1','Responded'],mediation:['#8b5cf6','In mediation'],resolved:['#12864e','Resolved']};
+    el.innerHTML=list.map(d=>{const b=badge[d.status]||['#67708f',d.status];return `<div class="panel" style="cursor:pointer" onclick="openDispute('${d.ref}')"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div><div style="font-weight:700">Dispute ${esc(d.ref)}</div><div class="muted" style="font-size:.8rem">${esc((d.category||'').replace(/_/g,' '))} · you are the ${esc(d.my_role||'party')}</div></div><span class="st" style="background:${b[0]}1a;color:${b[0]}">${b[1]}</span></div>${d.resolution?`<div class="muted" style="font-size:.8rem;margin-top:6px">Outcome: ${esc(d.resolution.replace(/_/g,' '))}</div>`:''}</div>`;}).join('');
+  }catch(e){ el.innerHTML='<div class="muted">Could not load.</div>'; }
+}
+let DISPUTE_REF=null;
+async function openDispute(ref){
+  DISPUTE_REF=ref;
+  const r=await fetch(API+'/api/yunex/disputes/'+ref,{headers:H()}).then(r=>r.json());
+  const d=r.dispute;
+  const msgs=r.messages.map(m=>{
+    if(m.role==='system')return `<div style="text-align:center;margin:8px 0"><span style="background:#eef1f8;color:#67708f;font-size:.74rem;padding:4px 12px;border-radius:100px">${esc(m.body)}</span></div>`;
+    const mine=m.mine, isMod=m.role==='mediator';
+    return `<div style="text-align:${mine?'right':'left'};margin:8px 0"><span style="display:inline-block;background:${isMod?'#fff4e0':mine?'#3d5af1':'#eef1f8'};color:${mine?'#fff':'#111827'};padding:9px 14px;border-radius:14px;max-width:82%;text-align:left">${isMod?'⚖️ <b>Mediator:</b> ':''}${esc(m.body||'')}${m.evidence_url?`<br><a href="${esc(m.evidence_url)}" target="_blank" style="color:${mine?'#fff':'#3d5af1'}">📎 View evidence</a>`:''}</span></div>`;
+  }).join('');
+  $('listingModalBody').innerHTML=`
+    <div style="font-size:.72rem;font-weight:700;color:#8b5cf6;text-transform:uppercase">⚖️ Dispute · ${esc((d.category||'').replace(/_/g,' '))}</div>
+    <h2 style="margin:4px 0">${esc(d.ref)}</h2><div class="muted">Status: ${esc(d.status)}${d.resolution?' · '+esc(d.resolution.replace(/_/g,' ')):''}</div>
+    <div class="panel" style="padding:14px;max-height:40vh;overflow:auto;margin-top:12px">${msgs||'<div class="muted">No messages.</div>'}</div>
+    ${d.status!=='resolved'?`<div style="display:flex;gap:8px;margin-top:12px"><input id="dsp_msg" placeholder="Add a message…" style="flex:1"><button class="btn g grad" onclick="sendDisputeMsg()">Send</button></div>
+      <div style="margin-top:8px"><input type="file" accept="image/*" onchange="dspEvidence(this)" style="font-size:.82rem"> <span class="muted" style="font-size:.76rem" id="dsp_evmsg">Attach photo evidence (optional)</span></div>`:
+      `<div class="notice" style="margin-top:12px">This dispute is resolved. Outcome: <b>${esc((d.resolution||'').replace(/_/g,' '))}</b>.${d.resolution_note?' '+esc(d.resolution_note):''}</div>`}`;
+  $('listingModal').classList.add('on');
+}
+let DSP_EVIDENCE=null;
+function dspEvidence(input){ const f=input.files[0]; if(!f)return; const r=new FileReader(); r.onload=()=>{const img=new Image();img.onload=()=>{const max=1200,sc=Math.min(1,max/Math.max(img.width,img.height));const cv=document.createElement('canvas');cv.width=Math.round(img.width*sc);cv.height=Math.round(img.height*sc);cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);DSP_EVIDENCE=cv.toDataURL('image/jpeg',0.85);$('dsp_evmsg').textContent='✔ Evidence attached — click Send';};img.src=r.result;};r.readAsDataURL(f); }
+async function sendDisputeMsg(){
+  const body=$('dsp_msg').value.trim(); if(!body&&!DSP_EVIDENCE)return;
+  await fetch(API+'/api/yunex/disputes/'+DISPUTE_REF+'/message',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify({body,evidence:DSP_EVIDENCE})});
+  DSP_EVIDENCE=null; openDispute(DISPUTE_REF);
+}
+async function raiseDispute(dealRef){
+  const reason=prompt('Describe the problem (the TERRA resolution team will review):',''); if(!reason||!reason.trim())return;
+  const r=await fetch(API+'/api/yunex/deals/'+dealRef+'/dispute',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify({category:'deal_issue',reason})});
+  const d=await r.json(); if(!r.ok){ alert(d.error||'Could not raise dispute'); return; }
+  alert('Dispute opened. Escrow is now frozen until it is resolved.'); renderDeal(true);
+}
+async function loadSourcing(){
+  const el=$('sourcingPane'); if(!await go_deals_guard()){el.innerHTML=$('dealsList').innerHTML;return;}
+  el.innerHTML='<div class="panel"><div class="muted">Loading opportunities…</div></div>';
+  try{
+    const d=await fetch(API+'/api/yunex/rfqs',{headers:H()}).then(r=>r.json());
+    let post=`<div class="panel"><div class="sec-h" style="font-size:1.05rem">📋 Post a sourcing request (RFQ)</div><div class="sec-s">Tell verified sellers what you need — receive competitive quotes.</div>
+      <div class="row2" style="margin-top:10px">
+        <div style="grid-column:1/-1"><label>What are you sourcing?</label><input id="rq_title" placeholder="e.g. 10 tonnes Grade-A cocoa, monthly"></div>
+        <div><label>Pillar</label><select id="rq_pillar"><option value="trade">🔁 Trade</option><option value="consumer">🛍️ Marketplace</option><option value="services">🛠️ Services</option><option value="assets">🏝️ Assets</option><option value="business">🏢 Business</option></select></div>
+        <div><label>Quantity</label><input id="rq_qty" placeholder="e.g. 10 tonnes"></div>
+        <div><label>Budget</label><input id="rq_budget" type="number" placeholder="Optional"></div>
+        <div><label>Currency</label><select id="rq_cur"></select></div>
+        <div><label>Location</label><input id="rq_loc" placeholder="City, Country"></div>
+        <div><label>Corridor</label><select id="rq_corr"><option value="">— None —</option><option value="china">🇨🇳 China</option><option value="gulf">🌙 Gulf</option><option value="europe">🇪🇺 Europe</option><option value="america">🌎 America</option><option value="oceania">🌏 Oceania</option><option value="africa">🌍 Africa</option></select></div>
+        <div style="grid-column:1/-1"><label>Details</label><textarea id="rq_desc" rows="2" placeholder="Specifications, terms, delivery…"></textarea></div>
+      </div>
+      <button class="btn g grad" style="margin-top:12px" onclick="postRfq()">Post request</button><span class="muted" id="rq_msg" style="margin-left:10px"></span></div>`;
+    let board='<h3 class="sec-h" style="font-size:1.05rem;margin-top:8px">Open sourcing opportunities</h3>';
+    if(!d.rfqs.length){ board+='<div class="muted" style="font-size:.85rem">No open requests right now. Check back soon.</div>'; }
+    else board+='<div class="grid g3" style="margin-top:10px">'+d.rfqs.map(r=>`<div class="card"><div style="font-size:.7rem;font-weight:700;color:#8b5cf6;text-transform:uppercase">${r.pillar_icon} ${esc(r.pillar_label)}${r.category?' · '+esc(r.category):''}</div><h3 style="margin-top:5px;font-size:.98rem">${esc(r.title)}</h3>${r.quantity?`<div class="muted" style="font-size:.82rem;margin-top:4px">Qty: ${esc(r.quantity)}</div>`:''}${r.budget!=null?`<div style="margin-top:4px"><b>Budget: ${fmtCur(r.budget,r.currency)} ${r.currency}</b></div>`:''}${r.corridor_label?`<div style="font-size:.72rem;color:#3d5af1;margin-top:2px">${esc(r.corridor_label)}</div>`:''}<button class="btn g grad sm" style="width:100%;margin-top:10px" onclick="openRfq('${r.ref}')">Submit a quote</button></div>`).join('')+'</div>';
+    el.innerHTML=post+board;
+    const sel=$('rq_cur'); if(sel&&FX)sel.innerHTML=FX.list.map(c=>`<option>${c}</option>`).join('');
+  }catch(e){ el.innerHTML='<div class="muted">Could not load.</div>'; }
+}
+async function postRfq(){
+  const g=id=>$(id).value.trim();
+  const body={title:g('rq_title'),pillar:$('rq_pillar').value,quantity:g('rq_qty'),budget:g('rq_budget'),currency:$('rq_cur').value,location:g('rq_loc'),corridor:$('rq_corr').value,description:g('rq_desc')};
+  if(!body.title){ $('rq_msg').textContent='A title is required.'; return; }
+  const r=await fetch(API+'/api/yunex/rfqs',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify(body)});
+  const d=await r.json(); if(!r.ok){ $('rq_msg').textContent=d.error||'Failed'; return; }
+  $('rq_msg').style.color='#12864e'; $('rq_msg').textContent='✔ Posted'; loadSourcing();
+}
+async function openRfq(ref){
+  const r=await fetch(API+'/api/yunex/rfqs/'+ref,{headers:H()}).then(r=>r.json());
+  const rfq=r.rfq;
+  $('listingModalBody').innerHTML=`
+    <div style="font-size:.72rem;font-weight:700;color:#8b5cf6;text-transform:uppercase">${rfq.pillar_icon} ${esc(rfq.pillar_label)}${rfq.category?' · '+esc(rfq.category):''} · RFQ</div>
+    <h2 style="margin:6px 0">${esc(rfq.title)}</h2>
+    ${rfq.quantity?`<div class="muted">Quantity: ${esc(rfq.quantity)}</div>`:''}${rfq.budget!=null?`<div style="margin-top:2px"><b>Budget: ${fmtCur(rfq.budget,rfq.currency)} ${rfq.currency}</b></div>`:''}${rfq.location?`<div class="muted" style="margin-top:2px">📍 ${esc(rfq.location)}</div>`:''}
+    <p style="margin-top:12px;line-height:1.6;color:#334;white-space:pre-wrap">${esc(rfq.description||'')}</p>
+    ${rfq.is_buyer?`<div class="notice" style="margin-top:12px">This is your request. See quotes in “My Requests”.</div>`:`
+    <div class="panel" style="margin-top:14px;padding:16px">
+      <div style="font-weight:700">Submit your quote</div>
+      ${r.my_quote?`<div class="muted" style="font-size:.82rem;margin-top:4px">Your current quote: <b>${fmtCur(r.my_quote.price,r.my_quote.currency)} ${r.my_quote.currency}</b> · ${r.my_quote.status}</div>`:''}
+      <div class="row2" style="margin-top:10px">
+        <div><label>Your price (${esc(rfq.currency)})</label><input id="qt_price" type="number" value="${r.my_quote?r.my_quote.price:''}"></div>
+        <div><label>Lead time</label><input id="qt_lead" placeholder="e.g. 14 days" value="${r.my_quote?esc(r.my_quote.lead_time||''):''}"></div>
+        <div style="grid-column:1/-1"><label>Message</label><textarea id="qt_msg" rows="2" placeholder="Origin, quality, terms…">${r.my_quote?esc(r.my_quote.message||''):''}</textarea></div>
+      </div>
+      <button class="btn g grad" style="margin-top:10px" onclick="submitQuote('${ref}')">${r.my_quote?'Update quote':'Submit quote'}</button><span class="muted" id="qt_res" style="margin-left:10px"></span>
+    </div>`}`;
+  $('listingModal').classList.add('on');
+}
+async function submitQuote(ref){
+  const price=$('qt_price').value, lead_time=$('qt_lead').value.trim(), message=$('qt_msg').value.trim();
+  if(!price){ $('qt_res').textContent='Enter a price.'; return; }
+  const r=await fetch(API+'/api/yunex/rfqs/'+ref+'/quote',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify({price,lead_time,message})});
+  const d=await r.json(); $('qt_res').style.color=r.ok?'#12864e':'#c0392b'; $('qt_res').textContent=r.ok?'✔ Quote sent':(d.error||'Failed');
+}
+async function loadMyRfqs(){
+  const el=$('myrfqPane'); if(!await go_deals_guard()){el.innerHTML=$('dealsList').innerHTML;return;}
+  el.innerHTML='<div class="panel"><div class="muted">Loading…</div></div>';
+  try{
+    const list=await fetch(API+'/api/yunex/my-rfqs',{headers:H()}).then(r=>r.json());
+    if(!Array.isArray(list)||!list.length){ el.innerHTML='<div class="panel"><div class="empty"><div class="ic">🗂️</div><p style="margin-top:8px;font-weight:700">No sourcing requests yet</p><p class="muted">Post an RFQ under “Sourcing” to receive quotes from verified sellers.</p></div></div>'; return; }
+    el.innerHTML=list.map(r=>`<div class="panel" style="cursor:pointer" onclick="openMyRfq('${r.ref}')"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div><div style="font-weight:700">${esc(r.title)}</div><div class="muted" style="font-size:.8rem">${esc(r.ref)} · ${r.status}</div></div><div style="text-align:right"><span class="st ${r.status==='open'?'pend':'ok'}">${r.quotes||0} quote${r.quotes===1?'':'s'}</span></div></div></div>`).join('');
+  }catch(e){ el.innerHTML='<div class="muted">Could not load.</div>'; }
+}
+async function openMyRfq(ref){
+  const r=await fetch(API+'/api/yunex/rfqs/'+ref,{headers:H()}).then(r=>r.json());
+  const rfq=r.rfq;
+  $('listingModalBody').innerHTML=`
+    <h2 style="margin:0 0 4px">${esc(rfq.title)}</h2><div class="muted">${esc(rfq.ref)} · ${rfq.status}${rfq.quantity?' · '+esc(rfq.quantity):''}</div>
+    <p style="margin-top:10px;line-height:1.6;color:#334;white-space:pre-wrap">${esc(rfq.description||'')}</p>
+    <div style="font-weight:700;margin-top:14px">Quotes received (${r.quotes.length})</div>
+    ${!r.quotes.length?'<div class="muted" style="font-size:.85rem;margin-top:6px">No quotes yet.</div>':r.quotes.map(q=>`<div class="panel" style="padding:14px;margin-top:8px"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div><div style="font-weight:700">${fmtCur(q.price,q.currency)} ${q.currency}</div><div class="muted" style="font-size:.8rem">${esc(q.seller.name)}${q.lead_time?' · '+esc(q.lead_time):''}</div>${q.message?`<div style="font-size:.84rem;margin-top:4px">${esc(q.message)}</div>`:''}</div><div>${(q.seller.trust_marks||[]).map(m=>`<span class="st ok" style="font-size:.7rem">${terraBadge(12)} ${esc(m.label.replace(' Verified',''))}</span>`).join(' ')}</div></div>${rfq.status==='open'?`<button class="btn g grad sm" style="margin-top:10px" onclick="awardQuote('${q.ref}')">✔ Award this quote → open deal</button>`:q.status==='accepted'?'<div class="st ok" style="margin-top:10px">✔ Awarded</div>':''}</div>`).join('')}`;
+  $('listingModal').classList.add('on');
+}
+async function awardQuote(qref){
+  if(!confirm('Award this quote? It opens a deal at the quoted price, ready for secure escrow.'))return;
+  const r=await fetch(API+'/api/yunex/quotes/'+qref+'/accept',{method:'POST',headers:{'content-type':'application/json',...H()},body:'{}'});
+  const d=await r.json(); if(!r.ok){ alert(d.error||'Failed'); return; }
+  closeListing(); openDeal(d.deal_ref);
+}
+
+/* ── DEAL ROOM (Layer 3) ── */
+let DEAL_REF=null, DEAL_POLL=null;
+async function startDeal(listingRef){
+  if(!ME){ $('startDealMsg').textContent='Please log in to start a deal.'; openAuth('login'); return; }
+  if(!ME.can_sell && ME.verification.identity!=='verified'){
+    $('startDealMsg').innerHTML='You must be TERRA identity-verified to transact. <a href="#" onclick="closeListing();go(\'id\');return false" style="color:#3d5af1">Get verified →</a>'; return;
+  }
+  $('startDealMsg').textContent='Opening…';
+  try{
+    const r=await fetch(API+'/api/yunex/deals',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify({listing_ref:listingRef})});
+    const d=await r.json();
+    if(!r.ok||!d.success){ $('startDealMsg').textContent=d.error||'Could not open deal.'; return; }
+    closeListing(); openDeal(d.ref);
+  }catch(e){ $('startDealMsg').textContent='Network error.'; }
+}
+async function go_deals_guard(){ if(!ME){ $('dealsList').innerHTML='<div class="panel"><div class="empty"><div class="ic">🤝</div><p style="margin-top:8px;font-weight:700">Log in to see your deals</p><button class="btn g grad" style="margin-top:12px" onclick="openAuth(\'login\')">Log in</button></div></div>'; return false;} return true; }
+async function loadDeals(){
+  if(!await go_deals_guard()) return;
+  const el=$('dealsList'); el.innerHTML='<div class="muted">Loading…</div>';
+  try{
+    const list=await fetch(API+'/api/yunex/deals',{headers:H()}).then(r=>r.json());
+    if(!Array.isArray(list)||!list.length){ el.innerHTML='<div class="panel"><div class="empty"><div class="ic">🤝</div><p style="margin-top:8px;font-weight:700">No deals yet</p><p class="muted">Open a listing in the Marketplace and contact a verified seller to start.</p><button class="btn g grad" style="margin-top:12px" onclick="go(\'market\')">Browse Marketplace</button></div></div>'; return; }
+    const badge={open:['#67708f','Open'],offer:['#b5730a','Offer pending'],accepted:['#3d5af1','Accepted — fund escrow'],paid:['#8b5cf6','In escrow'],shipped:['#0ea5e9','Shipped'],completed:['#12864e','Completed'],cancelled:['#c0392b','Cancelled']};
+    el.innerHTML=list.map(d=>{const bs=badge[d.status]||['#67708f',d.status];return `<div class="panel" style="cursor:pointer;margin-top:10px;padding:16px" onclick="openDeal('${d.ref}')">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+        <div><div style="font-weight:700">${esc(d.listing_title||'Listing')}</div><div class="muted" style="font-size:.82rem">${d.my_role==='buyer'?'Buying from':'Selling to'} ${esc(d.counterparty)} · ${d.ref}</div></div>
+        <div style="text-align:right"><span class="st" style="background:${bs[0]}1a;color:${bs[0]}">${bs[1]}</span>${d.offer_price?'<div class="muted" style="font-size:.8rem;margin-top:4px">'+d.currency+' '+Number(d.offer_price).toLocaleString()+'</div>':''}</div>
+      </div></div>`;}).join('');
+  }catch(e){ el.innerHTML='<div class="muted">Could not load deals.</div>'; }
+}
+async function openDeal(ref){
+  DEAL_REF=ref; go('deal'); renderDeal();
+  if(DEAL_POLL)clearInterval(DEAL_POLL);
+  DEAL_POLL=setInterval(()=>{ if($('v-deal').classList.contains('on'))renderDeal(true); else {clearInterval(DEAL_POLL);DEAL_POLL=null;} },5000);
+}
+async function renderDeal(quiet){
+  const el=$('dealThread'); if(!quiet)el.innerHTML='<div class="muted">Loading…</div>';
+  try{
+    const r=await fetch(API+'/api/yunex/deals/'+DEAL_REF,{headers:H()}); const d=await r.json();
+    if(!r.ok){ el.innerHTML='<div class="muted">'+(d.error||'Could not load.')+'</div>'; return; }
+    const deal=d.deal, role=deal.my_role;
+    const msgs=d.messages.map(m=>{
+      if(m.kind==='system')return `<div style="text-align:center;margin:10px 0"><span style="background:#eef1f8;color:#67708f;font-size:.76rem;padding:5px 12px;border-radius:100px">${esc(m.body)}</span></div>`;
+      if(m.kind==='offer')return `<div style="text-align:${m.mine?'right':'left'};margin:8px 0"><span style="display:inline-block;background:linear-gradient(120deg,#3d5af1,#b326d9);color:#fff;padding:9px 16px;border-radius:14px;font-weight:700">💰 ${esc(m.body)}</span></div>`;
+      return `<div style="text-align:${m.mine?'right':'left'};margin:8px 0"><span style="display:inline-block;background:${m.mine?'#3d5af1':'#eef1f8'};color:${m.mine?'#fff':'#111827'};padding:9px 14px;border-radius:14px;max-width:80%;text-align:left">${esc(m.body)}</span></div>`;
+    }).join('');
+    // action bar by status + role
+    let actions='';
+    const s=deal.status;
+    if(s==='open'||s==='offer'){
+      if(role==='buyer') actions=`<div style="display:flex;gap:8px;flex-wrap:wrap"><input id="dl_offer" type="number" placeholder="Your offer (${deal.currency})" style="flex:1;min-width:140px"><button class="btn g grad" onclick="makeOffer()">${s==='offer'?'Update offer':'Make offer'}</button></div>`;
+      else if(role==='seller'&&s==='offer') actions=`<div style="display:flex;gap:8px"><button class="btn g grad" onclick="dealAction('respond',{decision:'accept'})">✔ Accept ${deal.currency} ${Number(deal.offer_price).toLocaleString()}</button><button class="btn o" style="color:#c0392b;border-color:#f0c4bd" onclick="dealAction('respond',{decision:'decline'})">Decline</button></div>`;
+      else actions=`<div class="muted">Waiting for the buyer's offer…</div>`;
+    } else if(s==='accepted'){
+      actions=role==='buyer'?`<button class="btn g grad" onclick="dealAction('pay')">💳 Fund secure escrow · ${deal.currency} ${Number(deal.offer_price).toLocaleString()}</button>`:`<div class="muted">Offer accepted — waiting for the buyer to fund escrow.</div>`;
+    } else if(s==='paid'){
+      actions=(role==='seller'?`<button class="btn g grad" onclick="dealAction('ship')">📦 Mark as shipped</button>`:`<div class="notice">🔒 Escrow funded and held safely. The seller is preparing to ship.</div>`)+`<button class="btn o sm" style="margin-left:8px;color:#c0392b;border-color:#f0c4bd" onclick="raiseDispute('${deal.ref}')">⚖️ Raise a dispute</button>`;
+    } else if(s==='shipped'){
+      actions=(role==='buyer'?`<button class="btn g grad" onclick="dealAction('complete')">✔ Confirm delivery & release escrow</button>`:`<div class="muted">Shipped — waiting for the buyer to confirm delivery.</div>`)+`<button class="btn o sm" style="margin-left:8px;color:#c0392b;border-color:#f0c4bd" onclick="raiseDispute('${deal.ref}')">⚖️ Raise a dispute</button>`;
+    } else if(s==='completed'){
+      actions=`<div class="st ok" style="padding:8px 16px">✔ Deal complete — escrow released</div>`;
+      if(role==='buyer'&&!deal.reviewed){ actions+=`
+        <div class="panel" style="padding:14px;margin-top:12px">
+          <div style="font-weight:700">⭐ Rate this seller</div>
+          <div class="sec-s">Your honest review helps the whole verified market.</div>
+          <div id="starPick" style="font-size:1.8rem;margin-top:6px">${[1,2,3,4,5].map(i=>`<span onclick="pickStar(${i})" data-s="${i}" style="cursor:pointer;color:#d7dbe8">★</span>`).join('')}</div>
+          <textarea id="rv_comment" rows="2" placeholder="How was the product, communication and delivery?" style="width:100%;margin-top:8px"></textarea>
+          <button class="btn g grad" style="margin-top:8px" onclick="submitReview()">Submit review</button>
+          <span class="muted" id="rv_msg" style="margin-left:10px;font-size:.8rem"></span>
+        </div>`; }
+      else if(role==='buyer'&&deal.reviewed){ actions+=`<div class="muted" style="margin-top:10px">✔ Thank you — you reviewed this deal.</div>`; }
+    }
+    else if(s==='disputed'){ actions=`<div class="notice">⚖️ A dispute is open on this deal. Escrow is frozen until the TERRA resolution team decides. Track it under Deals → Disputes.</div>`; }
+    else if(s==='cancelled'){ actions=`<div class="muted">This deal was cancelled.</div>`; }
+    el.innerHTML=`
+      <div class="panel" style="padding:16px 18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+          <div><div style="font-weight:800">${esc(deal.listing_title)}</div><div class="muted" style="font-size:.82rem">${role==='buyer'?'You are buying':'You are selling'} · ${deal.ref}</div></div>
+          ${(s!=='completed'&&s!=='cancelled'&&s!=='paid'&&s!=='shipped')?`<button class="btn o sm" style="color:#c0392b;border-color:#f0c4bd" onclick="dealAction('cancel')">Cancel</button>`:''}
+        </div>
+      </div>
+      <div class="panel" style="padding:16px;max-height:44vh;overflow:auto" id="dealMsgs">${msgs||'<div class="muted">No messages yet.</div>'}</div>
+      <div class="panel" style="padding:14px 16px">
+        <div style="display:flex;gap:8px;margin-bottom:${actions?'12px':'0'}"><input id="dl_msg" placeholder="Write a message…" style="flex:1" onkeydown="if(event.key==='Enter')sendDealMsg()"><button class="btn g grad" onclick="sendDealMsg()">Send</button></div>
+        ${actions}
+      </div>`;
+    const box=$('dealMsgs'); if(box)box.scrollTop=box.scrollHeight;
+  }catch(e){ if(!quiet)el.innerHTML='<div class="muted">Could not load.</div>'; }
+}
+let RV_STARS=0;
+function pickStar(n){ RV_STARS=n; document.querySelectorAll('#starPick span').forEach(s=>{ s.style.color=(+s.dataset.s<=n)?'#f5a623':'#d7dbe8'; }); }
+async function submitReview(){
+  const msg=$('rv_msg'); if(!RV_STARS){ msg.style.color='#c0392b'; msg.textContent='Pick a star rating.'; return; }
+  const r=await fetch(API+'/api/yunex/deals/'+DEAL_REF+'/review',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify({rating:RV_STARS,comment:$('rv_comment').value.trim()})});
+  const d=await r.json(); if(!r.ok){ msg.style.color='#c0392b'; msg.textContent=d.error||'Failed'; return; }
+  RV_STARS=0; renderDeal(true);
+}
+async function sendDealMsg(){
+  const inp=$('dl_msg'); const body=inp.value.trim(); if(!body)return; inp.value='';
+  await fetch(API+'/api/yunex/deals/'+DEAL_REF+'/message',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify({body})});
+  renderDeal(true);
+}
+async function makeOffer(){
+  const price=$('dl_offer').value; if(!price){return;}
+  const r=await fetch(API+'/api/yunex/deals/'+DEAL_REF+'/offer',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify({price})});
+  const d=await r.json(); if(!r.ok){alert(d.error||'Could not send offer');return;} renderDeal(true);
+}
+async function dealAction(action,body){
+  if(action==='cancel'&&!confirm('Cancel this deal?'))return;
+  const r=await fetch(API+'/api/yunex/deals/'+DEAL_REF+'/'+action,{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify(body||{})});
+  const d=await r.json(); if(!r.ok){alert(d.error||'Action failed');return;} renderDeal(true);
+}
+
+/* WALLET */
+async function loadWallet(){
+  const el=document.getElementById('walletContent'); if(!el)return;
+  if(!ME){ el.innerHTML='<div class="panel"><div class="empty"><div class="ic">💳</div><p style="margin-top:8px;font-weight:700">Log in to open your wallet</p><button class="btn g grad" style="margin-top:12px" onclick="openAuth(\'login\')">Log in</button></div></div>'; return; }
+  el.innerHTML='<div class="panel"><div class="muted">Loading…</div></div>';
+  try{
+    const w=await fetch(API+'/api/yunex/wallet',{headers:H()}).then(r=>r.json());
+    const cur=c=>fmtCur(c,'USD')+' USD';
+    const tiles=[
+      ['🔒 In Escrow (you funded)',w.escrow_held,'#8b5cf6'],
+      ['⬇️ Incoming (to you)',w.escrow_incoming,'#12864e'],
+      ['💸 Total spent',w.total_spent,'#67708f'],
+      ['💰 Total earned',w.total_earned,'#12864e'],
+    ];
+    el.innerHTML=`
+      <div class="panel" style="background:linear-gradient(120deg,#0a1230,#111a44);color:#fff;border:none">
+        <div style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#9fb3dd">YUNEX Wallet · secured by TERRA</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:14px">
+          ${tiles.map(t=>`<div><div style="font-size:.72rem;color:#9fb3dd">${t[0]}</div><div style="font-size:1.5rem;font-weight:900;color:#fff;margin-top:2px">${cur(t[1])}</div></div>`).join('')}
+        </div>
+      </div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:16px">
+        <div class="card" style="text-align:center;padding:16px;opacity:.85"><div class="ic">➕</div><div style="font-weight:700;font-size:.88rem;margin-top:6px">Add funds</div><div class="muted" style="font-size:.72rem">via licensed partner</div></div>
+        <div class="card" style="text-align:center;padding:16px;opacity:.85"><div class="ic">↗️</div><div style="font-weight:700;font-size:.88rem;margin-top:6px">Withdraw</div><div class="muted" style="font-size:.72rem">via licensed partner</div></div>
+        <div class="card" style="text-align:center;padding:16px" onclick="go('deals')"><div class="ic">🤝</div><div style="font-weight:700;font-size:.88rem;margin-top:6px">My Deals</div><div class="muted" style="font-size:.72rem">${w.active_deals} active</div></div>
+      </div>
+      <div class="notice" style="margin-top:16px">🔒 Escrow protects every deal: your funds are held safely and released to the seller only when you confirm delivery. Adding funds and withdrawals settle through licensed payment partners under each country's law — YUNEX never holds deposits as a bank.</div>
+      <div class="panel">
+        <div class="sec-h" style="font-size:1.05rem">Transactions</div>
+        <div id="walletTx" style="margin-top:8px"></div>
+      </div>`;
+    const tx=document.getElementById('walletTx');
+    if(!w.transactions.length){ tx.innerHTML='<div class="muted" style="font-size:.85rem">No transactions yet. When you fund escrow on a deal, it appears here.</div>'; }
+    else tx.innerHTML=w.transactions.map(t=>`<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #f0f2f7">
+      <div><div style="font-weight:600;font-size:.88rem">${esc(t.label)}</div><div class="muted" style="font-size:.74rem">${esc(t.ref)} · ${t.at?new Date(t.at).toLocaleDateString():''}</div></div>
+      <div style="font-weight:800;color:${t.sign==='+'?'#12864e':'#c0392b'};white-space:nowrap">${t.sign}${fmtCur(t.amount,t.currency)} ${t.currency}</div></div>`).join('');
+  }catch(e){ el.innerHTML='<div class="panel"><div class="muted">Could not load wallet.</div></div>'; }
+}
+
+/* COMMUNITY — verified business network */
+let COMM_CAT='';
+function communityChip(label,active){return `<button onclick="setCommCat('${label==='All'?'':esc(label)}')" style="padding:7px 15px;border-radius:100px;border:1px solid ${active?'#3d5af1':'#d7dbe8'};background:${active?'linear-gradient(120deg,#3d5af1,#b326d9)':'#fff'};color:${active?'#fff':'#67708f'};font-weight:700;font-size:.8rem;cursor:pointer;font-family:inherit">${esc(label)}</button>`;}
+function setCommCat(c){ COMM_CAT=c; loadCommunity(); }
+async function loadCommunity(){
+  const compose=$('communityCompose'), topics=$('communityTopics'), feed=$('communityFeed');
+  if(!compose)return;
+  // composer — only for identity-verified members
+  if(!ME){ compose.innerHTML='<div class="panel"><div class="empty"><div class="ic">🌍</div><p style="margin-top:8px;font-weight:700">Join the verified network</p><p class="muted">Log in and verify your identity with TERRA to share, connect and post opportunities.</p><button class="btn g grad" style="margin-top:12px" onclick="openAuth(\'login\')">Log in</button></div></div>'; }
+  else if(ME.verification&&ME.verification.identity!=='verified'){ compose.innerHTML='<div class="notice">🛡️ Verify your identity with TERRA to post in the Community. You can read the feed freely.<div style="margin-top:10px"><button class="btn g grad sm" onclick="go(\'id\')">Verify my identity</button></div></div>'; }
+  else compose.innerHTML=`<div class="panel">
+    <div style="display:flex;gap:10px;align-items:flex-start">
+      <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(120deg,#3d5af1,#b326d9);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0">${esc((ME.name||'Y').trim().charAt(0).toUpperCase())}</div>
+      <div style="flex:1">
+        <textarea id="pc_body" rows="2" placeholder="Share knowledge, an opportunity or an update with the verified network…" style="width:100%"></textarea>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px">
+          <select id="pc_cat" style="max-width:180px">${COMMUNITY_TOPICS_FALLBACK.map(t=>`<option>${t}</option>`).join('')}</select>
+          <label class="btn o sm" style="color:#67708f;border-color:#d7dbe8;cursor:pointer">🖼️ Image<input id="pc_img" type="file" accept="image/*" style="display:none" onchange="pcPreview()"></label>
+          <span id="pc_imgname" class="muted" style="font-size:.78rem"></span>
+          <span style="flex:1"></span>
+          <button class="btn g grad" onclick="submitPost()">Post</button>
+        </div>
+        <span class="muted" id="pc_msg" style="font-size:.8rem"></span>
+      </div>
+    </div></div>`;
+  feed.innerHTML='<div class="panel"><div class="muted">Loading the feed…</div></div>';
+  try{
+    const qs=new URLSearchParams(); if(COMM_CAT)qs.set('category',COMM_CAT);
+    const d=await fetch(API+'/api/yunex/community/posts?'+qs.toString(),{headers:H()}).then(r=>r.json());
+    COMMUNITY_TOPICS_FALLBACK=d.topics||COMMUNITY_TOPICS_FALLBACK;
+    topics.innerHTML='<div style="display:flex;gap:8px;flex-wrap:wrap">'+communityChip('All',!COMM_CAT)+d.topics.map(t=>communityChip(t,COMM_CAT===t)).join('')+'</div>';
+    if(!d.posts.length){ feed.innerHTML='<div class="panel"><div class="empty"><div class="ic">💬</div><p style="margin-top:8px;font-weight:700">No posts yet'+(COMM_CAT?' in '+esc(COMM_CAT):'')+'</p><p class="muted">Be the first verified member to share here.</p></div></div>'; return; }
+    feed.innerHTML=d.posts.map(p=>postCard(p)).join('');
+  }catch(e){ feed.innerHTML='<div class="panel"><div class="muted">Could not load the feed.</div></div>'; }
+}
+let COMMUNITY_TOPICS_FALLBACK=['General','Business','Trade','Investment','Technology','Agriculture','Announcements','Opportunities'];
+function postCard(p){
+  const marks=(p.author.trust_marks||[]).map(m=>`<span class="st ok" style="background:${m.color}1a;color:${m.color};padding:2px 8px;font-size:.66rem">${terraBadge(11)} ${esc(m.label.replace(' Verified',''))}</span>`).join(' ');
+  const when=p.created_at?new Date(p.created_at).toLocaleDateString(undefined,{month:'short',day:'numeric'}):'';
+  return `<div class="panel" id="post_${p.ref}">
+    <div style="display:flex;gap:10px;align-items:center">
+      <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(120deg,#3d5af1,#b326d9);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0">${esc((p.author.name||'Y').trim().charAt(0).toUpperCase())}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap">${esc(p.author.name)} ${marks}</div>
+        <div class="muted" style="font-size:.74rem">${esc(p.author.country||'')}${p.author.country?' · ':''}${esc(p.category)} · ${when}</div>
+      </div>
+    </div>
+    <p style="margin:12px 0 0;line-height:1.6;color:#2a3350;white-space:pre-wrap">${esc(p.body)}</p>
+    ${p.image_url?`<div style="margin-top:12px;border-radius:12px;overflow:hidden"><img src="${esc(p.image_url)}" style="width:100%;display:block"></div>`:''}
+    <div style="display:flex;gap:18px;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid #f0f2f7">
+      <button onclick="toggleLike('${p.ref}')" style="background:none;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:.85rem;color:${p.liked?'#c0392b':'#67708f'}"><span id="lk_${p.ref}">${p.liked?'❤️':'🤍'} ${p.likes}</span></button>
+      <button onclick="openPost('${p.ref}')" style="background:none;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:.85rem;color:#67708f">💬 ${p.comments}</button>
+    </div></div>`;
+}
+function pcPreview(){ const f=$('pc_img').files[0]; $('pc_imgname').textContent=f?f.name:''; }
+function fileToDataURL(file){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); }); }
+async function submitPost(){
+  const body=$('pc_body').value.trim(); const msg=$('pc_msg');
+  if(!body){ msg.style.color='#c0392b'; msg.textContent='Write something to share.'; return; }
+  const payload={body,category:$('pc_cat').value};
+  const f=$('pc_img').files[0];
+  if(f){ if(f.size>4*1024*1024){ msg.style.color='#c0392b'; msg.textContent='Image must be under 4 MB.'; return; } payload.image=await fileToDataURL(f); }
+  msg.style.color='#67708f'; msg.textContent='Posting…';
+  const r=await fetch(API+'/api/yunex/community/posts',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify(payload)});
+  const d=await r.json(); if(!r.ok){ msg.style.color='#c0392b'; msg.textContent=d.error||'Failed'; return; }
+  loadCommunity();
+}
+async function toggleLike(ref){
+  if(!ME){ openAuth('login'); return; }
+  const r=await fetch(API+'/api/yunex/community/posts/'+ref+'/like',{method:'POST',headers:H()});
+  const d=await r.json(); if(!r.ok)return;
+  const el=$('lk_'+ref); if(el){ const n=parseInt(el.textContent.replace(/\D/g,''))||0; const nn=d.liked?n+1:Math.max(0,n-1); el.textContent=(d.liked?'❤️':'🤍')+' '+nn; el.parentElement.style.color=d.liked?'#c0392b':'#67708f'; }
+}
+async function openPost(ref){
+  const d=await fetch(API+'/api/yunex/community/posts/'+ref,{headers:H()}).then(r=>r.json());
+  const p=d.post;
+  const marks=(p.author.trust_marks||[]).map(m=>`<span class="st ok" style="background:${m.color}1a;color:${m.color};padding:2px 8px;font-size:.66rem">${terraBadge(11)} ${esc(m.label.replace(' Verified',''))}</span>`).join(' ');
+  const canPost=ME&&ME.verification&&ME.verification.identity==='verified';
+  $('listingModalBody').innerHTML=`
+    <div style="display:flex;gap:10px;align-items:center">
+      <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(120deg,#3d5af1,#b326d9);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900">${esc((p.author.name||'Y').charAt(0).toUpperCase())}</div>
+      <div><div style="font-weight:700;display:flex;gap:6px;flex-wrap:wrap;align-items:center">${esc(p.author.name)} ${marks}</div><div class="muted" style="font-size:.74rem">${esc(p.category)}</div></div>
+    </div>
+    <p style="margin:12px 0 0;line-height:1.6;color:#2a3350;white-space:pre-wrap">${esc(p.body)}</p>
+    ${p.image_url?`<div style="margin-top:12px;border-radius:12px;overflow:hidden"><img src="${esc(p.image_url)}" style="width:100%;display:block"></div>`:''}
+    <div style="font-weight:700;margin-top:16px">Comments (${d.comments.length})</div>
+    <div style="margin-top:8px">${!d.comments.length?'<div class="muted" style="font-size:.85rem">No comments yet.</div>':d.comments.map(c=>`<div style="padding:10px 0;border-bottom:1px solid #f0f2f7"><div style="font-weight:700;font-size:.84rem;display:flex;gap:6px;flex-wrap:wrap;align-items:center">${esc(c.author.name)} ${(c.author.trust_marks||[]).map(m=>terraBadge(11)).join('')}</div><div style="font-size:.88rem;color:#2a3350;margin-top:3px;white-space:pre-wrap">${esc(c.body)}</div></div>`).join('')}</div>
+    ${canPost?`<div class="panel" style="padding:12px;margin-top:12px"><textarea id="cm_body" rows="2" placeholder="Add a comment…" style="width:100%"></textarea><button class="btn g grad sm" style="margin-top:8px" onclick="sendComment('${ref}')">Comment</button><span class="muted" id="cm_msg" style="margin-left:8px;font-size:.8rem"></span></div>`:'<div class="muted" style="font-size:.8rem;margin-top:12px">Verify your identity to comment.</div>'}`;
+  $('listingModal').classList.add('on');
+}
+async function sendComment(ref){
+  const body=$('cm_body').value.trim(); const msg=$('cm_msg');
+  if(!body){ msg.textContent='Write a comment.'; return; }
+  const r=await fetch(API+'/api/yunex/community/posts/'+ref+'/comment',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify({body})});
+  const d=await r.json(); if(!r.ok){ msg.style.color='#c0392b'; msg.textContent=d.error||'Failed'; return; }
+  openPost(ref); loadCommunity();
+}
+/* Community tabs: Feed | Events */
+function commTab(t){
+  const feed=t==='feed';
+  $('commFeedPane').style.display=feed?'':'none'; $('commEventsPane').style.display=feed?'none':'';
+  $('ctabFeed').className=feed?'btn g grad sm':'btn o sm'; $('ctabFeed').style.cssText=feed?'':'color:#67708f;border-color:#d7dbe8';
+  $('ctabEvents').className=feed?'btn o sm':'btn g grad sm'; $('ctabEvents').style.cssText=feed?'color:#67708f;border-color:#d7dbe8':'';
+  feed?loadCommunity():loadEvents();
+}
+/* Events & Opportunities */
+let EVT_TYPE='', EVENT_TYPES_FALLBACK=[{key:'event',label:'Event',icon:'📅'},{key:'webinar',label:'Webinar',icon:'💻'},{key:'tender',label:'Tender',icon:'📑'},{key:'opportunity',label:'Opportunity',icon:'🚀'},{key:'expo',label:'Expo / Fair',icon:'🎪'}];
+function evtChip(label,key,active){return `<button onclick="setEvtType('${key}')" style="padding:7px 15px;border-radius:100px;border:1px solid ${active?'#3d5af1':'#d7dbe8'};background:${active?'linear-gradient(120deg,#3d5af1,#b326d9)':'#fff'};color:${active?'#fff':'#67708f'};font-weight:700;font-size:.8rem;cursor:pointer;font-family:inherit">${esc(label)}</button>`;}
+function setEvtType(k){ EVT_TYPE=k; loadEvents(); }
+async function loadEvents(){
+  const compose=$('eventsCompose'), types=$('eventsTypes'), feed=$('eventsFeed'); if(!compose)return;
+  if(!ME){ compose.innerHTML='<div class="panel"><div class="empty"><div class="ic">📅</div><p style="margin-top:8px;font-weight:700">Discover verified events & opportunities</p><p class="muted">Log in and verify your identity to post and register.</p><button class="btn g grad" style="margin-top:12px" onclick="openAuth(\'login\')">Log in</button></div></div>'; }
+  else if(ME.verification&&ME.verification.identity!=='verified'){ compose.innerHTML='<div class="notice">🛡️ Verify your identity with TERRA to post an event or opportunity. You can browse and register freely once verified.</div>'; }
+  else compose.innerHTML=`<div class="panel">
+    <div class="sec-h" style="font-size:1.05rem">➕ Post an event or opportunity</div>
+    <div class="row2" style="margin-top:10px">
+      <div><label>Type</label><select id="ev_type">${EVENT_TYPES_FALLBACK.map(t=>`<option value="${t.key}">${t.icon} ${t.label}</option>`).join('')}</select></div>
+      <div><label>Date / when</label><input id="ev_when" placeholder="e.g. 15 Aug 2026, 10:00 GMT"></div>
+      <div style="grid-column:1/-1"><label>Title</label><input id="ev_title" placeholder="e.g. West Africa Cocoa Expo 2026"></div>
+      <div><label>Location</label><input id="ev_loc" placeholder="City / Online"></div>
+      <div><label>Corridor</label><select id="ev_corr"><option value="">— None —</option><option value="china">🇨🇳 China</option><option value="gulf">🌙 Gulf</option><option value="europe">🇪🇺 Europe</option><option value="america">🌎 America</option><option value="oceania">🌏 Oceania</option><option value="africa">🌍 Africa</option></select></div>
+      <div style="grid-column:1/-1"><label>Link (optional)</label><input id="ev_link" placeholder="https://"></div>
+      <div style="grid-column:1/-1"><label>Details</label><textarea id="ev_desc" rows="2" placeholder="What it's about, who should attend, terms…"></textarea></div>
+    </div>
+    <button class="btn g grad" style="margin-top:12px" onclick="postEvent()">Post</button><span class="muted" id="ev_msg" style="margin-left:10px;font-size:.8rem"></span></div>`;
+  feed.innerHTML='<div class="panel"><div class="muted">Loading events…</div></div>';
+  try{
+    const qs=new URLSearchParams(); if(EVT_TYPE)qs.set('type',EVT_TYPE);
+    const d=await fetch(API+'/api/yunex/events?'+qs.toString(),{headers:H()}).then(r=>r.json());
+    EVENT_TYPES_FALLBACK=d.types||EVENT_TYPES_FALLBACK;
+    types.innerHTML='<div style="display:flex;gap:8px;flex-wrap:wrap">'+evtChip('All','',!EVT_TYPE)+d.types.map(t=>evtChip(t.icon+' '+t.label,t.key,EVT_TYPE===t.key)).join('')+'</div>';
+    if(!d.events.length){ feed.innerHTML='<div class="panel"><div class="empty"><div class="ic">📅</div><p style="margin-top:8px;font-weight:700">No events yet'+(EVT_TYPE?' in this category':'')+'</p><p class="muted">Verified members post trade fairs, webinars, tenders and opportunities here.</p></div></div>'; return; }
+    feed.innerHTML=d.events.map(e=>eventCard(e)).join('');
+  }catch(e){ feed.innerHTML='<div class="panel"><div class="muted">Could not load events.</div></div>'; }
+}
+function eventCard(e){
+  const marks=(e.host.trust_marks||[]).map(m=>`<span class="st ok" style="background:${m.color}1a;color:${m.color};padding:2px 8px;font-size:.66rem">${terraBadge(11)} ${esc(m.label.replace(' Verified',''))}</span>`).join(' ');
+  return `<div class="panel">
+    <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap">
+      <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(120deg,#0a1230,#111a44);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0">${e.type_icon}</div>
+      <div style="flex:1;min-width:180px">
+        <div style="font-size:.68rem;font-weight:700;color:#8b5cf6;text-transform:uppercase">${esc(e.type_label)}${e.corridor_label?' · '+esc(e.corridor_label):''}</div>
+        <h3 style="margin:3px 0;font-size:1.05rem">${esc(e.title)}</h3>
+        <div class="muted" style="font-size:.8rem">${e.starts_at?'🗓️ '+esc(e.starts_at):''}${e.location?(e.starts_at?' · ':'')+'📍 '+esc(e.location):''}</div>
+        <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;align-items:center"><span style="font-weight:600;font-size:.82rem">${esc(e.host.name)}</span> ${marks}</div>
+      </div>
+    </div>
+    ${e.description?`<p style="margin:12px 0 0;line-height:1.6;color:#2a3350;white-space:pre-wrap">${esc(e.description)}</p>`:''}
+    ${e.link?`<div style="margin-top:8px"><a href="${esc(e.link)}" target="_blank" rel="noopener" style="color:#3d5af1;font-size:.85rem">🔗 ${esc(e.link)}</a></div>`:''}
+    <div style="display:flex;gap:12px;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid #f0f2f7;flex-wrap:wrap">
+      <button onclick="rsvpEvent('${e.ref}')" class="btn ${e.going?'o':'g grad'} sm" ${e.going?'style="color:#12864e;border-color:#bfe6cf"':''}><span id="rsvp_${e.ref}">${e.going?'✓ Registered':'Register interest'}</span></button>
+      <span class="muted" style="font-size:.8rem"><b id="rsvpn_${e.ref}">${e.rsvps}</b> registered</span>
+      ${e.mine?`<span style="flex:1"></span><button class="btn o sm" style="color:#c0392b;border-color:#f0c9c9" onclick="closeEvent('${e.ref}')">Close</button>`:''}
+    </div></div>`;
+}
+async function postEvent(){
+  const g=id=>$(id).value.trim(); const msg=$('ev_msg');
+  const body={type:$('ev_type').value,title:g('ev_title'),starts_at:g('ev_when'),location:g('ev_loc'),corridor:$('ev_corr').value,link:g('ev_link'),description:g('ev_desc')};
+  if(!body.title){ msg.style.color='#c0392b'; msg.textContent='A title is required.'; return; }
+  msg.style.color='#67708f'; msg.textContent='Posting…';
+  const r=await fetch(API+'/api/yunex/events',{method:'POST',headers:{'content-type':'application/json',...H()},body:JSON.stringify(body)});
+  const d=await r.json(); if(!r.ok){ msg.style.color='#c0392b'; msg.textContent=d.error||'Failed'; return; }
+  loadEvents();
+}
+async function rsvpEvent(ref){
+  if(!ME){ openAuth('login'); return; }
+  const r=await fetch(API+'/api/yunex/events/'+ref+'/rsvp',{method:'POST',headers:H()});
+  const d=await r.json(); if(!r.ok){ alert(d.error||'Could not register'); return; }
+  const btn=$('rsvp_'+ref), n=$('rsvpn_'+ref);
+  if(btn){ btn.textContent=d.going?'✓ Registered':'Register interest'; const b=btn.parentElement; b.className='btn '+(d.going?'o':'g grad')+' sm'; b.style.cssText=d.going?'color:#12864e;border-color:#bfe6cf':''; }
+  if(n){ const c=parseInt(n.textContent)||0; n.textContent=d.going?c+1:Math.max(0,c-1); }
+}
+async function closeEvent(ref){
+  if(!confirm('Close this event? It will be removed from the board.'))return;
+  const r=await fetch(API+'/api/yunex/events/'+ref+'/close',{method:'POST',headers:H()});
+  if(r.ok)loadEvents();
+}
+
+/* HOME gateway */
+async function loadHome(){
+  const y=document.getElementById('fyear'); if(y)y.textContent=new Date().getFullYear();
+  // corridors
+  try{ if(!CORRIDORS){ CORRIDORS=(await fetch(API+'/api/yunex/corridors').then(r=>r.json())).corridors; }
+    const el=document.getElementById('homeCorridors'); if(el)el.innerHTML=CORRIDORS.map(c=>`<div class="card" style="text-align:center;padding:16px;cursor:pointer" onclick="MARKET_PILLAR='';MARKET_CORRIDOR='${c.key}';go('market')"><div style="font-size:1.6rem">${c.flag}</div><div style="font-weight:700;font-size:.88rem;margin-top:4px">${esc(c.label.replace(' Corridor',''))}</div></div>`).join('');
+  }catch(e){}
+  // stats
+  try{ const s=await fetch(API+'/api/yunex/stats').then(r=>r.json());
+    const el=document.getElementById('homeStats'); if(el){ const tile=(n,l)=>`<div><div style="font-size:1.7rem;font-weight:900;color:#fff">${Number(n).toLocaleString()}</div><div style="font-size:.72rem;color:#9fb3dd;text-transform:uppercase;letter-spacing:.08em">${l}</div></div>`;
+      el.innerHTML=tile(s.users,'Members')+tile(s.verified,'Verified')+tile(s.listings,'Active listings')+tile(s.deals,'Deals')+tile(s.corridors,'Corridors')+tile(s.currencies,'Currencies'); }
+  }catch(e){}
+  // adaptive dashboard for logged-in users
+  const dash=document.getElementById('homeDash'); if(!dash)return;
+  if(!ME){ dash.innerHTML=''; return; }
+  const roles=ME.roles||[];
+  let cards='';
+  cards+=`<div class="card" onclick="go('id')"><div class="ic">🪪</div><h3>My SKYGLOBE ID</h3><p>${ME.can_sell?'✔ Verified — cleared to trade':'Complete TERRA verification to trade'}</p></div>`;
+  cards+=`<div class="card" onclick="go('deals')"><div class="ic">🤝</div><h3>My Deals</h3><p>Track negotiations, escrow and delivery.</p></div>`;
+  if(ME.can_sell) cards+=`<div class="card" onclick="go('business')"><div class="ic">🏢</div><h3>Business Centre</h3><p>Publish and manage your listings.</p></div>`;
+  cards+=`<div class="card" onclick="go('wallet')"><div class="ic">💰</div><h3>Wallet</h3><p>Payments, escrow and settlement.</p></div>`;
+  dash.innerHTML=`<h2 class="sec-h" style="margin-top:26px">Welcome back, ${esc((ME.name||'').split(' ')[0]||'there')}</h2><div class="grid g3" style="margin-top:12px">${cards}</div>`;
+}
+
+/* boot */
+renderAcct(); loadMe(); loadFX(); loadHome();
+</script>

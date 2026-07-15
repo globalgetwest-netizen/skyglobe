@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyGlobe Academy — Knowledge Hub</title>
+<meta name="description" content="SkyGlobe Academy — a fully guided online academy for every learner — from age 4 to adult — to explore knowledge, discover their talents, and shape their future. One World. One Mission.">
+<meta name="theme-color" content="#041022">
+<link rel="icon" href="/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#041022;--navy2:#071B3B;--blue:#0b2147;
+    --gold:#D4A73A;--gold-hi:#F4D77A;--gold-deep:#a87016;
+    --ink:#1a2233;--muted:#6b7689;--line:#e6e9ef;
+    --teal:#0d7a6e;--teal-hi:#1ab8a8;
+    --font:"SF Pro Display","Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);color:var(--ink);background:#f4f6fa;line-height:1.65}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+
+  /* header */
+  header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:40}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.06em}
+  .brand img{height:38px;width:38px;border-radius:8px}
+  .brand small{display:block;color:var(--gold);font-size:.62rem;letter-spacing:.22em;font-weight:600}
+  header .back{color:#cdd6e6;font-size:.9rem}
+
+  /* hero */
+  .hero{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;padding:80px 0 90px;text-align:center}
+  .hero:before{content:"";position:absolute;inset:0;
+    background:radial-gradient(760px 400px at 50% -10%, rgba(26,184,168,.15), transparent 60%),
+               radial-gradient(400px 300px at 80% 90%, rgba(212,167,58,.12), transparent 60%);
+    pointer-events:none}
+  .hero .badge{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--gold);border:1px solid rgba(212,167,58,.4);padding:7px 20px;border-radius:30px;margin-bottom:22px}
+  .hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(2.2rem,5.5vw,3.6rem);line-height:1.08}
+  .hero h1 em{color:var(--gold-hi);font-style:normal}
+  .hero .tagline{max-width:700px;margin:18px auto 0;color:#c3cee0;font-weight:300;font-size:clamp(.95rem,2.4vw,1.1rem);line-height:1.7}
+  .hero .principle{margin-top:18px;font-size:.84rem;color:rgba(255,255,255,.5);letter-spacing:.04em;font-style:italic}
+  .hero .motto{margin-top:20px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.8rem;color:var(--gold-hi)}
+  .hero-stats{display:flex;justify-content:center;flex-wrap:wrap;gap:32px;margin-top:46px}
+  .h-stat{text-align:center}
+  .h-stat .n{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:600;color:var(--gold-hi);line-height:1}
+  .h-stat .l{font-size:.78rem;color:#9fb0c9;text-transform:uppercase;letter-spacing:.14em;margin-top:4px}
+
+  /* age ribbon */
+  .age-ribbon{background:#fff;border-bottom:1px solid var(--line);padding:0;position:sticky;top:66px;z-index:30;overflow-x:auto}
+  .age-ribbon::-webkit-scrollbar{display:none}
+  .age-ribbon .inner{display:flex;min-width:max-content;padding:0 20px}
+  .age-tab{padding:14px 22px;font-size:.84rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap}
+  .age-tab:hover{color:var(--navy)}
+  .age-tab.active{color:var(--navy);border-bottom-color:var(--gold)}
+  .age-tab .emoji{margin-right:6px}
+  .age-tab .range{font-size:.73rem;font-weight:400;color:var(--muted);display:block;margin-top:1px}
+
+  /* section */
+  .section{padding:60px 0}
+  .s-head{text-align:center;max-width:700px;margin:0 auto 46px}
+  .s-tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:12px}
+  .s-title{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(1.7rem,3.6vw,2.5rem);color:var(--navy);line-height:1.15}
+  .s-sub{color:var(--muted);margin-top:10px;font-weight:300}
+
+  /* framework steps */
+  .framework{display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin-bottom:52px;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .fw-step{flex:1;min-width:130px;padding:24px 18px;text-align:center;position:relative}
+  .fw-step:not(:last-child):after{content:"→";position:absolute;right:-2px;top:50%;transform:translateY(-50%);color:#c5cfd8;font-size:1.1rem;z-index:2}
+  .fw-step .num{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+  .fw-step .word{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--navy)}
+  .fw-step .desc{font-size:.78rem;color:var(--muted);margin-top:4px;font-weight:300}
+  @media(max-width:640px){.fw-step:not(:last-child):after{display:none}.framework{flex-direction:column}.fw-step{border-bottom:1px solid var(--line)}.fw-step:last-child{border-bottom:none}}
+
+  /* age group panels */
+  .age-panel{display:none}
+  .age-panel.show{display:block}
+  .ap-hero{background:linear-gradient(155deg,var(--navy),var(--navy2));border-radius:20px;padding:clamp(28px,5vw,46px);color:#fff;border:1px solid rgba(212,167,58,.25);margin-bottom:28px}
+  .ap-hero .label{font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  .ap-hero h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.1}
+  .ap-hero h2 span{color:var(--gold)}
+  .ap-hero .desc{color:#c3cee0;font-weight:300;margin-top:12px;max-width:720px;line-height:1.7}
+  .ap-hero .fw-bar{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .ap-hero .fw-chip{background:rgba(212,167,58,.15);border:1px solid rgba(212,167,58,.4);color:#f0e3bd;padding:6px 14px;border-radius:30px;font-size:.78rem;font-weight:500}
+  .ap-hero .fw-chip.active-fw{background:rgba(212,167,58,.35);border-color:var(--gold)}
+
+  /* pathways grid */
+  .pw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px}
+  .pw-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;transition:transform .25s,box-shadow .25s,border-color .25s;cursor:default}
+  .pw-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(4,16,34,.1);border-color:rgba(212,167,58,.45)}
+  .pw-card .ic{font-size:2rem;margin-bottom:14px;display:block}
+  .pw-card h3{font-size:1.05rem;font-weight:600;color:var(--navy);margin-bottom:8px}
+  .pw-card .sub{font-size:.88rem;color:var(--muted);font-weight:300;margin-bottom:14px}
+  .pw-card .topics{list-style:none;display:flex;flex-direction:column;gap:5px}
+  .pw-card .topics li{font-size:.82rem;color:#3c465a;padding-left:14px;position:relative;font-weight:300}
+  .pw-card .topics li:before{content:"·";position:absolute;left:0;color:var(--gold);font-weight:700}
+  .pw-card .level-chip{display:inline-block;margin-top:14px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;padding:4px 12px;border-radius:20px}
+  .pw-card .level-chip.explore{background:#e8f9f7;color:#0d7a6e}
+  .pw-card .level-chip.discover{background:#eef2ff;color:#3a4aaa}
+  .pw-card .level-chip.build{background:#fff7e6;color:#a87016}
+  .pw-card .level-chip.specialize{background:#f0ebff;color:#6a3ab5}
+  .pw-card .level-chip.lead{background:#fef0f4;color:#b53a64}
+
+  /* AI section */
+  .ai-block{background:linear-gradient(155deg,#071B3B,#0d3060);border:1px solid rgba(212,167,58,.3);border-radius:22px;padding:clamp(30px,5vw,52px);color:#fff;text-align:center}
+  .ai-block .ai-icon{font-size:3rem;margin-bottom:16px}
+  .ai-block h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.8rem,3.8vw,2.5rem);line-height:1.15}
+  .ai-block h2 span{color:var(--gold)}
+  .ai-block p{color:#c3cee0;font-weight:300;margin-top:14px;max-width:680px;margin-left:auto;margin-right:auto;line-height:1.7}
+  .ai-feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:32px;text-align:left}
+  .ai-feat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px}
+  .ai-feat .n{color:var(--gold);font-weight:700;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+  .ai-feat h4{font-size:.98rem;margin-bottom:5px}
+  .ai-feat p{font-size:.84rem;color:#aebbd2;font-weight:300}
+
+  /* cta */
+  .cta-block{text-align:center;margin-top:50px;padding:54px 20px;background:#fff;border-radius:22px;border:1px solid var(--line)}
+  .cta-block h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.8rem,3.8vw,2.5rem);color:var(--navy);line-height:1.15}
+  .cta-block h2 span{color:var(--gold)}
+  .cta-block p{color:var(--muted);font-weight:300;margin:14px auto 28px;max-width:580px}
+  .btn{display:inline-block;background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1a1300;
+    padding:15px 36px;border-radius:44px;font-weight:700;font-size:.92rem;letter-spacing:.04em;
+    box-shadow:0 12px 30px rgba(212,167,58,.35);transition:transform .25s,box-shadow .25s}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(212,167,58,.5)}
+  .btn.ghost{background:transparent;border:2px solid rgba(4,16,34,.2);color:var(--navy);box-shadow:none;margin-left:12px}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold-deep)}
+
+  footer{background:var(--navy);color:#9fb0c9;text-align:center;padding:30px 20px;font-size:.85rem;margin-top:50px}
+  footer .m{color:var(--gold);letter-spacing:.14em;font-size:.74rem;text-transform:uppercase;margin-top:8px}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a href="/" class="brand"><img src="/icon-192.png" alt="SkyGlobe Group"><div>SKYGLOBE<small>GROUP</small></div></a>
+  <a class="back" href="/">← Back to main site</a>
+</div></header>
+<script src="/noria-widget.js"></script>
+
+<!-- HERO -->
+<section class="hero"><div class="wrap">
+  <div class="badge">✦ Knowledge Hub · SkyGlobe Academy</div>
+  <h1>Empowering Young Minds<br>to <em>Explore</em>, Discover &amp; Lead</h1>
+  <p class="tagline">A fully guided online academy for everyone — children, teens and adults. Eight knowledge pathways, five learning stages, and one mission: helping every learner find where their brilliance lives.</p>
+  <p class="principle">"Children should have the opportunity to explore broadly before they specialize."</p>
+  <div class="motto">One World. One Mission.</div>
+  <div class="hero-stats">
+    <div class="h-stat"><div class="n">8</div><div class="l">Knowledge Pathways</div></div>
+    <div class="h-stat"><div class="n">5</div><div class="l">Age Groups</div></div>
+    <div class="h-stat"><div class="n">4–18</div><div class="l">Years Old</div></div>
+    <div class="h-stat"><div class="n">AI</div><div class="l">Managed Learning</div></div>
+  </div>
+</div></section>
+
+<!-- AGE RIBBON -->
+<nav class="age-ribbon" aria-label="Age groups">
+  <div class="inner">
+    <div class="age-tab active" onclick="switchAge('explorers',this)"><span class="emoji">🌱</span>Early Explorers<span class="range">Ages 4 – 6</span></div>
+    <div class="age-tab" onclick="switchAge('innovators',this)"><span class="emoji">🔬</span>Junior Innovators<span class="range">Ages 7 – 9</span></div>
+    <div class="age-tab" onclick="switchAge('creators',this)"><span class="emoji">🎨</span>Young Creators<span class="range">Ages 10 – 12</span></div>
+    <div class="age-tab" onclick="switchAge('leaders',this)"><span class="emoji">🚀</span>Future Leaders<span class="range">Ages 13 – 15</span></div>
+    <div class="age-tab" onclick="switchAge('global',this)"><span class="emoji">🌍</span>Global Innovators<span class="range">Ages 16 – 18</span></div>
+    <div class="age-tab" onclick="location.href='/courses'"><span class="emoji">🎓</span>Adult &amp; Professional<span class="range">Certificate programs →</span></div>
+  </div>
+</nav>
+
+<!-- FRAMEWORK -->
+<section class="section"><div class="wrap">
+  <div class="s-head">
+    <span class="s-tag">Learning Framework</span>
+    <h2 class="s-title">Five Stages of Mastery</h2>
+    <p class="s-sub">Every child progresses through a structured journey — from curiosity to capability.</p>
+  </div>
+  <div class="framework">
+    <div class="fw-step"><div class="num">Stage 01</div><div class="word">Explore</div><div class="desc">Discover the world with curiosity and no limits</div></div>
+    <div class="fw-step"><div class="num">Stage 02</div><div class="word">Discover</div><div class="desc">Identify strengths, interests, and natural talents</div></div>
+    <div class="fw-step"><div class="num">Stage 03</div><div class="word">Build</div><div class="desc">Develop skills through guided, hands-on projects</div></div>
+    <div class="fw-step"><div class="num">Stage 04</div><div class="word">Specialize</div><div class="desc">Go deep into chosen fields with expert mentoring</div></div>
+    <div class="fw-step"><div class="num">Stage 05</div><div class="word">Lead</div><div class="desc">Inspire others, create, and shape the future</div></div>
+  </div>
+
+  <!-- EARLY EXPLORERS -->
+  <div class="age-panel show" id="panel-explorers">
+    <div class="ap-hero">
+      <div class="label">🌱 Stage 01 · Early Explorers · Ages 4–6</div>
+      <h2>Every Journey Begins with <span>Wonder</span></h2>
+      <p class="desc">At this stage, children develop foundational curiosity, language, and creative thinking through playful, story-led exploration. Your personal tutor adapts to each child's pace and learning style — keeping engagement joyful and pressure-free.</p>
+      <div class="fw-bar">
+        <span class="fw-chip active-fw">Explore</span>
+        <span class="fw-chip">Discover</span>
+        <span class="fw-chip">Build</span>
+        <span class="fw-chip">Specialize</span>
+        <span class="fw-chip">Lead</span>
+      </div>
+    </div>
+    <div class="pw-grid">
+      <div class="pw-card"><span class="ic">🤖</span><h3>AI &amp; Technology</h3><p class="sub">What is a computer? How do machines think?</p><ul class="topics"><li>Shapes and patterns in the world around us</li><li>Simple sorting games (how computers organise)</li><li>Friendly robots and their jobs</li><li>Touch, sound and visual technology</li></ul><span class="level-chip explore">Explore</span></div>
+      <div class="pw-card"><span class="ic">🔭</span><h3>Science &amp; Innovation</h3><p class="sub">Tiny scientists, big questions.</p><ul class="topics"><li>Animals and plants — living and growing</li><li>Water, weather, and the sky</li><li>Colours, light, and simple experiments</li><li>My body and staying healthy</li></ul><span class="level-chip explore">Explore</span></div>
+      <div class="pw-card"><span class="ic">🔢</span><h3>Mathematics &amp; Logic</h3><p class="sub">Numbers are everywhere.</p><ul class="topics"><li>Counting, shapes, and sizes</li><li>Simple patterns and sequences</li><li>Comparing: more, less, same</li><li>Story problems with pictures</li></ul><span class="level-chip explore">Explore</span></div>
+      <div class="pw-card"><span class="ic">📖</span><h3>Languages &amp; Communication</h3><p class="sub">Stories, songs, and first words.</p><ul class="topics"><li>Phonics, letters, and reading readiness</li><li>My favourite stories and why</li><li>Listening and speaking — expressing feelings</li><li>Introduction to a second language through songs</li></ul><span class="level-chip explore">Explore</span></div>
+      <div class="pw-card"><span class="ic">🎨</span><h3>Creativity &amp; Design</h3><p class="sub">Every child is an artist.</p><ul class="topics"><li>Drawing, painting, and collage</li><li>Music and rhythm</li><li>Building with blocks and clay</li><li>Imaginative play and storytelling</li></ul><span class="level-chip explore">Explore</span></div>
+      <div class="pw-card"><span class="ic">💡</span><h3>Entrepreneurship &amp; Leadership</h3><p class="sub">Big dreams start small.</p><ul class="topics"><li>Sharing, kindness, and teamwork</li><li>Making choices and solving problems</li><li>My favourite things — what I'm good at</li><li>Stories of great leaders</li></ul><span class="level-chip explore">Explore</span></div>
+      <div class="pw-card"><span class="ic">🏃</span><h3>Health &amp; Well-being</h3><p class="sub">Happy body, happy mind.</p><ul class="topics"><li>Healthy foods and eating well</li><li>Exercise, games, and movement</li><li>Sleep, rest, and taking care of myself</li><li>Feelings and how to manage them</li></ul><span class="level-chip explore">Explore</span></div>
+      <div class="pw-card"><span class="ic">🌍</span><h3>Global Citizenship</h3><p class="sub">The world is big — and beautiful.</p><ul class="topics"><li>Countries, flags, and people around the world</li><li>Different languages and foods</li><li>Being kind to the Earth</li><li>We are all one family</li></ul><span class="level-chip explore">Explore</span></div>
+    </div>
+  </div>
+
+  <!-- JUNIOR INNOVATORS -->
+  <div class="age-panel" id="panel-innovators">
+    <div class="ap-hero">
+      <div class="label">🔬 Stage 02 · Junior Innovators · Ages 7–9</div>
+      <h2>Curiosity Becomes <span>Discovery</span></h2>
+      <p class="desc">Children at this stage move from pure exploration to structured discovery. They begin connecting concepts, running simple experiments, and identifying the pathways that light them up most. Your personal tutor guides with questions, not answers.</p>
+      <div class="fw-bar">
+        <span class="fw-chip">Explore</span>
+        <span class="fw-chip active-fw">Discover</span>
+        <span class="fw-chip">Build</span>
+        <span class="fw-chip">Specialize</span>
+        <span class="fw-chip">Lead</span>
+      </div>
+    </div>
+    <div class="pw-grid">
+      <div class="pw-card"><span class="ic">🤖</span><h3>AI &amp; Technology</h3><p class="sub">How does technology work?</p><ul class="topics"><li>Block coding and logic flows</li><li>How the internet works (simply)</li><li>Building simple apps with drag-and-drop tools</li><li>AI vs. humans — what's the difference?</li></ul><span class="level-chip discover">Discover</span></div>
+      <div class="pw-card"><span class="ic">🔭</span><h3>Science &amp; Innovation</h3><p class="sub">Ask why. Then test it.</p><ul class="topics"><li>The scientific method — ask, predict, test, learn</li><li>Forces, motion, and simple machines</li><li>The solar system and space</li><li>Matter, energy, and simple chemistry</li></ul><span class="level-chip discover">Discover</span></div>
+      <div class="pw-card"><span class="ic">🔢</span><h3>Mathematics &amp; Logic</h3><p class="sub">Patterns, puzzles, and precision.</p><ul class="topics"><li>Multiplication, division, and fractions</li><li>Geometry: angles, area, and shapes</li><li>Data, graphs, and reading information</li><li>Word problems and real-life maths</li></ul><span class="level-chip discover">Discover</span></div>
+      <div class="pw-card"><span class="ic">📖</span><h3>Languages &amp; Communication</h3><p class="sub">Read more. Say more. Mean more.</p><ul class="topics"><li>Reading comprehension and critical thinking</li><li>Writing: stories, letters, and opinions</li><li>A second language — phrases, conversations</li><li>Public speaking basics: share your ideas</li></ul><span class="level-chip discover">Discover</span></div>
+      <div class="pw-card"><span class="ic">🎨</span><h3>Creativity &amp; Design</h3><p class="sub">Design thinking starts here.</p><ul class="topics"><li>Illustration and digital drawing tools</li><li>Writing and illustrating your own story</li><li>Basic music composition</li><li>Introduction to product design</li></ul><span class="level-chip discover">Discover</span></div>
+      <div class="pw-card"><span class="ic">💡</span><h3>Entrepreneurship &amp; Leadership</h3><p class="sub">Real problems, real solutions.</p><ul class="topics"><li>What is a business? Stories of young entrepreneurs</li><li>Needs vs. wants: economics for kids</li><li>Leading a team project</li><li>My strengths and how I use them</li></ul><span class="level-chip discover">Discover</span></div>
+      <div class="pw-card"><span class="ic">🏃</span><h3>Health &amp; Well-being</h3><p class="sub">Strong body, clear mind.</p><ul class="topics"><li>Nutrition and the food groups</li><li>Building habits: sleep, focus, screen time</li><li>Mindfulness and managing stress</li><li>Teamwork through sport</li></ul><span class="level-chip discover">Discover</span></div>
+      <div class="pw-card"><span class="ic">🌍</span><h3>Global Citizenship</h3><p class="sub">Understand your world.</p><ul class="topics"><li>World geography — continents, oceans, borders</li><li>Cultures and traditions around the world</li><li>Human rights for kids</li><li>The environment and climate: what can I do?</li></ul><span class="level-chip discover">Discover</span></div>
+    </div>
+  </div>
+
+  <!-- YOUNG CREATORS -->
+  <div class="age-panel" id="panel-creators">
+    <div class="ap-hero">
+      <div class="label">🎨 Stage 03 · Young Creators · Ages 10–12</div>
+      <h2>Discovery Turns into <span>Building</span></h2>
+      <p class="desc">This is where skills take real shape. Young Creators execute projects, learn to code, write with purpose, and solve real problems. Your personal tutor assigns challenges, reviews work, and adapts the curriculum to each child's emerging speciality.</p>
+      <div class="fw-bar">
+        <span class="fw-chip">Explore</span>
+        <span class="fw-chip">Discover</span>
+        <span class="fw-chip active-fw">Build</span>
+        <span class="fw-chip">Specialize</span>
+        <span class="fw-chip">Lead</span>
+      </div>
+    </div>
+    <div class="pw-grid">
+      <div class="pw-card"><span class="ic">🤖</span><h3>AI &amp; Technology</h3><p class="sub">Build the future.</p><ul class="topics"><li>Python programming fundamentals</li><li>Web development: HTML and CSS</li><li>AI ethics — how to use AI responsibly</li><li>App and game prototyping</li></ul><span class="level-chip build">Build</span></div>
+      <div class="pw-card"><span class="ic">🔭</span><h3>Science &amp; Innovation</h3><p class="sub">From ideas to inventions.</p><ul class="topics"><li>Biology: cells, genetics, and the human body</li><li>Physics: electricity, magnetism, and light</li><li>Chemistry: atoms, reactions, and the periodic table</li><li>Innovation challenge: design a solution to a real problem</li></ul><span class="level-chip build">Build</span></div>
+      <div class="pw-card"><span class="ic">🔢</span><h3>Mathematics &amp; Logic</h3><p class="sub">Think precisely. Solve boldly.</p><ul class="topics"><li>Algebra: equations and unknowns</li><li>Ratios, percentages, and proportions</li><li>Introduction to statistics</li><li>Computational thinking and algorithms</li></ul><span class="level-chip build">Build</span></div>
+      <div class="pw-card"><span class="ic">📖</span><h3>Languages &amp; Communication</h3><p class="sub">Write to be remembered.</p><ul class="topics"><li>Essay writing: argument, evidence, conclusion</li><li>Research skills and citing sources</li><li>Conversational fluency in a second language</li><li>Debate and structured discussion</li></ul><span class="level-chip build">Build</span></div>
+      <div class="pw-card"><span class="ic">🎨</span><h3>Creativity &amp; Design</h3><p class="sub">Make something that matters.</p><ul class="topics"><li>Graphic design and branding basics</li><li>Video production and editing</li><li>UX design: creating for users</li><li>Creative portfolio: build and showcase work</li></ul><span class="level-chip build">Build</span></div>
+      <div class="pw-card"><span class="ic">💡</span><h3>Entrepreneurship &amp; Leadership</h3><p class="sub">Launch your first idea.</p><ul class="topics"><li>Business model basics: product, customer, revenue</li><li>Marketing and pitching ideas</li><li>Managing a project team</li><li>Mini-business simulation</li></ul><span class="level-chip build">Build</span></div>
+      <div class="pw-card"><span class="ic">🏃</span><h3>Health &amp; Well-being</h3><p class="sub">Peak performance inside and out.</p><ul class="topics"><li>Sports science: training, recovery, nutrition</li><li>Mental health literacy: recognise and respond</li><li>Relationships and healthy communication</li><li>Goal-setting and discipline</li></ul><span class="level-chip build">Build</span></div>
+      <div class="pw-card"><span class="ic">🌍</span><h3>Global Citizenship</h3><p class="sub">Act locally. Think globally.</p><ul class="topics"><li>World history: key moments that shaped today</li><li>International organisations (UN, WHO, WTO)</li><li>Sustainability: the SDGs explained</li><li>My role in a global community</li></ul><span class="level-chip build">Build</span></div>
+    </div>
+  </div>
+
+  <!-- FUTURE LEADERS -->
+  <div class="age-panel" id="panel-leaders">
+    <div class="ap-hero">
+      <div class="label">🚀 Stage 04 · Future Leaders · Ages 13–15</div>
+      <h2>Building Leads to <span>Specialization</span></h2>
+      <p class="desc">Future Leaders choose their primary pathway and go deep. They work on advanced projects, begin building a professional portfolio, and receive personal mentoring mapped to real university and career entry paths.</p>
+      <div class="fw-bar">
+        <span class="fw-chip">Explore</span>
+        <span class="fw-chip">Discover</span>
+        <span class="fw-chip">Build</span>
+        <span class="fw-chip active-fw">Specialize</span>
+        <span class="fw-chip">Lead</span>
+      </div>
+    </div>
+    <div class="pw-grid">
+      <div class="pw-card"><span class="ic">🤖</span><h3>AI &amp; Technology</h3><p class="sub">Engineer the intelligent world.</p><ul class="topics"><li>Advanced Python and data science</li><li>Machine learning fundamentals</li><li>Cybersecurity basics</li><li>Capstone: build and deploy a real AI project</li></ul><span class="level-chip specialize">Specialize</span></div>
+      <div class="pw-card"><span class="ic">🔭</span><h3>Science &amp; Innovation</h3><p class="sub">Research-level thinking.</p><ul class="topics"><li>Advanced biology and biotechnology</li><li>Physics: mechanics, thermodynamics, waves</li><li>Environmental science and climate technology</li><li>Research project with SkyGlobe mentors</li></ul><span class="level-chip specialize">Specialize</span></div>
+      <div class="pw-card"><span class="ic">🔢</span><h3>Mathematics &amp; Logic</h3><p class="sub">Mathematics as a superpower.</p><ul class="topics"><li>Advanced algebra and functions</li><li>Introduction to calculus</li><li>Probability and statistics</li><li>Mathematical modelling for real problems</li></ul><span class="level-chip specialize">Specialize</span></div>
+      <div class="pw-card"><span class="ic">📖</span><h3>Languages &amp; Communication</h3><p class="sub">Command your voice.</p><ul class="topics"><li>Advanced writing: reports, analysis, narrative</li><li>Multilingual fluency track (choose your language)</li><li>Journalism and media literacy</li><li>Professional presentation and public speaking</li></ul><span class="level-chip specialize">Specialize</span></div>
+      <div class="pw-card"><span class="ic">🎨</span><h3>Creativity &amp; Design</h3><p class="sub">Professional-grade creative work.</p><ul class="topics"><li>Advanced graphic and motion design</li><li>Documentary and film-making</li><li>Architecture and spatial design</li><li>Portfolio development and creative pitching</li></ul><span class="level-chip specialize">Specialize</span></div>
+      <div class="pw-card"><span class="ic">💡</span><h3>Entrepreneurship &amp; Leadership</h3><p class="sub">Real venture, real stakes.</p><ul class="topics"><li>Startup methodology (Lean Canvas)</li><li>Fundraising, grants, and pitching investors</li><li>Leadership psychology and team dynamics</li><li>Launch a real micro-venture</li></ul><span class="level-chip specialize">Specialize</span></div>
+      <div class="pw-card"><span class="ic">🏃</span><h3>Health &amp; Well-being</h3><p class="sub">Resilience and performance.</p><ul class="topics"><li>Performance psychology</li><li>Nutrition science and personalised health</li><li>Mental health and emotional intelligence</li><li>Leadership through sport and coaching</li></ul><span class="level-chip specialize">Specialize</span></div>
+      <div class="pw-card"><span class="ic">🌍</span><h3>Global Citizenship</h3><p class="sub">Engage with the world's complexity.</p><ul class="topics"><li>Geopolitics and international relations</li><li>Human rights law and advocacy</li><li>Cross-cultural communication and diplomacy</li><li>Youth conference and model UN participation</li></ul><span class="level-chip specialize">Specialize</span></div>
+    </div>
+  </div>
+
+  <!-- GLOBAL INNOVATORS -->
+  <div class="age-panel" id="panel-global">
+    <div class="ap-hero">
+      <div class="label">🌍 Stage 05 · Global Innovators · Ages 16–18</div>
+      <h2>Specialization Becomes <span>Leadership</span></h2>
+      <p class="desc">Global Innovators are ready to lead. They produce original work, mentor younger students, build companies, publish research, and prepare for top university entry and global impact. Your personal tutor becomes a strategic advisor — guiding university applications, career mapping, and life planning.</p>
+      <div class="fw-bar">
+        <span class="fw-chip">Explore</span>
+        <span class="fw-chip">Discover</span>
+        <span class="fw-chip">Build</span>
+        <span class="fw-chip">Specialize</span>
+        <span class="fw-chip active-fw">Lead</span>
+      </div>
+    </div>
+    <div class="pw-grid">
+      <div class="pw-card"><span class="ic">🤖</span><h3>AI &amp; Technology</h3><p class="sub">Ship production-grade work.</p><ul class="topics"><li>Deep learning and neural networks</li><li>Software engineering best practices</li><li>AI for social impact — real-world deployment</li><li>Tech startup or open-source contribution</li></ul><span class="level-chip lead">Lead</span></div>
+      <div class="pw-card"><span class="ic">🔭</span><h3>Science &amp; Innovation</h3><p class="sub">Original research, global problems.</p><ul class="topics"><li>Independent research project</li><li>STEM competition preparation (Olympiads)</li><li>Lab internship and professional mentoring</li><li>Publication-ready scientific writing</li></ul><span class="level-chip lead">Lead</span></div>
+      <div class="pw-card"><span class="ic">🔢</span><h3>Mathematics &amp; Logic</h3><p class="sub">Mathematics at university entry level.</p><ul class="topics"><li>Calculus and differential equations</li><li>Linear algebra and discrete mathematics</li><li>Advanced competition mathematics</li><li>Applied mathematics in finance, AI, and physics</li></ul><span class="level-chip lead">Lead</span></div>
+      <div class="pw-card"><span class="ic">📖</span><h3>Languages &amp; Communication</h3><p class="sub">Lead the narrative.</p><ul class="topics"><li>Advanced academic writing and research</li><li>Language certification preparation (IELTS, DELF, DELE)</li><li>Broadcast, podcast, and media production</li><li>Personal statement and application coaching</li></ul><span class="level-chip lead">Lead</span></div>
+      <div class="pw-card"><span class="ic">🎨</span><h3>Creativity &amp; Design</h3><p class="sub">Graduate-calibre creative practice.</p><ul class="topics"><li>Portfolio masterclass for art school entry</li><li>Commercial design and freelance practice</li><li>Fashion, architecture, or industrial design tracks</li><li>Exhibition and showcase of original work</li></ul><span class="level-chip lead">Lead</span></div>
+      <div class="pw-card"><span class="ic">💡</span><h3>Entrepreneurship &amp; Leadership</h3><p class="sub">Build something that lasts.</p><ul class="topics"><li>Advanced venture building and scaling</li><li>Executive leadership and board communication</li><li>Social entrepreneurship and impact measurement</li><li>Mentoring younger SkyGlobe Kids students</li></ul><span class="level-chip lead">Lead</span></div>
+      <div class="pw-card"><span class="ic">🏃</span><h3>Health &amp; Well-being</h3><p class="sub">Sustain excellence over a lifetime.</p><ul class="topics"><li>Holistic wellness — mind, body, community</li><li>Advanced sports coaching or performance science</li><li>Health advocacy and peer support leadership</li><li>Long-term vision: building a life of purpose</li></ul><span class="level-chip lead">Lead</span></div>
+      <div class="pw-card"><span class="ic">🌍</span><h3>Global Citizenship</h3><p class="sub">Take your place on the world stage.</p><ul class="topics"><li>International policy and development</li><li>UN, EU, AU — institutions and pathways</li><li>SkyGlobe Youth Ambassador Programme</li><li>Legacy project: a contribution that outlasts you</li></ul><span class="level-chip lead">Lead</span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- GUIDED PLATFORM -->
+<section class="section" style="padding-top:0"><div class="wrap">
+  <div class="ai-block">
+    <div class="ai-icon">🧠</div>
+    <h2>Fully <span>Guided</span> Learning</h2>
+    <p>SkyGlobe Academy is not a content library — it is an intelligent, adaptive learning system. The SkyGlobe AI engine knows each student, tracks their progress, and makes curriculum decisions in real time. No two learning journeys are the same.</p>
+    <div class="ai-feats">
+      <div class="ai-feat"><div class="n">01 · Adaptive</div><h4>Personalised Curriculum</h4><p>The AI adjusts lesson difficulty, pacing, and pathway suggestions based on each child's performance, interest, and learning style.</p></div>
+      <div class="ai-feat"><div class="n">02 · Intelligent</div><h4>Personal Tutor &amp; Mentor</h4><p>Every student has a personal tutor available 24/7 — explaining concepts, asking guiding questions, and giving structured feedback on submitted work.</p></div>
+      <div class="ai-feat"><div class="n">03 · Tracked</div><h4>Progress Intelligence</h4><p>Parents and guardians receive live dashboards showing mastery scores, time investment, pathway progression, and recommended next steps.</p></div>
+      <div class="ai-feat"><div class="n">04 · Safe</div><h4>Safe &amp; Secure Environment</h4><p>A completely child-safe platform — no social feeds, no adverts, no unknown contacts. Learning happens in a controlled, trust-verified environment.</p></div>
+      <div class="ai-feat"><div class="n">05 · Verified</div><h4>SkyGlobe Certification</h4><p>Pathway completion is recognised with a SkyGlobe Academy certificate — facilitated and verified by SkyGlobe Group, meaningful to schools and universities.</p></div>
+      <div class="ai-feat"><div class="n">06 · Global</div><h4>World-Standard Curriculum</h4><p>Aligned with international education benchmarks — Cambridge, IB, and PISA frameworks — ensuring every learner is globally competitive.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<section class="section" style="padding-top:0"><div class="wrap">
+  <div class="cta-block">
+    <h2>Ready to Shape Your Child's <span>Future</span>?</h2>
+    <p>Join SkyGlobe Academy and give your child access to the most intelligent, personalised learning experience available — guided by AI, built for excellence. Meet <strong>Numa</strong>, your child's personal AI maths teacher.</p>
+    <a class="btn" href="https://app.skyglobegroup.com/academy">Start Free — Parent Portal</a>
+    <a class="btn ghost" href="/#contact">Talk to Us</a>
+  </div>
+</div></section>
+
+<footer>
+  © <span id="yr"></span> SkyGlobe Group · Global Operations
+  <div class="m">One World. One Mission.</div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+function switchAge(id, tab) {
+  document.querySelectorAll('.age-panel').forEach(p => p.classList.remove('show'));
+  document.querySelectorAll('.age-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('show');
+  tab.classList.add('active');
+  document.getElementById('panel-' + id).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+<script src="/announcements.js?v=2" defer></script>
+<script src="/dept-contact.js?v=7" defer></script>
+</body>
+</html>

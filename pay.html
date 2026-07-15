@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Make a Payment — SkyGlobe Group</title>
+<meta name="description" content="Pay SkyGlobe Group securely by international bank transfer (USD, EUR, GBP) or stablecoin (USDC, USDT on BEP20).">
+<meta name="theme-color" content="#0a1c3e">
+<link rel="icon" href="/favicon-32.png">
+<style>
+  :root{--navy:#0a1c3e;--gold:#C8962A;--gold2:#e7c46a;--ink:#0b1220;--muted:#5b6573;--line:#e7e9ee;--ok:#16a34a}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#f4f6f9;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;letter-spacing:-.01em}
+  a{color:inherit}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
+  header{background:#0a1c3e;color:#fff;padding:14px 0}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+  .brand img{height:34px;width:34px;border-radius:9px}
+  .brand small{display:block;color:var(--gold);font-size:.6rem;letter-spacing:.2em;font-weight:700}
+  header a.home{color:#cdd6e6;text-decoration:none;font-size:.9rem}
+  .hero{background:radial-gradient(120% 95% at 50% -10%,#eef4ff,#f4f6f9 60%);padding:44px 0 30px;text-align:center}
+  .hero h1{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;font-size:clamp(1.7rem,4.5vw,2.4rem);font-weight:760;letter-spacing:-.03em}
+  .hero h1 span{background:linear-gradient(115deg,#C8962A,#e7c46a 50%,#0A2E65);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p{color:var(--muted);max-width:520px;margin:12px auto 0}
+  main{padding:10px 0 60px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px rgba(16,24,40,.06);padding:24px;margin-top:20px}
+  .yourref{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
+  @media(max-width:520px){.yourref{grid-template-columns:1fr}}
+  label{display:block;font-size:.78rem;font-weight:600;color:#3a4760;margin:10px 0 5px}
+  .inp{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;background:#fff;color:var(--ink)}
+  .inp:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,150,42,.12)}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px}
+  .tab{flex:1;min-width:88px;border:1px solid var(--line);background:#fff;border-radius:980px;padding:10px 8px;font:inherit;font-weight:600;font-size:.86rem;cursor:pointer;color:#475569;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px}
+  .tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .tab .flag{font-size:1rem}
+  .rail{display:none;margin-top:14px}
+  .rail.active{display:block;animation:fade .25s ease both}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .field{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:#fafbfc}
+  .field .k{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .field .v{font-size:.98rem;font-weight:600;color:var(--ink);word-break:break-all}
+  .field .l{min-width:0}
+  .copy{flex-shrink:0;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font:inherit;font-size:.78rem;font-weight:600;color:var(--navy);cursor:pointer;transition:.2s}
+  .copy:hover{border-color:var(--gold);color:#7a5b00}
+  .copy.done{background:#e9f6ea;color:var(--ok);border-color:#a7e0ad}
+  .warn{background:#fff8e6;border:1px solid #ead9a6;border-radius:12px;padding:12px 14px;color:#5a4a16;font-size:.85rem;margin-top:6px}
+  .warn.red{background:#fdecec;border-color:#f3b6b6;color:#8a1f1f}
+  .qrbox{text-align:center;padding:16px 0 6px}
+  .qrbox img{width:190px;height:190px;border-radius:14px;border:1px solid var(--line);background:#fff;padding:8px}
+  .qrbox .net{display:inline-block;margin-top:8px;background:#eef4ff;color:#0a1c3e;border:1px solid #d5e2ff;border-radius:980px;padding:5px 14px;font-size:.8rem;font-weight:700}
+  .btn{display:inline-block;width:100%;text-align:center;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a1300;border:none;padding:14px 20px;border-radius:980px;font:inherit;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(200,150,42,.25);transition:.2s;margin-top:8px}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.wa{background:#25D366;color:#fff;box-shadow:none;margin-top:10px}
+  .msg{margin-top:12px;padding:11px 13px;border-radius:12px;font-size:.9rem;display:none}
+  .msg.err{background:#fdecec;color:#a02020;display:block}
+  .msg.ok{background:#e9f6ea;color:var(--ok);display:block}
+  .soon{margin-top:18px;text-align:center;color:#94a3b8;font-size:.82rem}
+  footer{background:#0a1c3e;color:#9fb0c9;text-align:center;padding:26px;font-size:.84rem;margin-top:30px}
+  .motto{color:var(--gold);font-weight:700;letter-spacing:.08em}
+  .netsel{display:flex;gap:8px;margin:2px 0 6px}
+  .net-tab{flex:1;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px;font:inherit;font-weight:600;font-size:.82rem;color:#475569;cursor:pointer;transition:.2s}
+  .net-tab.active{background:#eef4ff;border-color:#bcd0ff;color:#0a1c3e}
+  .netblk{display:none}
+  .netblk.active{display:block}
+  .filepick{display:flex;align-items:center;gap:10px;border:1.5px dashed var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;transition:.2s;background:#fafbfc}
+  .filepick:hover{border-color:var(--gold);background:#fffaf0}
+  .filepick input{display:none}
+  .filepick .fp-ic{font-size:1.3rem}
+  .filepick .fp-txt{font-size:.85rem;color:var(--muted);flex:1}
+  .filepick.has-file{border-style:solid;border-color:var(--ok);background:#f2fbf3}
+  .filepick.has-file .fp-txt{color:var(--ok);font-weight:600}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand"><img src="/icon-192.png?v=3" alt="">SkyGlobe<small>GROUP</small></div>
+  <a class="home" href="/">← Back to site</a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <h1>Make a <span>Payment</span></h1>
+  <p>Pay securely by international bank transfer or stablecoin. Choose your currency, transfer to the matching account, then tell us you've paid so we can confirm it fast.</p>
+</div></section>
+
+<main><div class="wrap">
+  <div class="panel">
+    <div class="yourref">
+      <div>
+        <label>Your SkyGlobe reference</label>
+        <input class="inp" id="ref" placeholder="e.g. SKY-2026-ABCD">
+      </div>
+      <div>
+        <label>Amount you are paying</label>
+        <input class="inp" id="amount" placeholder="e.g. 150">
+      </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-rail="USD" onclick="pickRail('USD',this)"><span class="flag">🇺🇸</span> USD</button>
+      <button class="tab" data-rail="EUR" onclick="pickRail('EUR',this)"><span class="flag">🇪🇺</span> EUR</button>
+      <button class="tab" data-rail="GBP" onclick="pickRail('GBP',this)"><span class="flag">🇬🇧</span> GBP</button>
+      <button class="tab" data-rail="USDC" onclick="pickRail('USDC',this)"><span class="flag">🪙</span> USDC</button>
+      <button class="tab" data-rail="USDT" onclick="pickRail('USDT',this)"><span class="flag">🪙</span> USDT</button>
+    </div>
+
+    <!-- USD — Lead Bank -->
+    <div class="rail active" id="rail-USD">
+      <div class="field"><div class="l"><div class="k">Account holder</div><div class="v" data-c>Saleh Shuaibu</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">Account number</div><div class="v" data-c>218345211796</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">Wire routing</div><div class="v" data-c>101019644</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">ACH routing</div><div class="v" data-c>101019644</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">Account type</div><div class="v">Checking</div></div></div>
+      <div class="field"><div class="l"><div class="k">Bank name</div><div class="v" data-c>Lead Bank</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">Bank address</div><div class="v" data-c>1801 Main St., Kansas City, MO 64108, USA</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="warn">Add your reference <strong id="refEchoUSD">(your SKY reference)</strong> to the transfer description so we can match your payment instantly. For an international SWIFT wire, please <a href="https://wa.me/17373998522" style="color:#7a5b00;font-weight:600">message us</a> for the correspondent-bank details.</div>
+    </div>
+
+    <!-- EUR — Clear Junction (same IBAN receives EUR) -->
+    <div class="rail" id="rail-EUR">
+      <div class="field"><div class="l"><div class="k">Account holder</div><div class="v" data-c>Saleh Shuaibu</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">IBAN</div><div class="v" data-c>GB15CLJU04130742900796</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">SWIFT / BIC</div><div class="v" data-c>CLJUGB21XXX</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">Bank name</div><div class="v" data-c>Clear Junction Limited</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">Bank address</div><div class="v" data-c>4th Floor Imperial House, 15 Kingsway, London, WC2B 6UN, United Kingdom</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="warn">Send the EUR transfer using the <strong>IBAN + SWIFT</strong> above. Add your reference <strong id="refEchoEUR">(your SKY reference)</strong> to the description.</div>
+    </div>
+
+    <!-- GBP — Clear Junction -->
+    <div class="rail" id="rail-GBP">
+      <div class="field"><div class="l"><div class="k">Account holder</div><div class="v" data-c>Saleh Shuaibu</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">Account number</div><div class="v" data-c>42900796</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">Sort code</div><div class="v" data-c>04-13-07</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">IBAN</div><div class="v" data-c>GB15CLJU04130742900796</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">SWIFT / BIC</div><div class="v" data-c>CLJUGB21XXX</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">Bank name</div><div class="v" data-c>Clear Junction Limited</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="field"><div class="l"><div class="k">Bank address</div><div class="v" data-c>4th Floor Imperial House, 15 Kingsway, London, WC2B 6UN, United Kingdom</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      <div class="warn">For a UK (Faster Payments) transfer use the <strong>account number + sort code</strong>. Add your reference <strong id="refEchoGBP">(your SKY reference)</strong> to the description.</div>
+    </div>
+
+    <!-- USDC — BEP20 / Solana -->
+    <div class="rail" id="rail-USDC">
+      <div class="field"><div class="l"><div class="k">Asset</div><div class="v">USDC (USD Coin)</div></div></div>
+      <div class="netsel">
+        <button class="net-tab active" onclick="pickNet('USDC','BEP20',this)">BEP20 (BNB Smart Chain)</button>
+        <button class="net-tab" onclick="pickNet('USDC','SOL',this)">Solana</button>
+      </div>
+      <div class="netblk active" id="USDC-BEP20">
+        <div class="warn red">⚠ Send <strong>only USDC on the BNB Smart Chain (BEP20)</strong> network to this address. Any other coin or network will incur a recovery fee or permanent loss.</div>
+        <div class="qrbox">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=190x190&margin=0&data=0xD49777a1b204e5C7A972242da8C0c40946A1d032" alt="USDC BEP20 wallet QR" onerror="this.style.display='none'">
+          <div class="net">Network: BNB Smart Chain · BEP20</div>
+        </div>
+        <div class="field"><div class="l"><div class="k">Wallet address (BEP20)</div><div class="v" data-c>0xD49777a1b204e5C7A972242da8C0c40946A1d032</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      </div>
+      <div class="netblk" id="USDC-SOL">
+        <div class="warn red">⚠ Send <strong>only USDC on the Solana</strong> network to this address. Any other coin or network will incur a recovery fee or permanent loss.</div>
+        <div class="qrbox">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=190x190&margin=0&data=w866VJjRxxfYd88DUxUAvpgV6iQnEw7Xi7bVnZs3ED5" alt="USDC Solana wallet QR" onerror="this.style.display='none'">
+          <div class="net">Network: Solana</div>
+        </div>
+        <div class="field"><div class="l"><div class="k">Wallet address (Solana)</div><div class="v" data-c>w866VJjRxxfYd88DUxUAvpgV6iQnEw7Xi7bVnZs3ED5</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      </div>
+      <div class="warn">After sending, share your transaction hash / screenshot with us using the button below (with your reference). Deposits usually confirm within minutes.</div>
+    </div>
+
+    <!-- USDT — BEP20 / TRC20 -->
+    <div class="rail" id="rail-USDT">
+      <div class="field"><div class="l"><div class="k">Asset</div><div class="v">USDT (Tether)</div></div></div>
+      <div class="netsel">
+        <button class="net-tab active" onclick="pickNet('USDT','BEP20',this)">BEP20 (BNB Smart Chain)</button>
+        <button class="net-tab" onclick="pickNet('USDT','TRC20',this)">TRC20 (TRON)</button>
+      </div>
+      <div class="netblk active" id="USDT-BEP20">
+        <div class="warn red">⚠ Send <strong>only USDT on the BNB Smart Chain (BEP20)</strong> network to this address. Any other coin or network will incur a recovery fee or permanent loss.</div>
+        <div class="qrbox">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=190x190&margin=0&data=0xD49777a1b204e5C7A972242da8C0c40946A1d032" alt="USDT BEP20 wallet QR" onerror="this.style.display='none'">
+          <div class="net">Network: BNB Smart Chain · BEP20</div>
+        </div>
+        <div class="field"><div class="l"><div class="k">Wallet address (BEP20)</div><div class="v" data-c>0xD49777a1b204e5C7A972242da8C0c40946A1d032</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      </div>
+      <div class="netblk" id="USDT-TRC20">
+        <div class="warn red">⚠ Send <strong>only USDT on the TRON (TRC20)</strong> network to this address. Any other coin or network will incur a recovery fee or permanent loss.</div>
+        <div class="qrbox">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=190x190&margin=0&data=TMiGzDK134DqGf54AivbaLyVYGud4xaJUC" alt="USDT TRC20 wallet QR" onerror="this.style.display='none'">
+          <div class="net">Network: TRON · TRC20</div>
+        </div>
+        <div class="field"><div class="l"><div class="k">Wallet address (TRC20)</div><div class="v" data-c>TMiGzDK134DqGf54AivbaLyVYGud4xaJUC</div></div><button class="copy" onclick="cp(this)">Copy</button></div>
+      </div>
+      <div class="warn">After sending, share your transaction hash / screenshot with us using the button below (with your reference). Deposits usually confirm within minutes.</div>
+    </div>
+  </div>
+
+  <!-- Notify us -->
+  <div class="panel">
+    <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:4px">I've sent the payment ✅</h2>
+    <p style="color:var(--muted);font-size:.9rem;margin-bottom:6px">Tell us so we can confirm it and update your application. We reply within a few hours.</p>
+    <label>Your full name *</label>
+    <input class="inp" id="pname" placeholder="John Doe">
+    <label>Your email *</label>
+    <input class="inp" id="pemail" type="email" placeholder="you@email.com">
+    <label>Phone / WhatsApp (optional)</label>
+    <input class="inp" id="pphone" placeholder="+1 000 000 0000">
+    <label>Note (optional)</label>
+    <input class="inp" id="pnote" placeholder="e.g. sent USDT (BEP20), tx hash 0x…">
+    <label>Payment slip / receipt (recommended — image or PDF, max 8MB)</label>
+    <label class="filepick" id="filepick" for="pslip">
+      <span class="fp-ic">📎</span>
+      <span class="fp-txt" id="fpTxt">Tap to attach your payment receipt or screenshot</span>
+      <input type="file" id="pslip" accept="image/*,.pdf" onchange="onSlipPicked(this)">
+    </label>
+    <p style="font-size:.76rem;color:var(--muted);margin-top:4px">🔒 Stored securely and only visible to SkyGlobe staff confirming your payment — never made public.</p>
+    <button class="btn" id="notifyBtn" onclick="notifyPaid()">I have sent the payment →</button>
+    <a class="btn wa" id="waBtn" href="https://wa.me/17373998522" target="_blank">💬 Send proof on WhatsApp</a>
+    <div class="msg" id="pmsg"></div>
+  </div>
+
+  <div class="soon">💳 Card payments (Stripe · Wise · Paystack · Flutterwave) coming soon for instant checkout. USDC on BEP20 &amp; Solana · USDT on BEP20 &amp; TRC20.</div>
+</div></main>
+
+<footer>
+  SkyGlobe Group · Secure Payments · <span class="motto">One World. One Mission.</span><br>
+  support@skyglobegroup.com · +1 737-399-8522
+</footer>
+
+<script>
+  var PAYREF = '', SERVICE_LABEL = '', SLIP_FILE = null;
+  (function(){
+    var p = new URLSearchParams(location.search);
+    if (p.get('ref')) document.getElementById('ref').value = p.get('ref');
+    if (p.get('amount')) document.getElementById('amount').value = p.get('amount');
+    PAYREF = p.get('payref') || '';
+    SERVICE_LABEL = p.get('service') || '';
+    if (SERVICE_LABEL) {
+      var h1 = document.querySelector('.hero h1');
+      var pEl = document.querySelector('.hero p');
+      if (pEl) pEl.textContent = 'You are paying for: ' + SERVICE_LABEL + '. Choose your currency, transfer to the matching account, then tell us you\'ve paid so we can confirm it fast.';
+    }
+    var cur = (p.get('cur') || '').toUpperCase();
+    if (['USD','EUR','GBP','USDC','USDT'].includes(cur)) {
+      var t = document.querySelector('.tab[data-rail="'+cur+'"]');
+      if (t) pickRail(cur, t);
+    }
+    updateRefEcho();
+    document.getElementById('ref').addEventListener('input', updateRefEcho);
+  })();
+
+  function updateRefEcho(){
+    var r = (document.getElementById('ref').value || '').trim() || '(your SKY reference)';
+    ['USD','EUR','GBP'].forEach(function(c){
+      var el = document.getElementById('refEcho'+c);
+      if (el) el.textContent = r;
+    });
+  }
+
+  function pickRail(rail, btn){
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.rail').forEach(function(r){ r.classList.remove('active'); });
+    if (btn) btn.classList.add('active');
+    var el = document.getElementById('rail-'+rail);
+    if (el) el.classList.add('active');
+  }
+
+  function pickNet(coin, net, btn){
+    var rail = document.getElementById('rail-'+coin);
+    if (!rail) return;
+    rail.querySelectorAll('.net-tab').forEach(function(t){ t.classList.remove('active'); });
+    rail.querySelectorAll('.netblk').forEach(function(b){ b.classList.remove('active'); });
+    if (btn) btn.classList.add('active');
+    var blk = document.getElementById(coin+'-'+net);
+    if (blk) blk.classList.add('active');
+  }
+
+  function cp(btn){
+    var v = btn.parentElement.querySelector('[data-c]');
+    var text = v ? v.textContent.trim() : '';
+    if (!text) return;
+    (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject())
+      .then(function(){ mark(btn); })
+      .catch(function(){
+        var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta);
+        ta.select(); try { document.execCommand('copy'); mark(btn); } catch(e){} ta.remove();
+      });
+  }
+  function mark(btn){
+    var old = btn.textContent; btn.textContent = 'Copied ✓'; btn.classList.add('done');
+    setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1600);
+  }
+
+  function onSlipPicked(input){
+    var f = input.files && input.files[0];
+    var pick = document.getElementById('filepick'), txt = document.getElementById('fpTxt');
+    if (!f) { SLIP_FILE = null; pick.classList.remove('has-file'); txt.textContent = 'Tap to attach your payment receipt or screenshot'; return; }
+    if (f.size > 8 * 1024 * 1024) {
+      var msg = document.getElementById('pmsg');
+      msg.className = 'msg err'; msg.textContent = 'That file is too large — please attach a receipt under 8MB.';
+      input.value = ''; SLIP_FILE = null; pick.classList.remove('has-file');
+      txt.textContent = 'Tap to attach your payment receipt or screenshot';
+      return;
+    }
+    SLIP_FILE = f;
+    pick.classList.add('has-file');
+    txt.textContent = '✅ ' + f.name + ' (' + Math.round(f.size/1024) + ' KB) — tap to change';
+  }
+
+  function readFileAsBase64(file){
+    return new Promise(function(resolve, reject){
+      var reader = new FileReader();
+      reader.onload = function(){ resolve(String(reader.result).split(',')[1] || ''); };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function notifyPaid(){
+    var name = val('pname'), email = val('pemail'), phone = val('pphone'), note = val('pnote');
+    var ref = val('ref'), amount = val('amount');
+    var activeTab = document.querySelector('.tab.active');
+    var rail = activeTab ? activeTab.getAttribute('data-rail') : '';
+    var msg = document.getElementById('pmsg'), btn = document.getElementById('notifyBtn');
+    if (!name || !email){ msg.className='msg err'; msg.textContent='Please enter your name and email.'; return; }
+    btn.disabled = true; btn.textContent = SLIP_FILE ? 'Uploading receipt & sending…' : 'Sending…'; msg.className='msg';
+    try {
+      var r, d;
+      if (PAYREF) {
+        // Real checkout: tied to a payment record created by /api/pay/init — this
+        // flags it "awaiting confirmation" so it shows up in Payments for the team.
+        var payload = { reference: PAYREF, name: name, email: email, phone: phone,
+          note: (note || '') + (ref ? ' | App ref: ' + ref : '') };
+        if (SLIP_FILE) {
+          payload.slipData = await readFileAsBase64(SLIP_FILE);
+          payload.slipFilename = SLIP_FILE.name;
+          payload.slipContentType = SLIP_FILE.type || 'application/octet-stream';
+        }
+        r = await fetch('/api/pay/grey/notify', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify(payload)
+        });
+        d = await r.json();
+        if (!r.ok) throw new Error(d.error || 'Could not send.');
+      } else {
+        // Direct visit without a payment record (e.g. shared link, WhatsApp) —
+        // fall back to a plain email notice to the team. (Receipt upload needs
+        // a real payment reference — please attach it on WhatsApp instead here.)
+        var body = {
+          fname: name, email: email, phone: phone,
+          service: 'Payment Notification — ' + (rail || 'Transfer') + (amount ? ' ' + amount : ''),
+          destination: '',
+          message: 'PAYMENT NOTIFICATION\nReference: ' + (ref || '(none given)') +
+                   '\nMethod/Currency: ' + (rail || 'Transfer') +
+                   '\nAmount: ' + (amount || '(not stated)') +
+                   (note ? '\nNote: ' + note : '') +
+                   (SLIP_FILE ? '\n(Client has a receipt to share — ask them to send it on WhatsApp.)' : '') +
+                   '\n\nThe client says they have sent this payment. Please verify it in the Grey account and mark the application as Paid.'
+        };
+        r = await fetch('/api/contact', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+        d = await r.json();
+        if (!r.ok) throw new Error(d.error || 'Could not send.');
+      }
+      msg.className='msg ok';
+      msg.innerHTML = '✅ Thank you! We\'ve received your payment notice' + (d.slipUploaded ? ' and your receipt' : '') + ' and will confirm it shortly. Keep your proof of transfer safe.';
+      btn.textContent = 'Sent ✓';
+    } catch(e){
+      msg.className='msg err';
+      msg.textContent = e.message + ' — please send your proof on WhatsApp instead.';
+      btn.disabled = false; btn.textContent = 'I have sent the payment →';
+    }
+  }
+  function val(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+</script>
+</body>
+</html>

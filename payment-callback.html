@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment — SkyGlobe Group</title>
+<link rel="icon" href="/favicon-32.png">
+<style>
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:linear-gradient(160deg,#041022,#071B3B);color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;margin:0;padding:20px}
+  .card{background:#fff;color:#1a2233;border-radius:18px;max-width:480px;width:100%;padding:38px 30px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+  .ico{font-size:3.2rem;line-height:1}
+  h1{font-family:Georgia,serif;margin:14px 0 6px;font-size:1.5rem}
+  p{color:#5a6577}
+  .ref{display:inline-block;background:#041022;color:#D4A73A;font-family:Georgia,serif;font-size:1.3rem;letter-spacing:.06em;padding:12px 22px;border-radius:12px;border:2px solid #D4A73A;margin:14px 0}
+  .btn{display:inline-block;background:#D4A73A;color:#1a1300;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:10px;margin:6px 6px 0}
+  .btn.ghost{background:transparent;border:1px solid #D4A73A;color:#041022}
+  .spin{width:46px;height:46px;border:4px solid #e6e9ef;border-top-color:#D4A73A;border-radius:50%;animation:s 1s linear infinite;margin:10px auto}
+  @keyframes s{to{transform:rotate(360deg)}}
+  .muted{font-size:.85rem;color:#8a93a3;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="spin"></div>
+  <h1>Confirming your payment…</h1>
+  <p>Please wait a moment, do not close this page.</p>
+</div>
+<script>
+function qs(k){return new URLSearchParams(location.search).get(k);}
+// Where to send the client after an instant, unlock-token product is paid.
+// Legal documents live on their own page; the AI Document Generator and
+// Interview Prep Coach live inside the main site's AI Tools page and need
+// the SPA to know which tool to resume and generate automatically.
+const DOCGEN_PRODUCTS = ['sop','coverletter','visaletter','experience','invitation','skyconference'];
+function instantResumeUrl(product){
+  if ((product||'').indexOf('legal_doc_')===0) return '/legal-documents?resume=1';
+  if (DOCGEN_PRODUCTS.includes(product) || product==='interview_prep') return '/?resume=1&tool='+encodeURIComponent(product);
+  return '/';
+}
+// Paystack returns ?reference / ?trxref ; our own callback uses ?reference ; Flutterwave ?tx_ref
+const ref = qs('reference') || qs('trxref') || qs('tx_ref');
+const cancelled = qs('cancelled');
+const card = document.getElementById('card');
+
+function show(html){card.innerHTML=html;}
+
+async function run(){
+  if(cancelled){ return show(`
+    <div class="ico">⚠️</div><h1>Payment cancelled</h1>
+    <p>No charge was made. You can try again anytime.</p>
+    <a class="btn" href="/conferences">Try again</a>
+    <a class="btn ghost" href="/">Home</a>`); }
+  if(!ref){ return show(`
+    <div class="ico">❓</div><h1>Missing payment reference</h1>
+    <p>We couldn't find a payment to confirm.</p>
+    <a class="btn" href="/conferences">Back to Conferences</a>`); }
+  try{
+    const r = await fetch('/api/pay/verify/'+encodeURIComponent(ref));
+    const d = await r.json();
+    if(d.paid){
+      if(d.instant && d.unlock){ try{ sessionStorage.setItem('sky_unlock_'+d.product, d.unlock); }catch(e){} }
+      const appRef = d.app_ref || sessionStorage.getItem('sky_last_ref');
+      show(`
+        <div class="ico">✅</div>
+        <h1>Payment successful</h1>
+        <p>Thank you! Your payment has been received and your request is now with our team.</p>
+        ${appRef?`<div class="ref">${appRef}</div><p>Save this reference to track your request.</p>`:''}
+        ${d.instant?`<a class="btn" href="${instantResumeUrl(d.product)}">Access your purchase</a>`:`<a class="btn" href="/?track=${encodeURIComponent(appRef||'')}">Track my request</a>`}
+        <a class="btn ghost" href="https://wa.me/17373998522?text=Hi, I just paid. Ref: ${encodeURIComponent(appRef||ref)}">WhatsApp us</a>
+        <p class="muted">A confirmation email is on its way.</p>`);
+    } else {
+      show(`
+        <div class="ico">⏳</div>
+        <h1>Payment not confirmed yet</h1>
+        <p>If you completed payment, it may still be processing. Retry in a moment, or contact us with your reference.</p>
+        <button class="btn" onclick="location.reload()">Check again</button>
+        <a class="btn ghost" href="https://wa.me/17373998522?text=Payment ref ${encodeURIComponent(ref)}">WhatsApp us</a>`);
+    }
+  }catch(e){
+    show(`<div class="ico">❌</div><h1>Could not verify payment</h1><p>${e.message}</p>
+      <button class="btn" onclick="location.reload()">Try again</button>
+      <a class="btn ghost" href="https://wa.me/17373998522">WhatsApp us</a>`);
+  }
+}
+run();
+</script>
+</body>
+</html>

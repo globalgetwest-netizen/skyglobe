@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Staff Portal — SkyGlobe Group</title>
+<link rel="icon" type="image/png" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1628; --navy2:#111f38; --navy3:#0d1a30; --line:#233452; --line2:#1a2c4a;
+    --gold:#c9a84c; --gold2:#dbbe6a; --gold-soft:#c9a84c22;
+    --txt:#e8eaf0; --muted:#8899bb; --muted2:#64759b;
+    --green:#2e7d32; --red:#c62828; --blue:#1565c0; --orange:#ef6c00;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--navy);color:var(--txt);min-height:100vh;-webkit-font-smoothing:antialiased}
+  .gold{color:var(--gold)}
+  .serif{font-family:'Cormorant Garamond',serif}
+  button{font-family:inherit}
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+
+  /* ── LOGIN ── */
+  #loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;background:radial-gradient(circle at 30% 20%,#13284e,#0a1628 60%)}
+  .login-box{background:var(--navy2);border:1px solid var(--line);border-radius:20px;padding:44px 40px;width:100%;max-width:400px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.4)}
+  .login-box img{height:86px;width:auto;border-radius:18px;margin-bottom:18px;box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+  .login-box h1{font-size:1.5rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px}
+  .login-box .pill{display:inline-block;background:var(--gold-soft);color:var(--gold);font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:26px}
+  .login-box input{width:100%;padding:14px 16px;border-radius:10px;border:1px solid var(--line);background:var(--navy);color:#fff;font-size:1rem;margin-bottom:14px;transition:border-color .2s}
+  .login-box input:focus{outline:none;border-color:var(--gold)}
+  .btn{background:var(--gold);color:var(--navy);border:none;padding:13px 28px;border-radius:10px;font-weight:700;font-size:0.95rem;cursor:pointer;transition:.2s}
+  .btn:hover{background:var(--gold2);transform:translateY(-1px)}
+  .btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+  .btn-sm{padding:9px 16px;font-size:0.83rem;border-radius:8px}
+  .btn-ghost{background:var(--line);color:var(--txt)}
+  .btn-ghost:hover{background:#2c4063}
+  .err{color:#ff7b7b;font-size:0.85rem;margin-top:10px;min-height:1.2em}
+
+  /* ── LAYOUT ── */
+  #app{display:none;min-height:100vh}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:248px;background:var(--navy3);border-right:1px solid var(--line);display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:50;transition:transform .25s}
+  .sb-brand{display:flex;align-items:center;gap:11px;padding:20px 20px;border-bottom:1px solid var(--line)}
+  .sb-brand img{height:42px;width:42px;border-radius:11px}
+  .sb-brand .t{font-weight:800;font-size:1.02rem;line-height:1.1}
+  .sb-brand .t small{display:block;font-size:0.62rem;font-weight:600;color:var(--gold);letter-spacing:0.14em;text-transform:uppercase;margin-top:2px}
+  .sb-nav{flex:1;padding:14px 12px;display:flex;flex-direction:column;gap:4px}
+  .sb-link{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;cursor:pointer;color:var(--muted);font-weight:600;font-size:0.9rem;border:none;background:none;text-align:left;width:100%;transition:.15s}
+  .sb-link .ic{font-size:1.05rem;width:20px;text-align:center}
+  .sb-link:hover{background:var(--navy2);color:var(--txt)}
+  .sb-link.active{background:linear-gradient(90deg,var(--gold-soft),transparent);color:var(--gold)}
+  .sb-link .badge-n{margin-left:auto;background:var(--red);color:#fff;font-size:0.66rem;font-weight:700;padding:1px 8px;border-radius:100px;display:none}
+  .sb-link .badge-n.show{display:inline-block}
+  .sb-foot{padding:14px;border-top:1px solid var(--line)}
+  .sb-user{font-size:0.78rem;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .sb-user .av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem}
+
+  .main{flex:1;margin-left:248px;min-width:0;display:flex;flex-direction:column}
+  .topbar{display:flex;align-items:center;gap:14px;padding:16px 28px;border-bottom:1px solid var(--line);background:var(--navy);position:sticky;top:0;z-index:40}
+  .hamburger{display:none;background:none;border:1px solid var(--line);color:var(--txt);border-radius:8px;width:40px;height:40px;font-size:1.2rem;cursor:pointer}
+  .topbar h2{font-size:1.2rem;font-weight:700}
+  .topbar .spacer{flex:1}
+  .content{padding:28px;max-width:1300px;width:100%}
+
+  .view{display:none}
+  .view.active{display:block;animation:fade .3s}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* Quick stat strip (counts only — no revenue/analytics) */
+  .stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:22px}
+  .stat{background:var(--navy2);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .stat .num{font-size:1.7rem;font-weight:800;color:#fff;line-height:1}
+  .stat .lbl{font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:6px;font-weight:600}
+  .stat.g .num{color:var(--gold)}
+
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+  .toolbar input,.toolbar select{padding:11px 14px;border-radius:10px;border:1px solid var(--line);background:var(--navy2);color:#fff;font-size:0.9rem}
+  .toolbar input{flex:1;min-width:200px}
+  .toolbar input:focus,.toolbar select:focus{outline:none;border-color:var(--gold)}
+
+  .table-wrap{background:var(--navy2);border:1px solid var(--line);border-radius:14px;overflow:hidden;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:560px}
+  th,td{padding:13px 16px;text-align:left;font-size:0.87rem;border-bottom:1px solid var(--line2)}
+  th{background:var(--navy3);color:var(--muted);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.07em;font-weight:700}
+  tr:last-child td{border-bottom:none}
+  tr.app-row{cursor:pointer;transition:background .12s}
+  tr.app-row:hover{background:#16264a}
+  .badge{display:inline-block;padding:4px 12px;border-radius:100px;font-size:0.72rem;font-weight:700;white-space:nowrap}
+  .b-Received{background:#1565c033;color:#7cb6f7}
+  .b-InReview{background:#ef6c0033;color:#ffb74d}
+  .b-Approved,.b-Completed{background:#2e7d3233;color:#86d98a}
+  .b-NeedsMoreInfo,.b-Rejected{background:#c6282833;color:#ef9a9a}
+  .empty{text-align:center;color:var(--muted);padding:46px}
+
+  #modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:100;overflow-y:auto;padding:28px 14px}
+  .modal-box{background:var(--navy2);border:1px solid var(--line);border-radius:18px;max-width:700px;margin:0 auto;padding:30px}
+  .modal-box h2{font-size:1.15rem;margin-bottom:4px}
+  .modal-box .sub{color:var(--muted);font-size:0.85rem;margin-bottom:20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .close-x{float:right;background:none;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;line-height:1}
+  .detail-table{width:100%;margin-bottom:18px}
+  .detail-table td{padding:8px 0;border-bottom:1px solid var(--line2);font-size:0.86rem;vertical-align:top}
+  .detail-table td:first-child{color:var(--muted);width:170px;font-weight:600}
+  .box{background:var(--navy3);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+  .box label{display:block;font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:7px;font-weight:700}
+  .box select,.box textarea,.box input[type=text]{width:100%;padding:11px 14px;border-radius:9px;border:1px solid var(--line);background:var(--navy2);color:#fff;font-size:0.9rem;margin-bottom:12px}
+  .box textarea{min-height:90px;resize:vertical;font-family:inherit}
+  .resp-item{background:var(--navy3);border-left:3px solid var(--gold);padding:10px 14px;border-radius:6px;margin-bottom:8px;font-size:0.85rem}
+  .resp-item .meta{color:var(--muted);font-size:0.7rem;margin-bottom:4px}
+  .ok-msg{font-size:0.85rem;margin-top:8px;min-height:1.2em}
+  .docrow{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--navy3);border:1px solid var(--line);border-radius:9px;padding:9px 13px;margin-bottom:7px}
+  .docrow a{color:var(--gold2);text-decoration:none;font-weight:500;word-break:break-all}
+
+  .thread{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:11px;background:var(--navy3)}
+  .thread .head{cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .thread .head strong{color:#fff;font-size:0.92rem}
+  .chat{max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:7px;margin:12px 0}
+  .msg{max-width:78%;padding:9px 13px;border-radius:12px;font-size:0.85rem;line-height:1.4}
+  .msg.admin{align-self:flex-end;background:var(--gold);color:var(--navy)}
+  .msg.client{align-self:flex-start;background:#1a2c4a;color:var(--txt)}
+  .msg .ts{font-size:0.62rem;opacity:.7;margin-top:3px}
+  .chat-input{display:flex;gap:7px}
+  .chat-input input{flex:1;padding:10px 13px;border-radius:9px;border:1px solid var(--line);background:var(--navy);color:#fff}
+  .tag-new{background:var(--red);color:#fff;font-size:0.62rem;font-weight:700;padding:2px 9px;border-radius:100px;margin-left:8px}
+
+  .skeleton{color:var(--muted);text-align:center;padding:40px}
+  .note{background:var(--navy2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;color:var(--muted);font-size:0.88rem;line-height:1.7}
+
+  /* ── DEPT CHANNELS (staff) ── */
+  .chan-main{background:var(--navy2);border:1px solid var(--line);border-radius:16px;display:flex;flex-direction:column}
+  .chan-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .chan-head .ch-icon{font-size:1.2rem}
+  .chan-head h3{font-size:0.92rem;font-weight:700}
+  .chan-head .ch-sub{font-size:0.72rem;color:var(--muted);margin-left:auto}
+  .chan-msgs{overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;min-height:400px;max-height:54vh}
+  .chan-msg{display:flex;flex-direction:column;max-width:75%}
+  .chan-msg.mine{align-self:flex-end;align-items:flex-end}
+  .chan-msg.theirs{align-self:flex-start}
+  .chan-msg .cm-meta{font-size:0.64rem;color:var(--muted);margin-bottom:3px}
+  .chan-msg .cm-meta .cm-author{font-weight:700;color:var(--txt)}
+  .chan-msg .cm-meta .cm-role{color:var(--gold);font-size:0.62rem;margin-left:4px}
+  .chan-msg .cm-body{padding:10px 14px;border-radius:12px;font-size:0.85rem;line-height:1.4;word-break:break-word}
+  .chan-msg.mine .cm-body{background:var(--gold);color:var(--navy);border-bottom-right-radius:4px}
+  .chan-msg.theirs .cm-body{background:#1a2c4a;color:var(--txt);border-bottom-left-radius:4px}
+  .chan-msg .cm-time{font-size:0.62rem;color:var(--muted);margin-top:3px}
+  .chan-input{padding:14px 16px;border-top:1px solid var(--line);display:flex;gap:8px}
+  .chan-input input{flex:1;padding:11px 14px;border-radius:9px;border:1px solid var(--line);background:var(--navy);color:#fff;font-size:0.88rem;font-family:inherit}
+  .chan-input input:focus{outline:none;border-color:var(--gold)}
+  /* ── TASKS (staff) ── */
+  .stask-card{background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:10px;transition:.15s}
+  .stask-card:hover{border-color:rgba(201,168,76,.3)}
+  .stask-card .stk-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+  .stask-card .stk-title{font-weight:700;font-size:0.92rem;color:#fff;flex:1}
+  .stask-card .stk-meta{display:flex;gap:6px;flex-wrap:wrap;font-size:0.7rem;margin-bottom:10px}
+  .tk-pri{padding:2px 8px;border-radius:100px;font-size:0.64rem;font-weight:700}
+  .pri-urgent{background:#c6282822;color:#ef9a9a}
+  .pri-high{background:#ef6c0022;color:#ffb74d}
+  .pri-normal{background:#1565c022;color:#7cb6f7}
+  .pri-low{background:var(--line);color:var(--muted)}
+  .stask-card .stk-actions{display:flex;gap:6px}
+  .stk-btn{padding:6px 14px;border-radius:7px;font-size:0.76rem;font-weight:700;cursor:pointer;border:1px solid var(--line);background:var(--navy3);color:var(--muted);font-family:inherit;transition:.15s}
+  .stk-btn:hover{border-color:var(--gold);color:var(--gold)}
+  .stk-btn.done{background:#2e7d3222;border-color:#2e7d32;color:#86d98a}
+  /* ── ORG CHART ── */
+  .org-wrap{overflow-x:auto;padding:10px 0 20px}
+  .org-tree{display:flex;flex-direction:column;align-items:center;gap:0;min-width:600px}
+  .org-level{display:flex;justify-content:center;align-items:flex-start;gap:0;position:relative;width:100%}
+  .org-node{display:flex;flex-direction:column;align-items:center;position:relative}
+  .org-box{background:var(--navy2);border:1px solid var(--line);border-radius:14px;padding:14px 18px;min-width:160px;max-width:200px;text-align:center;transition:.2s;cursor:default;margin:0 10px}
+  .org-box:hover{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+  .org-box .ob-icon{font-size:1.6rem;margin-bottom:6px}
+  .org-box .ob-title{font-size:0.8rem;font-weight:800;color:#fff;margin-bottom:2px}
+  .org-box .ob-dept{font-size:0.68rem;font-weight:600;color:var(--gold);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:4px}
+  .org-box .ob-role{font-size:0.68rem;color:var(--muted);line-height:1.4}
+  .org-box.ceo-box{border-color:rgba(201,168,76,0.5);background:linear-gradient(135deg,#142238,#0e1f42);min-width:180px}
+  .org-box.dir-box{border-color:rgba(201,168,76,0.25)}
+  .org-box.staff-box{min-width:140px;padding:10px 12px}
+  .org-connector-v{width:2px;height:28px;background:var(--line);margin:0 auto}
+  .org-connector-h{display:flex;align-items:flex-start;justify-content:center;position:relative}
+  .org-connector-h::before{content:'';position:absolute;top:0;left:calc(50% - 1px);width:2px;height:28px;background:var(--line)}
+  .org-children{display:flex;justify-content:center;gap:0;position:relative}
+  .org-children::before{content:'';position:absolute;top:0;left:calc(10% + 10px);right:calc(10% + 10px);height:2px;background:var(--line)}
+  .org-child{display:flex;flex-direction:column;align-items:center}
+  .org-child-line{width:2px;height:28px;background:var(--line)}
+  .dept-section{margin-bottom:36px}
+  .dept-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+  .dept-header .dh-icon{font-size:1.8rem}
+  .dept-header h3{font-size:1.1rem;font-weight:800;color:#fff}
+  .dept-header .dh-sub{font-size:0.78rem;color:var(--muted);margin-top:2px}
+  .dept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+  .pos-card{background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .pos-card .pc-role{font-size:0.75rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px}
+  .pos-card .pc-title{font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:6px}
+  .pos-card .pc-reports{font-size:0.72rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+  .pos-card .pc-wa{display:inline-flex;align-items:center;gap:5px;background:#25D36620;color:#25D366;border:1px solid #25D36640;border-radius:6px;padding:4px 10px;font-size:0.7rem;font-weight:700;text-decoration:none;margin-top:8px}
+  .comm-arrow{color:var(--gold);font-size:0.72rem;margin-top:4px;font-weight:600}
+  .org-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+  .org-tab{padding:8px 18px;border-radius:8px;border:1px solid var(--line);background:none;color:var(--muted);font-size:0.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s}
+  .org-tab.active{background:var(--gold-soft);color:var(--gold);border-color:rgba(201,168,76,0.4)}
+  .org-tab:hover:not(.active){background:var(--navy2);color:var(--txt)}
+  .comm-chain{background:var(--navy2);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:20px}
+  .cc-step{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--line2)}
+  .cc-step:last-child{border-bottom:none}
+  .cc-num{width:28px;height:28px;border-radius:50%;background:var(--gold-soft);border:1px solid var(--gold);color:var(--gold);font-size:0.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .cc-body strong{font-size:0.92rem;color:#fff;display:block}
+  .cc-body span{font-size:0.78rem;color:var(--muted)}
+
+  @media(max-width:760px){
+    .sidebar{transform:translateX(-100%)}
+    .sidebar.open{transform:translateX(0)}
+    .main{margin-left:0}
+    .hamburger{display:block}
+    .content{padding:18px}
+    .sb-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:45}
+    .sb-backdrop.show{display:block}
+  }
+</style>
+</head>
+<body>
+
+<!-- ════ LOGIN ════ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <img src="icon-192.png" alt="SkyGlobe Group">
+    <h1>SkyGlobe <span class="gold">Group</span></h1>
+    <div class="pill">Staff Workspace</div>
+    <input type="password" id="pwInput" placeholder="Enter your staff password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="btn" style="width:100%" onclick="doLogin()" id="loginBtn">Sign In</button>
+    <div class="err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- ════ APP ════ -->
+<div id="app">
+  <div class="sb-backdrop" id="sbBackdrop" onclick="toggleSidebar(false)"></div>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sb-brand">
+        <img src="icon-192.png" alt="">
+        <div class="t">SKYGLOBEGROUP<small>Staff Portal</small></div>
+      </div>
+      <nav class="sb-nav">
+        <div style="font-size:.6rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#5f74a0;padding:10px 14px 4px">My Work</div>
+        <button class="sb-link active" data-view="queue" onclick="switchView('queue')"><span class="ic">📋</span> Work Queue <span class="badge-n" id="navAppsBadge"></span></button>
+        <button class="sb-link" data-view="reception" onclick="switchView('reception')"><span class="ic">🛎️</span> Reception <span class="badge-n" id="navRecBadge"></span></button>
+        <button class="sb-link" data-view="mytasks" onclick="switchView('mytasks')"><span class="ic">📋</span> My Tasks <span class="badge-n" id="navTaskBadge"></span></button>
+        <div style="font-size:.6rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#5f74a0;padding:14px 14px 4px">Communication</div>
+        <button class="sb-link" data-view="messages" onclick="switchView('messages')"><span class="ic">💬</span> Messages <span class="badge-n" id="navMsgBadge"></span></button>
+        <button class="sb-link" data-view="team" onclick="switchView('team')"><span class="ic">👥</span> Team Chat <span class="badge-n" id="navTeamBadge"></span></button>
+        <button class="sb-link" data-view="mychannel" onclick="switchView('mychannel')"><span class="ic">💬</span> My Channel <span class="badge-n" id="navChanBadge"></span></button>
+        <div style="font-size:.6rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#5f74a0;padding:14px 14px 4px">Me &amp; The Group</div>
+        <button class="sb-link" data-view="attendance" onclick="switchView('attendance')"><span class="ic">🕐</span> Attendance</button>
+        <button class="sb-link" data-view="tools" onclick="switchView('tools')"><span class="ic">🧰</span> Tools</button>
+        <button class="sb-link" data-view="org" onclick="switchView('org')"><span class="ic">🏢</span> Org Structure</button>
+        <div id="delegatedNav" style="margin-top:6px;border-top:1px solid var(--line,rgba(255,255,255,.08));padding-top:6px"></div>
+      </nav>
+      <div class="sb-foot">
+        <div class="sb-user"><span class="av" id="userAv">S</span><div><div style="color:var(--txt);font-weight:600" id="userName">staff</div><div style="font-size:0.7rem" id="userRole">Staff member</div></div></div>
+        <button class="btn btn-sm btn-ghost" style="width:100%" onclick="logout()">Log out</button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="topbar">
+        <button class="hamburger" onclick="toggleSidebar(true)">☰</button>
+        <h2 id="viewTitle">Work Queue</h2>
+        <div class="spacer"></div>
+        <button class="btn btn-sm btn-ghost" onclick="loadAll()">⟳ Refresh</button>
+      </div>
+
+      <div class="content">
+        <!-- WORK QUEUE -->
+        <section class="view active" id="view-queue">
+          <div class="stat-strip" id="statStrip"></div>
+          <div class="toolbar">
+            <input type="text" id="searchBox" placeholder="🔍 Search name, email, reference…" oninput="renderTable()">
+            <select id="statusFilter" onchange="renderTable()">
+              <option value="">All statuses</option>
+              <option>Received</option><option>In Review</option><option>Approved</option>
+              <option>Needs More Info</option><option>Completed</option><option>Rejected</option>
+            </select>
+            <select id="serviceFilter" onchange="renderTable()"><option value="">All services</option></select>
+          </div>
+          <div class="table-wrap">
+            <table><thead><tr><th>Reference</th><th>Name</th><th>Service</th><th>Submitted</th><th>Status</th></tr></thead>
+            <tbody id="tbody"><tr><td colspan="5" class="empty">Loading…</td></tr></tbody></table>
+          </div>
+        </section>
+
+        <!-- RECEPTION -->
+        <section class="view" id="view-reception">
+          <div class="note" style="margin-bottom:14px">🛎️ <strong style="color:var(--txt)">AI Reception.</strong> Requests our AI has flagged for a human. Items <strong>assigned to you</strong> appear first; the open queue below is anything unassigned you can claim.</div>
+          <div id="staffRecFeed"><div class="skeleton">Loading reception…</div></div>
+        </section>
+
+        <!-- MESSAGES -->
+        <section class="view" id="view-messages">
+          <div id="threadsArea"><div class="skeleton">Loading messages…</div></div>
+        </section>
+
+        <!-- TEAM CHAT -->
+        <section class="view" id="view-team">
+          <div class="note" style="margin-bottom:16px">💬 <strong style="color:var(--txt)">Internal team channel.</strong> Messages here are private to the SkyGlobe team (CEO &amp; staff). Clients never see this.</div>
+          <div class="panel" style="background:var(--navy2);border:1px solid var(--line);border-radius:16px;padding:18px">
+            <div class="chat" id="teamChat" style="max-height:52vh">Loading…</div>
+            <div class="chat-input">
+              <input type="text" id="teamInput" placeholder="Message your team…" onkeydown="if(event.key==='Enter')sendTeam()">
+              <button class="btn btn-sm" onclick="sendTeam()">Send</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- MY DEPT CHANNEL -->
+        <section class="view" id="view-mychannel">
+          <div class="chan-main">
+            <div class="chan-head">
+              <span class="ch-icon" id="staffChanIcon">💬</span>
+              <h3 id="staffChanTitle">Department Channel</h3>
+              <span class="ch-sub" id="staffChanSub">Your department · staff &amp; director</span>
+            </div>
+            <div id="staffChanTabs" style="display:flex;gap:8px;padding:0 0 12px;flex-wrap:wrap"></div>
+            <div class="chan-msgs" id="staffChanMsgs"><div style="color:var(--muted);text-align:center;padding:40px">Loading your channel…</div></div>
+            <div class="chan-input">
+              <input type="text" id="staffChanInput" placeholder="Message your department…" onkeydown="if(event.key==='Enter')sendStaffChanMsg()">
+              <button class="btn btn-sm" onclick="sendStaffChanMsg()">Send</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- MY TASKS -->
+        <section class="view" id="view-mytasks">
+          <div class="stat-strip" id="myTaskStats"></div>
+          <div id="myTasksList"><div class="skeleton">Loading your tasks…</div></div>
+        </section>
+
+        <!-- ATTENDANCE -->
+        <section class="view" id="view-attendance">
+          <div id="clockCard" style="background:linear-gradient(135deg,var(--navy2),var(--navy3));border:1px solid var(--line);border-radius:18px;padding:30px;text-align:center;margin-bottom:22px">
+            <div style="font-size:2.6rem;font-weight:800;letter-spacing:1px" id="clockTime">--:--</div>
+            <div id="clockDate" style="color:var(--muted);font-size:0.9rem;margin-bottom:6px"></div>
+            <div id="clockStatus" style="font-size:0.92rem;margin:14px 0;color:var(--muted)">Loading…</div>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+              <button class="btn" id="clockInBtn" onclick="doClock('in')" style="min-width:140px">🟢 Clock In</button>
+              <button class="btn btn-ghost" id="clockOutBtn" onclick="doClock('out')" style="min-width:140px">🔴 Clock Out</button>
+            </div>
+            <div id="clockMsg" style="font-size:0.84rem;margin-top:12px;min-height:18px"></div>
+          </div>
+          <h3 style="font-size:1rem;margin-bottom:12px">📅 My Recent Attendance</h3>
+          <div id="attHistory"><div class="skeleton">Loading…</div></div>
+        </section>
+
+        <!-- ORG STRUCTURE -->
+        <section class="view" id="view-org">
+          <div class="org-tabs">
+            <button class="org-tab active" onclick="orgTab('chart',this)">🌳 Org Chart</button>
+            <button class="org-tab" onclick="orgTab('departments',this)">🏛 Departments</button>
+            <button class="org-tab" onclick="orgTab('comms',this)">📡 Communication Chain</button>
+          </div>
+
+          <!-- ORG CHART TAB -->
+          <div id="org-chart">
+            <div class="org-wrap">
+              <div class="org-tree">
+                <!-- CEO -->
+                <div class="org-node">
+                  <div class="org-box ceo-box">
+                    <div class="ob-icon">👑</div>
+                    <div class="ob-title">Chief Executive Officer</div>
+                    <div class="ob-dept">SkyGlobe Group</div>
+                    <div class="ob-role">Executive Leadership · Full Authority</div>
+                  </div>
+                </div>
+                <div class="org-connector-v"></div>
+                <!-- Directors horizontal bar -->
+                <div style="display:flex;justify-content:center;gap:0;width:100%;position:relative">
+                  <div style="position:absolute;top:0;left:12%;right:12%;height:2px;background:var(--line)"></div>
+                  <!-- Immigration Director -->
+                  <div class="org-node" style="flex:1;max-width:220px">
+                    <div class="org-child-line"></div>
+                    <div class="org-box dir-box">
+                      <div class="ob-icon">🛂</div>
+                      <div class="ob-title">Immigration Director</div>
+                      <div class="ob-dept">Immigration Dept</div>
+                      <div class="ob-role">Reports to CEO</div>
+                    </div>
+                  </div>
+                  <!-- Operations Director -->
+                  <div class="org-node" style="flex:1;max-width:220px">
+                    <div class="org-child-line"></div>
+                    <div class="org-box dir-box">
+                      <div class="ob-icon">⚙️</div>
+                      <div class="ob-title">Operations Director</div>
+                      <div class="ob-dept">Operations Dept</div>
+                      <div class="ob-role">Reports to CEO</div>
+                    </div>
+                  </div>
+                  <!-- Finance Director -->
+                  <div class="org-node" style="flex:1;max-width:220px">
+                    <div class="org-child-line"></div>
+                    <div class="org-box dir-box">
+                      <div class="ob-icon">💰</div>
+                      <div class="ob-title">Finance Director</div>
+                      <div class="ob-dept">Finance Dept</div>
+                      <div class="ob-role">Reports to CEO</div>
+                    </div>
+                  </div>
+                  <!-- Client Relations Director -->
+                  <div class="org-node" style="flex:1;max-width:220px">
+                    <div class="org-child-line"></div>
+                    <div class="org-box dir-box">
+                      <div class="ob-icon">🤝</div>
+                      <div class="ob-title">Client Relations Director</div>
+                      <div class="ob-dept">Client Services</div>
+                      <div class="ob-role">Reports to CEO</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Staff under each director -->
+                <div style="display:flex;justify-content:center;gap:0;width:100%;margin-top:0">
+                  <!-- Under Immigration -->
+                  <div style="flex:1;max-width:220px;display:flex;flex-direction:column;align-items:center">
+                    <div class="org-connector-v" style="height:20px"></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;padding:0 6px;width:100%">
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Case Officer</div></div>
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Visa Specialist</div></div>
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Compliance Officer</div></div>
+                    </div>
+                  </div>
+                  <!-- Under Operations -->
+                  <div style="flex:1;max-width:220px;display:flex;flex-direction:column;align-items:center">
+                    <div class="org-connector-v" style="height:20px"></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;padding:0 6px;width:100%">
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Admin Manager</div></div>
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Conference Coordinator</div></div>
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Logistics Officer</div></div>
+                    </div>
+                  </div>
+                  <!-- Under Finance -->
+                  <div style="flex:1;max-width:220px;display:flex;flex-direction:column;align-items:center">
+                    <div class="org-connector-v" style="height:20px"></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;padding:0 6px;width:100%">
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Accounts Officer</div></div>
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Payroll Officer</div></div>
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Billing Specialist</div></div>
+                    </div>
+                  </div>
+                  <!-- Under Client Relations -->
+                  <div style="flex:1;max-width:220px;display:flex;flex-direction:column;align-items:center">
+                    <div class="org-connector-v" style="height:20px"></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;padding:0 6px;width:100%">
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Client Liaison</div></div>
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Support Officer</div></div>
+                      <div class="org-box staff-box"><div class="ob-title" style="font-size:0.72rem">Documentation Clerk</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DEPARTMENTS TAB -->
+          <div id="org-departments" style="display:none">
+
+            <div class="dept-section">
+              <div class="dept-header"><div class="dh-icon">🛂</div><div><h3>Immigration &amp; Visa Services</h3><div class="dh-sub">Handles all visa applications, work permits, and travel documentation</div></div></div>
+              <div class="dept-grid">
+                <div class="pos-card"><div class="pc-role">Director</div><div class="pc-title">Immigration Director</div><div class="pc-reports">↑ Reports directly to CEO</div><a class="pc-wa" href="https://wa.me/17373998522" target="_blank">💬 WhatsApp CEO</a></div>
+                <div class="pos-card"><div class="pc-role">Senior</div><div class="pc-title">Senior Case Officer</div><div class="pc-reports">↑ Reports to Immigration Director</div></div>
+                <div class="pos-card"><div class="pc-role">Officer</div><div class="pc-title">Visa Processing Officer</div><div class="pc-reports">↑ Reports to Immigration Director</div></div>
+                <div class="pos-card"><div class="pc-role">Specialist</div><div class="pc-title">Work Permit Specialist</div><div class="pc-reports">↑ Reports to Immigration Director</div></div>
+                <div class="pos-card"><div class="pc-role">Officer</div><div class="pc-title">Compliance Officer</div><div class="pc-reports">↑ Reports to Immigration Director</div></div>
+              </div>
+            </div>
+
+            <div class="dept-section">
+              <div class="dept-header"><div class="dh-icon">⚙️</div><div><h3>Operations &amp; Conference Management</h3><div class="dh-sub">Manages conference facilitation, event logistics and administrative operations</div></div></div>
+              <div class="dept-grid">
+                <div class="pos-card"><div class="pc-role">Director</div><div class="pc-title">Operations Director</div><div class="pc-reports">↑ Reports directly to CEO</div><a class="pc-wa" href="https://wa.me/17373998522" target="_blank">💬 WhatsApp CEO</a></div>
+                <div class="pos-card"><div class="pc-role">Manager</div><div class="pc-title">Administrative Manager</div><div class="pc-reports">↑ Reports to Operations Director</div></div>
+                <div class="pos-card"><div class="pc-role">Coordinator</div><div class="pc-title">Conference Coordinator</div><div class="pc-reports">↑ Reports to Operations Director</div></div>
+                <div class="pos-card"><div class="pc-role">Officer</div><div class="pc-title">Logistics Officer</div><div class="pc-reports">↑ Reports to Operations Director</div></div>
+                <div class="pos-card"><div class="pc-role">Officer</div><div class="pc-title">Travel Arrangements Officer</div><div class="pc-reports">↑ Reports to Operations Director</div></div>
+              </div>
+            </div>
+
+            <div class="dept-section">
+              <div class="dept-header"><div class="dh-icon">💰</div><div><h3>Finance &amp; Accounts</h3><div class="dh-sub">Oversees revenue, payroll, client billing and financial reporting</div></div></div>
+              <div class="dept-grid">
+                <div class="pos-card"><div class="pc-role">Director</div><div class="pc-title">Finance Director</div><div class="pc-reports">↑ Reports directly to CEO</div><a class="pc-wa" href="https://wa.me/17373998522" target="_blank">💬 WhatsApp CEO</a></div>
+                <div class="pos-card"><div class="pc-role">Manager</div><div class="pc-title">Accounts Manager</div><div class="pc-reports">↑ Reports to Finance Director</div></div>
+                <div class="pos-card"><div class="pc-role">Officer</div><div class="pc-title">Payroll Officer</div><div class="pc-reports">↑ Reports to Finance Director</div></div>
+                <div class="pos-card"><div class="pc-role">Specialist</div><div class="pc-title">Billing &amp; Invoicing Specialist</div><div class="pc-reports">↑ Reports to Finance Director</div></div>
+                <div class="pos-card"><div class="pc-role">Officer</div><div class="pc-title">Financial Reporting Officer</div><div class="pc-reports">↑ Reports to Finance Director</div></div>
+              </div>
+            </div>
+
+            <div class="dept-section">
+              <div class="dept-header"><div class="dh-icon">🤝</div><div><h3>Client Relations &amp; Support</h3><div class="dh-sub">Manages client communications, onboarding and post-service follow-up</div></div></div>
+              <div class="dept-grid">
+                <div class="pos-card"><div class="pc-role">Director</div><div class="pc-title">Client Relations Director</div><div class="pc-reports">↑ Reports directly to CEO</div><a class="pc-wa" href="https://wa.me/17373998522" target="_blank">💬 WhatsApp CEO</a></div>
+                <div class="pos-card"><div class="pc-role">Senior</div><div class="pc-title">Senior Client Liaison</div><div class="pc-reports">↑ Reports to Client Relations Director</div></div>
+                <div class="pos-card"><div class="pc-role">Officer</div><div class="pc-title">Client Support Officer</div><div class="pc-reports">↑ Reports to Client Relations Director</div></div>
+                <div class="pos-card"><div class="pc-role">Clerk</div><div class="pc-title">Documentation Clerk</div><div class="pc-reports">↑ Reports to Client Relations Director</div></div>
+                <div class="pos-card"><div class="pc-role">Officer</div><div class="pc-title">WhatsApp Communications Officer</div><div class="pc-reports">↑ Reports to Client Relations Director</div></div>
+              </div>
+            </div>
+
+            <div class="dept-section">
+              <div class="dept-header"><div class="dh-icon">🔐</div><div><h3>Legal &amp; Compliance</h3><div class="dh-sub">Ensures all services meet legal requirements, handles contracts and regulatory compliance</div></div></div>
+              <div class="dept-grid">
+                <div class="pos-card"><div class="pc-role">Advisor</div><div class="pc-title">Legal Counsel / Compliance Advisor</div><div class="pc-reports">↑ Reports directly to CEO</div><a class="pc-wa" href="https://wa.me/17373998522" target="_blank">💬 WhatsApp CEO</a></div>
+                <div class="pos-card"><div class="pc-role">Officer</div><div class="pc-title">Regulatory Compliance Officer</div><div class="pc-reports">↑ Reports to Legal Counsel</div></div>
+                <div class="pos-card"><div class="pc-role">Specialist</div><div class="pc-title">Document Verification Specialist</div><div class="pc-reports">↑ Reports to Legal Counsel</div></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- COMMUNICATION CHAIN TAB -->
+          <div id="org-comms" style="display:none">
+            <div class="note" style="margin-bottom:20px">
+              <strong style="color:var(--txt)">📡 Official Communication Hierarchy</strong><br>
+              All internal communication at SkyGlobe Group follows this chain. Staff raise issues to their Director first. Directors escalate to the CEO when required. Direct CEO contact is reserved for urgent or policy-level matters.
+            </div>
+            <div class="comm-chain">
+              <div class="cc-step">
+                <div class="cc-num">1</div>
+                <div class="cc-body">
+                  <strong>Staff Member raises a matter</strong>
+                  <span>Case Officer, Specialist, Clerk, or any front-line team member identifies an issue, update or request.</span>
+                </div>
+              </div>
+              <div class="cc-step">
+                <div class="cc-num">2</div>
+                <div class="cc-body">
+                  <strong>Reports to Department Director</strong>
+                  <span>Staff member contacts their direct Department Director via Team Chat, WhatsApp or internal message. Director acknowledges within the same working day.</span>
+                </div>
+              </div>
+              <div class="cc-step">
+                <div class="cc-num">3</div>
+                <div class="cc-body">
+                  <strong>Director reviews and acts (or escalates)</strong>
+                  <span>Director resolves operational matters independently. Policy decisions, financial approvals above threshold, or legal matters are escalated to the CEO with a written summary.</span>
+                </div>
+              </div>
+              <div class="cc-step">
+                <div class="cc-num">4</div>
+                <div class="cc-body">
+                  <strong>CEO makes final decision</strong>
+                  <span>CEO reviews escalations, approves or instructs. Decision is communicated back down the chain: CEO → Director → Staff Member.</span>
+                </div>
+              </div>
+              <div class="cc-step">
+                <div class="cc-num">5</div>
+                <div class="cc-body">
+                  <strong>Action is confirmed and logged</strong>
+                  <span>The outcome is noted in the application or staff record. Client is notified by the assigned Client Relations Officer if the matter affects a client file.</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:8px">
+              <div class="pos-card">
+                <div class="pc-role" style="color:#7cb6f7">Staff → Director</div>
+                <div class="pc-title">Internal Issues & Work Updates</div>
+                <div class="pc-reports" style="margin-top:4px">Use Team Chat or WhatsApp for quick matters. For formal requests (leave, resources, client complaints), message your Director directly.</div>
+              </div>
+              <div class="pos-card">
+                <div class="pc-role" style="color:#86d98a">Director → CEO</div>
+                <div class="pc-title">Escalations & Approvals</div>
+                <div class="pc-reports" style="margin-top:4px">Directors contact CEO for: new service pricing, refund approvals, contract sign-offs, legal matters, and any situation outside department authority.</div>
+              </div>
+              <div class="pos-card">
+                <div class="pc-role" style="color:var(--gold)">CEO → All</div>
+                <div class="pc-title">Policy & Strategic Directives</div>
+                <div class="pc-reports" style="margin-top:4px">CEO issues directives via Team Chat or direct message to Directors. Directors cascade instructions to their department staff within 2 hours.</div>
+              </div>
+              <div class="pos-card">
+                <div class="pc-role" style="color:#ef9a9a">Urgent / Emergency</div>
+                <div class="pc-title">Direct CEO WhatsApp</div>
+                <div class="pc-reports" style="margin-top:4px">For genuine emergencies (client legal issue, data breach, urgent deadline), any staff member may contact CEO directly via WhatsApp — state "URGENT" in first line.</div>
+                <a class="pc-wa" href="https://wa.me/17373998522" target="_blank">💬 WhatsApp CEO Now</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TOOLS -->
+        <section class="view" id="view-tools">
+          <div class="stat-strip">
+            <a class="stat g" href="/letterhead" target="_blank" style="text-decoration:none;cursor:pointer">
+              <div class="num" style="font-size:1.2rem">📄 Letterhead</div><div class="lbl">AI writer · draft only</div>
+            </a>
+            <a class="stat" href="/" target="_blank" style="text-decoration:none;cursor:pointer">
+              <div class="num" style="font-size:1.2rem">🌐 Website</div><div class="lbl">View public site</div>
+            </a>
+            <a class="stat" href="/#tools" target="_blank" style="text-decoration:none;cursor:pointer">
+              <div class="num" style="font-size:1.2rem">✨ AI Documents</div><div class="lbl">Generate SOP, letters…</div>
+            </a>
+          </div>
+          <div class="note">
+            <strong style="color:var(--txt)">👋 Welcome to your Staff Workspace.</strong><br><br>
+            From here you can review client applications, update their status (which automatically emails the client), upload approval letters &amp; documents, and reply to client messages.<br><br>
+            This is a staff-level workspace. Business analytics, revenue reports and data exports are reserved for the CEO portal. The Letterhead tool lets you prepare letters with the AI writer, but staff can only print <strong>drafts</strong> — the official signature &amp; stamp are applied by the CEO. If you need anything beyond what you see here, please contact management.
+          </div>
+        </section>
+
+        <section class="view" id="view-trustdesk">
+          <div style="background:var(--panel,#131c3f);border:1px solid var(--line,rgba(255,255,255,.08));border-radius:16px;padding:22px">
+            <h3 style="margin:0 0 4px">🛡️ YUNEX Trust Desk</h3>
+            <p style="color:var(--muted);font-size:.88rem;margin:0 0 14px">Delegated to you by the CEO. Review each identity &amp; business verification and approve or reject — approval unlocks the applicant's trading on YUNEX. <b>No verification, no trade.</b></p>
+            <div style="display:flex;gap:8px;margin-bottom:12px">
+              <button class="btn btn-sm" id="stdPending" onclick="loadStaffVerify('pending')">Pending</button>
+              <button class="btn btn-sm btn-ghost" id="stdAll" onclick="loadStaffVerify('all')">All</button>
+            </div>
+            <div id="staffVerifyQueue"><div class="skeleton">Loading…</div></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modalContent"></div>
+</div>
+
+<script>
+const API = location.origin;
+let KEY = sessionStorage.getItem('skystaff_key') || '';
+let APPS = [];
+let MSGS = [];
+let _modal = { type: null, list: [], idx: 0 };
+
+if (KEY) showApp();
+
+/* ── AUTH ── */
+async function doLogin(){
+  const pw=document.getElementById('pwInput').value;
+  const errEl=document.getElementById('loginErr');
+  const btn=document.getElementById('loginBtn');
+  errEl.textContent=''; btn.disabled=true; btn.textContent='Signing in…';
+  try{
+    const r=await fetch(API+'/api/staff/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})});
+    const d=await r.json();
+    if(!r.ok){errEl.textContent=d.error||'Login failed.';btn.disabled=false;btn.textContent='Sign In';return;}
+    KEY=pw; sessionStorage.setItem('skystaff_key',pw);
+    sessionStorage.setItem('skystaff_name',d.name||'Staff');
+    sessionStorage.setItem('skystaff_role',d.role||'staff');
+    sessionStorage.setItem('skystaff_dept',d.department||'');
+    showApp();
+  }catch(e){errEl.textContent='Network error — try again.';btn.disabled=false;btn.textContent='Sign In';}
+}
+function logout(){ sessionStorage.removeItem('skystaff_key'); location.reload(); }
+function showApp(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('app').style.display='block';
+  const n=sessionStorage.getItem('skystaff_name')||'Staff';
+  const role=sessionStorage.getItem('skystaff_role')||'staff';
+  document.getElementById('userName').textContent=n;
+  document.getElementById('userRole').textContent=role==='ceo'?'CEO (full access)':'Staff member';
+  document.getElementById('userAv').textContent=(n[0]||'S').toUpperCase();
+  loadAll();
+  loadDelegatedResponsibilities();
+}
+const RESP_VIEW={ verifications:{view:'trustdesk',icon:'🛡️',label:'Trust Desk'} };
+async function loadDelegatedResponsibilities(){
+  try{
+    const r=await fetch(API+'/api/staff/responsibilities',{headers:{'x-admin-key':KEY}});
+    const d=await r.json(); if(!r.ok) return;
+    const nav=document.getElementById('delegatedNav'); if(!nav) return;
+    const items=(d.responsibilities||[]).filter(rc=>RESP_VIEW[rc.key]);
+    if(!items.length){ nav.innerHTML=''; return; }
+    nav.innerHTML='<div style="font-size:.66rem;letter-spacing:.1em;color:var(--muted);padding:4px 14px;text-transform:uppercase">Delegated to you</div>'+
+      items.map(rc=>{const m=RESP_VIEW[rc.key];return `<button class="sb-link" data-view="${m.view}" onclick="switchView('${m.view}')"><span class="ic">${m.icon}</span> ${m.label}</button>`;}).join('');
+  }catch(e){}
+}
+async function loadStaffVerify(status){
+  const box=document.getElementById('staffVerifyQueue'); if(!box) return;
+  document.getElementById('stdPending').className='btn btn-sm'+(status==='pending'?'':' btn-ghost');
+  document.getElementById('stdAll').className='btn btn-sm'+(status==='all'?'':' btn-ghost');
+  box.innerHTML='<div class="skeleton">Loading…</div>';
+  try{
+    const r=await fetch(API+'/api/admin/yunex/verifications?status='+status,{headers:{'x-admin-key':KEY}});
+    const list=await r.json(); if(!r.ok) throw new Error(list.error||'load failed');
+    if(!list.length){ box.innerHTML='<p style="color:var(--muted);font-size:.85rem">No '+(status==='pending'?'pending':'')+' verification requests.</p>'; return; }
+    box.innerHTML=list.map(v=>{
+      const stColor=v.status==='verified'?'#7ee2a8':v.status==='rejected'?'#e0736c':'#e0a34c';
+      const when=v.created_at?new Date(v.created_at).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}):'';
+      const detail=v.kind==='business'?('Business: '+esc(v.business_name||'—')):('Doc: '+esc(v.document_type||'—')+(v.document_ref?' · '+esc(v.document_ref):''));
+      return `<div style="border:1px solid var(--line,rgba(255,255,255,.08));border-radius:12px;padding:12px 14px;margin-bottom:8px;background:var(--navy2,#0e1636)">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="font-size:1.2rem">${v.kind==='business'?'🏢':'🪪'}</div>
+          <div style="flex:1;min-width:150px"><div style="font-weight:700;color:var(--txt)">${esc(v.full_name||v.client_email)}</div><div style="font-size:.74rem;color:var(--muted)">${esc(v.client_email)} · ${esc(v.country||'')} · ${when}</div></div>
+          <div style="flex:1;min-width:140px;font-size:.78rem;color:var(--txt)"><span style="text-transform:capitalize;font-weight:700">${esc(v.kind)}</span> · ${detail}<div style="font-size:.72rem;color:var(--muted)">${esc(v.ref)}${v.ip?' · IP '+esc(v.ip):''}</div></div>
+          <div style="display:flex;gap:6px">${v.doc_image_url?`<a href="${esc(v.doc_image_url)}" target="_blank" title="ID document"><img src="${esc(v.doc_image_url)}" style="width:46px;height:46px;object-fit:cover;border-radius:8px;border:1px solid var(--line,rgba(255,255,255,.08))"></a>`:''}${v.selfie_image_url?`<a href="${esc(v.selfie_image_url)}" target="_blank" title="Live selfie"><img src="${esc(v.selfie_image_url)}" style="width:46px;height:46px;object-fit:cover;border-radius:8px;border:1px solid var(--line,rgba(255,255,255,.08))"></a>`:''}</div>
+          <div><span style="color:${stColor};font-weight:700;font-size:.78rem;text-transform:capitalize">${esc(v.status)}</span></div>
+          ${v.status==='pending'?`<div style="display:flex;gap:6px">
+            <button class="btn btn-sm" onclick="staffDecideVerify('${v.ref}','verified',this)">✔ Approve</button>
+            <button class="btn btn-sm btn-ghost" onclick="staffDecideVerify('${v.ref}','rejected',this)">✖ Reject</button>
+          </div>`:(v.review_note?`<div style="font-size:.72rem;color:var(--muted);max-width:150px">${esc(v.review_note)}</div>`:'')}
+        </div></div>`;
+    }).join('');
+  }catch(e){ box.innerHTML='<p style="color:#e05c5c;font-size:.85rem">'+esc(e.message)+'</p>'; }
+}
+async function staffDecideVerify(ref,decision,btn){
+  let note='', confirmMatch=false;
+  if(decision==='rejected'){ note=prompt('Reason for rejection (shown to the applicant):','')||''; if(!note.trim())return; }
+  if(decision==='verified'){
+    confirmMatch=confirm('APPROVAL CHECKLIST — confirm ALL before verifying:\n\n✓ The face in the live selfie matches the photo on the ID document\n✓ The name, country and document number are accurate and legible\n✓ The document appears genuine and unaltered\n\nClick OK only if every check passes.');
+    if(!confirmMatch)return;
+  }
+  btn.disabled=true; btn.textContent='…';
+  try{
+    const r=await fetch(API+'/api/admin/yunex/verifications/'+ref+'/decide',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':KEY},body:JSON.stringify({decision,note,confirmMatch})});
+    const d=await r.json(); if(!r.ok) throw new Error(d.error||'failed');
+    loadStaffVerify('pending');
+  }catch(e){ alert(e.message); btn.disabled=false; }
+}
+
+/* ── NAV ── */
+function switchView(v){
+  document.querySelectorAll('.view').forEach(s=>s.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  document.querySelectorAll('.sb-link').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
+  const titles={queue:'Work Queue',reception:'AI Reception',messages:'Client Messages',team:'Team Chat',mychannel:'My Department Channel',mytasks:'My Tasks',attendance:'Attendance',tools:'Tools',org:'Org Structure'};
+  document.getElementById('viewTitle').textContent=titles[v]||v;
+  if(v==='reception') loadStaffReception();
+  if(v==='messages') loadMessages();
+  if(v==='team') loadTeam();
+  if(v==='mychannel') loadStaffChannel();
+  if(v==='mytasks') loadMyTasks();
+  if(v==='attendance') loadAttendance();
+  if(v==='trustdesk') loadStaffVerify('pending');
+  toggleSidebar(false);
+}
+function toggleSidebar(open){
+  document.getElementById('sidebar').classList.toggle('open',open);
+  document.getElementById('sbBackdrop').classList.toggle('show',open);
+}
+
+/* ══════════════════════════════════════════════════════
+   ATTENDANCE — staff clock in / out
+══════════════════════════════════════════════════════ */
+let clockTimer=null;
+function tickClock(){
+  const el=document.getElementById('clockTime'); if(!el)return;
+  const now=new Date();
+  el.textContent=now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const d=document.getElementById('clockDate'); if(d)d.textContent=now.toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+}
+async function loadAttendance(){
+  tickClock();
+  if(clockTimer)clearInterval(clockTimer);
+  clockTimer=setInterval(()=>{ if(document.getElementById('view-attendance').classList.contains('active'))tickClock(); else {clearInterval(clockTimer);clockTimer=null;} },1000);
+  const hist=document.getElementById('attHistory');
+  try{
+    const r=await fetch(API+'/api/staff/attendance',{headers:{'x-admin-key':KEY}});
+    const d=r.ok?(await r.json()):{rows:[],today:''};
+    const rows=d.rows||[];
+    const todayRow=rows.find(x=>x.work_date===d.today);
+    const st=document.getElementById('clockStatus');
+    const inBtn=document.getElementById('clockInBtn'),outBtn=document.getElementById('clockOutBtn');
+    if(!todayRow||!todayRow.clock_in){
+      st.innerHTML='⚪ You have not clocked in today.';
+      inBtn.disabled=false; outBtn.disabled=true;
+    }else if(!todayRow.clock_out){
+      const t=new Date(todayRow.clock_in).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+      st.innerHTML=`🟢 Clocked in at <strong>${t}</strong> ${todayRow.late?'<span style="color:#ffb74d">· Late</span>':'<span style="color:#86d98a">· On time</span>'}`;
+      inBtn.disabled=true; outBtn.disabled=false;
+    }else{
+      const ti=new Date(todayRow.clock_in).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+      const to=new Date(todayRow.clock_out).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+      st.innerHTML=`✅ Today complete · In ${ti} → Out ${to} · <strong>${todayRow.hours||0}h</strong>`;
+      inBtn.disabled=true; outBtn.disabled=true;
+    }
+    if(!rows.length){hist.innerHTML='<div class="note">No attendance records yet.</div>';return;}
+    hist.innerHTML='<div style="display:flex;flex-direction:column;gap:6px">'+rows.map(a=>{
+      const day=new Date(a.work_date+'T00:00:00').toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+      const ti=a.clock_in?new Date(a.clock_in).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}):'—';
+      const to=a.clock_out?new Date(a.clock_out).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}):'—';
+      const tag=a.late?'<span style="color:#ffb74d;font-weight:700">Late</span>':'<span style="color:#86d98a;font-weight:700">On time</span>';
+      return `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 14px;background:var(--navy2);border:1px solid var(--line);border-radius:10px;font-size:0.85rem;flex-wrap:wrap">
+        <strong style="min-width:90px">${day}</strong>
+        <span style="color:var(--muted)">In ${ti} · Out ${to}</span>
+        <span>${tag}</span>
+        <span style="color:var(--gold2);font-weight:700">${a.hours?a.hours+'h':''}</span>
+      </div>`;
+    }).join('')+'</div>';
+  }catch(e){hist.innerHTML='<div class="note">Could not load attendance.</div>';}
+}
+async function doClock(action){
+  const msg=document.getElementById('clockMsg');
+  msg.style.color='var(--muted)';msg.textContent='Recording…';
+  try{
+    const r=await fetch(API+'/api/staff/clock',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':KEY},body:JSON.stringify({action})});
+    const d=await r.json(); if(!r.ok)throw new Error(d.error||'Failed');
+    msg.style.color='#86d98a';
+    msg.textContent=action==='in'?(d.late?'🟡 Clocked in — marked late.':'🟢 Clocked in — on time!'):`✅ Clocked out — ${d.hours}h worked today.`;
+    await loadAttendance();
+  }catch(e){msg.style.color='#ef9a9a';msg.textContent='Error: '+e.message;}
+}
+
+/* ── LOAD ── */
+async function loadAll(){ await loadApps(); await loadMessages(true); await pollTeamBadge(); }
+
+async function loadApps(){
+  try{
+    const r=await fetch(API+'/api/admin/applications',{headers:{'x-admin-key':KEY}});
+    if(r.status===401){logout();return;}
+    APPS=await r.json();
+    if(!Array.isArray(APPS)) APPS=[];
+  }catch(e){APPS=[];}
+  renderStats(); renderServiceFilter(); renderTable();
+}
+
+const STATUS_LIST=['Received','In Review','Approved','Needs More Info','Completed','Rejected'];
+
+/* ── STATS (counts only) ── */
+function renderStats(){
+  const count=s=>APPS.filter(a=>a.status===s).length;
+  const newN=count('Received');
+  const active=count('In Review')+count('Needs More Info');
+  const done=count('Approved')+count('Completed');
+  document.getElementById('statStrip').innerHTML=`
+    ${statCard(APPS.length,'Total','g')}
+    ${statCard(newN,'New / Unread')}
+    ${statCard(active,'In Progress')}
+    ${statCard(done,'Approved / Done')}`;
+}
+function statCard(num,lbl,cls=''){return `<div class="stat ${cls}"><div class="num">${num}</div><div class="lbl">${lbl}</div></div>`;}
+
+/* ── TABLE ── */
+function renderServiceFilter(){
+  const sel=document.getElementById('serviceFilter'); const cur=sel.value;
+  const services=[...new Set(APPS.map(a=>a.service).filter(Boolean))].sort();
+  sel.innerHTML='<option value="">All services</option>'+services.map(s=>`<option${s===cur?' selected':''}>${esc(s)}</option>`).join('');
+}
+function rowHtml(a){
+  return `<tr class="app-row" onclick="openApp('${esc(a.ref)}')">
+    <td class="gold" style="font-weight:700">${esc(a.ref)}</td>
+    <td>${esc((a.fname||'')+' '+(a.lname||''))}</td>
+    <td>${esc(a.service||'—')}</td>
+    <td>${a.timestamp?new Date(a.timestamp).toLocaleDateString():'—'}</td>
+    <td>${badge(a.status)}</td></tr>`;
+}
+function renderTable(){
+  const q=(document.getElementById('searchBox').value||'').toLowerCase();
+  const st=document.getElementById('statusFilter').value;
+  const sv=document.getElementById('serviceFilter').value;
+  const rows=APPS.filter(a=>(!st||a.status===st)&&(!sv||a.service===sv)&&(!q||((a.fname||'')+' '+(a.lname||'')+' '+(a.email||'')+' '+(a.ref||'')).toLowerCase().includes(q)))
+    .sort((a,b)=>new Date(b.timestamp||0)-new Date(a.timestamp||0));
+  document.getElementById('tbody').innerHTML=rows.length?rows.map(a=>rowHtml(a)).join(''):'<tr><td colspan="5" class="empty">No applications found.</td></tr>';
+  const newN=APPS.filter(a=>a.status==='Received').length;
+  const b=document.getElementById('navAppsBadge'); b.textContent=newN; b.classList.toggle('show',newN>0);
+}
+
+/* ── HELPERS ── */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function badge(s){return `<span class="badge b-${(s||'Received').replace(/\s/g,'')}">${esc(s||'Received')}</span>`;}
+
+/* ══════════════ STAFF: AI RECEPTION ══════════════ */
+const SREC_DEPT={travel:{icon:'🌐',label:'Global Mobility'},education:{icon:'🎓',label:'SkyGlobe Academy'},legal:{icon:'📜',label:'Legal & Trust Services'},identity:{icon:'🪪',label:'Digital Identity'},finance:{icon:'💳',label:'Finance & Payments'},innovation:{icon:'🚀',label:'Innovation & Technology'},noria:{icon:'✦',label:'NORIA · AI'},yunex:{icon:'◆',label:'Yunex'},terra:{icon:'🌍',label:'TERRA'},ceo:{icon:'👑',label:'Office of the CEO'},general:{icon:'📨',label:'General'}};
+const SREC_URG={critical:'#f0564f',high:'#f5b942',normal:'#4f8ef7',low:'#5f74a0'};
+function srecTime(d){ if(!d)return''; const s=(Date.now()-new Date(d))/1000; if(s<60)return'just now'; if(s<3600)return Math.floor(s/60)+'m ago'; if(s<86400)return Math.floor(s/3600)+'h ago'; return Math.floor(s/86400)+'d ago'; }
+
+async function loadStaffReception(){
+  const feed=document.getElementById('staffRecFeed');
+  const me=sessionStorage.getItem('skystaff_name')||'';
+  feed.innerHTML='<div class="skeleton">Loading reception…</div>';
+  try{
+    const r=await fetch(API+'/api/admin/reception',{headers:{'x-admin-key':KEY,'x-staff-name':me}});
+    const rows=await r.json();
+    if(!r.ok) throw new Error((rows&&rows.error)||('HTTP '+r.status));
+    const open=(Array.isArray(rows)?rows:[]).filter(x=>x.status!=='resolved'&&x.needs_human);
+    const mine=open.filter(x=>x.assigned_to===me);
+    const queue=open.filter(x=>!x.assigned_to);
+    const badgeEl=document.getElementById('navRecBadge'); if(badgeEl) badgeEl.textContent=mine.length||'';
+    if(!mine.length&&!queue.length){ feed.innerHTML='<div style="color:var(--muted);text-align:center;padding:40px">Nothing waiting — you\'re all caught up. 🎉</div>'; return; }
+    feed.innerHTML=
+      (mine.length?`<h3 style="margin:0 0 10px;color:var(--txt);font-size:1rem">👤 Assigned to you (${mine.length})</h3>`+mine.map(srecCard).join(''):'')+
+      (queue.length?`<h3 style="margin:20px 0 10px;color:var(--txt);font-size:1rem">📥 Open queue — claim any (${queue.length})</h3>`+queue.map(x=>srecCard(x,true)).join(''):'');
+  }catch(err){
+    const missing=/relation|does not exist|PGRST/i.test(err.message||'');
+    feed.innerHTML='<div style="color:#e05c5c;padding:20px">Failed to load: '+esc(err.message)+(missing?'<div style="color:var(--muted);font-size:0.8rem;margin-top:8px">The AI Reception table isn\'t set up yet — ask the CEO to run the setup SQL.</div>':'')+'</div>';
+  }
+}
+function srecCard(r,claimable){
+  const m=SREC_DEPT[r.department]||SREC_DEPT.general;
+  const uc=SREC_URG[r.urgency]||SREC_URG.normal;
+  return `<div style="border-radius:12px;background:var(--navy2);border:1px solid var(--line);border-left:3px solid ${uc};padding:14px 16px;margin-bottom:12px">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">
+      <span style="font-size:0.72rem;font-weight:800;color:var(--gold)">${m.icon} ${m.label}</span>
+      <span style="font-size:0.64rem;font-weight:800;text-transform:uppercase;color:${uc};border:1px solid ${uc}55;padding:2px 8px;border-radius:999px">${esc(r.urgency||'normal')}</span>
+      <span style="flex:1"></span><span style="font-size:0.7rem;color:var(--muted)">${srecTime(r.created_at)}</span>
+    </div>
+    <div style="font-weight:700;font-size:0.9rem">${esc(r.client_name||'Client')} <span style="color:var(--muted);font-weight:400;font-size:0.8rem">&lt;${esc(r.client_email||'—')}&gt;</span></div>
+    ${r.service?`<div style="font-size:0.78rem;color:var(--muted);margin:2px 0 6px">${esc(r.service)}${r.ref?' · '+esc(r.ref):''}</div>`:''}
+    <div style="font-size:0.85rem;margin-bottom:8px"><b style="color:var(--gold)">Needs:</b> ${esc(r.intent||'—')}</div>
+    <textarea id="srecReply${r.id}" placeholder="Write your reply to the client…" style="width:100%;min-height:70px;background:var(--navy3,#0d1526);color:var(--txt);border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:0.82rem;font-family:inherit;line-height:1.5">${esc(r.suggested_reply||'')}</textarea>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+      ${claimable?`<button class="btn btn-sm" onclick="srecClaim(${r.id})" style="background:transparent;border:1px solid var(--line);color:#a78bfa">✋ Claim</button>`:''}
+      <button class="btn btn-sm" onclick="srecReply(${r.id})">✉ Send reply &amp; resolve</button>
+      <button class="btn btn-sm" onclick="srecResolve(${r.id})" style="background:transparent;border:1px solid var(--line);color:#2ecc8f">✓ Resolve</button>
+    </div>
+  </div>`;
+}
+async function srecClaim(id){
+  const me=sessionStorage.getItem('skystaff_name')||'';
+  try{ await fetch(API+'/api/admin/reception/'+id,{method:'PATCH',headers:{'Content-Type':'application/json','x-admin-key':KEY,'x-staff-name':me},body:JSON.stringify({status:'assigned',assigned_to:me})}); loadStaffReception(); }catch(e){ alert('Error: '+e.message); }
+}
+async function srecReply(id){
+  const ta=document.getElementById('srecReply'+id); const reply=ta?ta.value.trim():'';
+  if(!reply){ alert('Reply is empty.'); return; }
+  const me=sessionStorage.getItem('skystaff_name')||'';
+  try{
+    const r=await fetch(API+'/api/admin/reception/'+id+'/reply',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':KEY,'x-staff-name':me},body:JSON.stringify({reply})});
+    if(!r.ok){ const d=await r.json(); throw new Error(d.error||'Could not send.'); }
+    loadStaffReception();
+  }catch(e){ alert('Error: '+e.message); }
+}
+async function srecResolve(id){
+  const me=sessionStorage.getItem('skystaff_name')||'';
+  try{ await fetch(API+'/api/admin/reception/'+id,{method:'PATCH',headers:{'Content-Type':'application/json','x-admin-key':KEY,'x-staff-name':me},body:JSON.stringify({status:'resolved'})}); loadStaffReception(); }catch(e){ alert('Error: '+e.message); }
+}
+
+/* ── MODAL NAV ── */
+function _navBar(){
+  const {list,idx}=_modal;
+  const total=list.length;
+  if(total<=1)return '';
+  return `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:8px 12px;background:var(--navy3);border:1px solid var(--line);border-radius:10px">
+    <button onclick="_modalNav(-1)" ${idx===0?'disabled':''} style="background:none;border:1px solid var(--line);color:${idx===0?'var(--muted)':'var(--gold)'};border-radius:7px;padding:5px 14px;cursor:pointer;font-size:0.88rem">← Prev</button>
+    <span style="color:var(--muted);font-size:0.82rem">${idx+1} of ${total}</span>
+    <button onclick="_modalNav(1)" ${idx===total-1?'disabled':''} style="background:none;border:1px solid var(--line);color:${idx===total-1?'var(--muted)':'var(--gold)'};border-radius:7px;padding:5px 14px;cursor:pointer;font-size:0.88rem">Next →</button>
+  </div>`;
+}
+function _modalNav(dir){
+  const {type,list,idx}=_modal;
+  const next=idx+dir;
+  if(next<0||next>=list.length)return;
+  _modal.idx=next;
+  if(type==='app')openApp(list[next],true);
+}
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('modal').style.display!=='block')return;
+  if(e.key==='ArrowLeft')_modalNav(-1);
+  else if(e.key==='ArrowRight')_modalNav(1);
+  else if(e.key==='Escape')closeModal();
+});
+
+/* ── DETAIL MODAL ── */
+function openApp(ref, keepNav){
+  const a=APPS.find(x=>x.ref===ref); if(!a)return;
+  if(!keepNav){ _modal={type:'app',list:APPS.map(x=>x.ref),idx:APPS.findIndex(x=>x.ref===ref)}; }
+  const row=(k,v)=>v?`<tr><td>${k}</td><td>${esc(v)}</td></tr>`:'';
+  const history=(a.responses||[]).map(r=>`<div class="resp-item"><div class="meta">${esc(r.by)} · ${new Date(r.date).toLocaleString()}</div>${esc(r.message)}</div>`).join('');
+  document.getElementById('modalContent').innerHTML=`
+    ${_navBar()}
+    <button class="close-x" onclick="closeModal()">✕</button>
+    <h2 class="gold">${esc(a.ref)}</h2>
+    <div class="sub">${esc(a.service||'')} ${badge(a.status)}</div>
+    <table class="detail-table">
+      ${row('Name',((a.fname||'')+' '+(a.lname||'')).trim())}
+      ${row('Email',a.email)}${row('Phone',a.phone)}
+      ${row('Nationality',a.nationality)}${row('Date of Birth',a.dob)}
+      ${row('Passport',a.passport)}${row('Passport Expiry',a.passportExpiry)}
+      ${row('Destination',a.destination)}${row('Travel Date',a.travelDate)}
+      ${row('Duration',a.duration)}${row('Purpose',a.purpose)}
+      ${row('Institution',a.institution)}${row('Employer',a.employer)}
+      ${row('Hotel City',a.hotelCity)}${row('Check-in',a.checkin)}${row('Check-out',a.checkout)}
+      ${row('Coverage',a.coverage)}${row('Document Type',a.docType)}
+      ${row('Scholarship',a.scholarship)}${row('Notes',a.notes)}
+      ${row('Submitted',a.timestamp?new Date(a.timestamp).toLocaleString():'')}
+    </table>
+    ${history?'<label style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;font-weight:700">Previous responses</label><div style="margin:8px 0 16px">'+history+'</div>':''}
+    <div class="box">
+      <label>📎 Documents</label>
+      <div id="adminDocs" style="font-size:0.85rem;color:var(--muted);margin-bottom:12px">Loading…</div>
+      <input type="text" id="adminDocLabel" placeholder="Document name (e.g. Visa Approval Letter)">
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <input type="file" id="adminDocFile" style="font-size:0.82rem;color:var(--muted);flex:1;min-width:0">
+        <button class="btn btn-sm" id="adminDocBtn" onclick="adminUploadDoc('${esc(a.ref)}')">⬆️ Upload</button>
+      </div>
+    </div>
+    <div class="box">
+      <label>🗒️ Internal staff notes (client never sees these)</label>
+      <div id="staffNotes" style="margin-bottom:12px">${renderNotes(a.staff_notes)}</div>
+      <input type="text" id="noteInput" placeholder="Add a private note for the team…" onkeydown="if(event.key==='Enter')addNote('${esc(a.ref)}')">
+      <button class="btn btn-sm" onclick="addNote('${esc(a.ref)}')">➕ Add Note</button>
+    </div>
+    <div class="box">
+      <label>Update status</label>
+      <select id="newStatus">${STATUS_LIST.map(s=>`<option${s===a.status?' selected':''}>${s}</option>`).join('')}</select>
+      <label>Message to applicant (optional — sent by email)</label>
+      <textarea id="respMsg" placeholder="e.g. Your visa appointment is booked for June 20th. Please bring your passport…"></textarea>
+      <button class="btn" onclick="sendUpdate('${esc(a.ref)}')">📧 Send Update to ${esc(a.fname||'applicant')}</button>
+      <div class="ok-msg" id="updateMsg"></div>
+    </div>`;
+  document.getElementById('modal').style.display='block';
+  loadAdminDocs(ref);
+}
+function closeModal(){document.getElementById('modal').style.display='none';}
+
+async function loadAdminDocs(ref){
+  const el=document.getElementById('adminDocs'); if(!el)return;
+  try{
+    const r=await fetch(API+'/api/documents/'+encodeURIComponent(ref));
+    const docs=await r.json(); if(!r.ok)throw new Error();
+    if(!docs.length){el.innerHTML='No documents yet.';return;}
+    el.innerHTML=docs.map(d=>`<div class="docrow">
+      <div style="min-width:0"><a href="${d.url}" target="_blank">📄 ${esc(d.filename)}</a>
+      <div style="font-size:0.68rem;color:var(--muted)">${String(d.uploaded_by||'').startsWith('admin')?'✅ '+esc(d.uploaded_by):'From applicant'}${d.created_at?' · '+new Date(d.created_at).toLocaleString():''}</div></div>
+      <button onclick="adminDeleteDoc(${d.id},'${esc(ref)}')" style="background:none;border:1px solid var(--red);color:#ef9a9a;border-radius:6px;padding:4px 10px;font-size:0.7rem;cursor:pointer;white-space:nowrap">🗑 Delete</button>
+    </div>`).join('');
+  }catch(e){el.innerHTML='Could not load documents.';}
+}
+async function adminUploadDoc(ref){
+  const input=document.getElementById('adminDocFile'),labelEl=document.getElementById('adminDocLabel'),btn=document.getElementById('adminDocBtn');
+  const file=input&&input.files&&input.files[0];
+  if(!file){alert('Choose a file first.');return;}
+  if(file.size>8*1024*1024){alert('File too large — maximum 8 MB.');return;}
+  const label=(labelEl&&labelEl.value.trim())||file.name;
+  const ext=file.name.includes('.')?'.'+file.name.split('.').pop():'';
+  const displayName=label.endsWith(ext)?label:label+ext;
+  btn.disabled=true;btn.textContent='⏳ Uploading…';
+  try{
+    const data=await new Promise((ok,err)=>{const r=new FileReader();r.onload=()=>ok(String(r.result).split(',')[1]);r.onerror=err;r.readAsDataURL(file);});
+    const r=await fetch(API+'/api/documents',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':KEY},body:JSON.stringify({ref,filename:displayName,contentType:file.type,data})});
+    const d=await r.json(); if(!r.ok)throw new Error(d.error||'Upload failed');
+    input.value='';if(labelEl)labelEl.value=''; loadAdminDocs(ref);
+  }catch(e){alert('Upload failed: '+e.message);}
+  btn.disabled=false;btn.textContent='⬆️ Upload';
+}
+async function adminDeleteDoc(id,ref){
+  if(!confirm('Delete this document permanently?'))return;
+  try{
+    const r=await fetch(API+'/api/documents/'+id,{method:'DELETE',headers:{'x-admin-key':KEY}});
+    const d=await r.json(); if(!r.ok)throw new Error(d.error||'Delete failed');
+    loadAdminDocs(ref);
+  }catch(e){alert('Delete failed: '+e.message);}
+}
+async function sendUpdate(ref){
+  const status=document.getElementById('newStatus').value;
+  const response=document.getElementById('respMsg').value.trim();
+  const msgEl=document.getElementById('updateMsg');
+  msgEl.style.color='var(--muted)';msgEl.textContent='Sending…';
+  try{
+    const r=await fetch(API+'/api/admin/update',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':KEY},body:JSON.stringify({ref,status,response})});
+    const d=await r.json();
+    if(!r.ok){msgEl.style.color='#ff7b7b';msgEl.textContent=d.error||'Update failed.';return;}
+    msgEl.style.color=d.emailed?'#86d98a':'#ffb74d';
+    msgEl.textContent=d.emailed?'✅ Status updated and email sent to applicant.':'⚠️ Status updated. '+(d.emailError||'Email could not be sent.');
+    await loadApps();
+  }catch(e){msgEl.style.color='#ff7b7b';msgEl.textContent='Network error.';}
+}
+
+/* ── MESSAGES ── */
+async function loadMessages(silent){
+  try{
+    const r=await fetch(API+'/api/admin/messages',{headers:{'x-admin-key':KEY}});
+    MSGS=await r.json(); if(!Array.isArray(MSGS))MSGS=[];
+  }catch{MSGS=[];}
+  const unread=MSGS.filter(m=>m.sender==='client'&&!m.read).length;
+  const b=document.getElementById('navMsgBadge');b.textContent=unread;b.classList.toggle('show',unread>0);
+  if(!silent) renderThreads();
+}
+function renderThreads(){
+  const byClient={};
+  MSGS.forEach(m=>{(byClient[m.client_email]=byClient[m.client_email]||[]).push(m);});
+  const emails=Object.keys(byClient).sort((a,b)=>byClient[b][byClient[b].length-1].created_at.localeCompare(byClient[a][byClient[a].length-1].created_at));
+  const area=document.getElementById('threadsArea');
+  if(!emails.length){area.innerHTML='<div class="note">No client messages yet.</div>';return;}
+  area.innerHTML=emails.map(email=>{
+    const thread=byClient[email];const last=thread[thread.length-1];
+    const unread=thread.some(m=>m.sender==='client'&&!m.read);
+    return `<div class="thread">
+      <div class="head" onclick="toggleThread('${esc(email)}')">
+        <strong>${esc(email)}${unread?'<span class="tag-new">NEW</span>':''}</strong>
+        <span style="color:var(--muted);font-size:0.74rem">${new Date(last.created_at).toLocaleString()}</span>
+      </div>
+      <div id="thread-${esc(email)}" style="display:none">
+        <div class="chat">${thread.map(m=>{const team=m.sender==='admin'||m.sender==='ai';const who=m.sender==='ai'?'AI Assistant':m.sender==='admin'?'You':'Client';return `<div class="msg ${team?'admin':'client'}">${esc(m.body).replace(/\n/g,'<br>')}<div class="ts">${who} · ${new Date(m.created_at).toLocaleTimeString()}</div></div>`;}).join('')}</div>
+        <div class="chat-input">
+          <input type="text" id="reply-${esc(email)}" placeholder="Type a reply…" onkeydown="if(event.key==='Enter')sendReply('${esc(email)}')">
+          <button class="btn btn-sm" onclick="sendReply('${esc(email)}')">Send</button>
+        </div>
+      </div></div>`;
+  }).join('');
+}
+function toggleThread(email){const el=document.getElementById('thread-'+email);if(el)el.style.display=el.style.display==='none'?'block':'none';}
+async function sendReply(email){
+  const input=document.getElementById('reply-'+email);const body=input.value.trim();if(!body)return;input.value='';
+  try{
+    const r=await fetch(API+'/api/admin/messages',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':KEY},body:JSON.stringify({client_email:email,body})});
+    if(!r.ok){alert('Failed to send.');input.value=body;return;}
+    await loadMessages(); renderThreads(); toggleThread(email);
+  }catch{alert('Network error.');input.value=body;}
+}
+
+/* ── STAFF NOTES (on an application) ── */
+function renderNotes(notes){
+  if(!Array.isArray(notes)||!notes.length) return '<div style="color:var(--muted);font-size:0.82rem">No notes yet.</div>';
+  return notes.map(n=>`<div class="resp-item"><div class="meta">${esc(n.by)}${n.role==='ceo'?' (CEO)':''} · ${new Date(n.date).toLocaleString()}</div>${esc(n.message)}</div>`).join('');
+}
+async function addNote(ref){
+  const input=document.getElementById('noteInput');const note=input.value.trim();if(!note)return;
+  input.disabled=true;
+  try{
+    const r=await fetch(API+'/api/admin/note',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':KEY},body:JSON.stringify({ref,note})});
+    const d=await r.json(); if(!r.ok)throw new Error(d.error||'Failed');
+    const app_=APPS.find(x=>x.ref===ref); if(app_)app_.staff_notes=d.notes;
+    document.getElementById('staffNotes').innerHTML=renderNotes(d.notes);
+    input.value='';
+  }catch(e){alert('Could not add note: '+e.message);}
+  input.disabled=false;input.focus();
+}
+
+/* ── TEAM CHAT (CEO ↔ Staff) — live badge + auto-refresh ── */
+let TEAM=[];
+let teamLiveTimer=null;
+function teamMe(){return sessionStorage.getItem('skystaff_name')||'';}
+async function fetchTeam(){
+  try{
+    const r=await fetch(API+'/api/team/messages',{headers:{'x-admin-key':KEY}});
+    const d=await r.json(); TEAM=Array.isArray(d)?d:[];
+  }catch{ /* keep last */ }
+  return TEAM;
+}
+function teamUnseen(){
+  const seen=parseInt(localStorage.getItem('sg_team_seen_staff')||'0',10);
+  return TEAM.filter((m,i)=>i>=seen && m.author!==teamMe()).length;
+}
+function refreshTeamBadge(){
+  const n=teamUnseen();const b=document.getElementById('navTeamBadge');
+  if(b){b.textContent=n;b.classList.toggle('show',n>0);}
+}
+async function pollTeamBadge(){ await fetchTeam(); refreshTeamBadge(); }
+function renderTeam(){
+  const el=document.getElementById('teamChat');const me=teamMe();
+  if(!TEAM.length){el.innerHTML='<div style="color:var(--muted);text-align:center;padding:20px">No team messages yet. Say hello 👋</div>';return;}
+  el.innerHTML=TEAM.map(m=>{
+    const mine=m.author===me;
+    return `<div class="msg ${mine?'admin':'client'}">${esc(m.body).replace(/\n/g,'<br>')}<div class="ts">${esc(m.author)}${m.role==='ceo'?' (CEO)':''} · ${m.created_at?new Date(m.created_at).toLocaleString():''}</div></div>`;
+  }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+async function loadTeam(){
+  await fetchTeam(); renderTeam();
+  localStorage.setItem('sg_team_seen_staff',String(TEAM.length));
+  refreshTeamBadge();
+  if(teamLiveTimer)clearInterval(teamLiveTimer);
+  teamLiveTimer=setInterval(async()=>{
+    if(!document.getElementById('view-team').classList.contains('active')){clearInterval(teamLiveTimer);teamLiveTimer=null;return;}
+    const before=TEAM.length; await fetchTeam();
+    if(TEAM.length!==before){renderTeam();localStorage.setItem('sg_team_seen_staff',String(TEAM.length));}
+    refreshTeamBadge();
+  },12000);
+}
+async function sendTeam(){
+  const input=document.getElementById('teamInput');const body=input.value.trim();if(!body)return;input.value='';
+  try{
+    const r=await fetch(API+'/api/team/messages',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':KEY},body:JSON.stringify({body})});
+    if(!r.ok){alert('Failed to send.');input.value=body;return;}
+    await fetchTeam(); renderTeam(); localStorage.setItem('sg_team_seen_staff',String(TEAM.length)); refreshTeamBadge();
+  }catch{alert('Network error.');input.value=body;}
+}
+setInterval(()=>{ if(KEY) pollTeamBadge(); }, 25000);
+
+/* ══════════════════════════════════════════════════════
+   DEPT CHANNEL (staff — own dept only)
+══════════════════════════════════════════════════════ */
+let STAFF_DEPT = null;
+let STAFF_CHAN_MSGS = [];
+let staffChanTimer = null;
+const CHAN_META_S = {
+  immigration:{icon:'🛂',label:'Immigration Channel',sub:'Immigration & Visa Services'},
+  operations:{icon:'⚙️',label:'Operations Channel',sub:'Operations & Conference'},
+  finance:{icon:'💰',label:'Finance Channel',sub:'Finance & Accounts'},
+  client_relations:{icon:'🤝',label:'Client Relations Channel',sub:'Client Relations & Support'},
+  legal:{icon:'🔐',label:'Legal Channel',sub:'Legal & Compliance'},
+  general:{icon:'📢',label:'General Channel',sub:'All departments'},
+};
+
+async function resolveStaffDept(){
+  if(STAFF_DEPT) return STAFF_DEPT;
+  // Department comes directly from the login response (unified accounts)
+  const fromLogin = sessionStorage.getItem('skystaff_dept')||'';
+  if(fromLogin){ STAFF_DEPT=fromLogin; return STAFF_DEPT; }
+  // Fallback: look up by name (legacy env-var staff accounts)
+  const name = sessionStorage.getItem('skystaff_name')||'';
+  if(!name) return 'general';
+  try{
+    const r = await fetch(API+'/api/staff/profile',{headers:{'x-admin-key':KEY,'x-staff-name':name}});
+    const p = r.ok ? await r.json() : null;
+    STAFF_DEPT = (p&&p.department) || 'general';
+  }catch{ STAFF_DEPT='general'; }
+  return STAFF_DEPT;
+}
+
+let STAFF_ACTIVE_CHAN='general';
+async function loadStaffChannel(){
+  const dept = await resolveStaffDept();
+  // Channels this staff member can see: always General + their own department
+  const myChans = (dept && dept!=='general') ? ['general',dept] : ['general'];
+  // Default to the staff member's own department (so they land where CEO messages them)
+  if(!myChans.includes(STAFF_ACTIVE_CHAN)) STAFF_ACTIVE_CHAN = (dept && dept!=='general') ? dept : 'general';
+  renderStaffChanTabs(myChans);
+  applyStaffChanHead(STAFF_ACTIVE_CHAN);
+  await fetchStaffChanMsgs(STAFF_ACTIVE_CHAN);
+  if(staffChanTimer)clearInterval(staffChanTimer);
+  staffChanTimer=setInterval(async()=>{
+    if(!document.getElementById('view-mychannel').classList.contains('active')){clearInterval(staffChanTimer);staffChanTimer=null;return;}
+    await fetchStaffChanMsgs(STAFF_ACTIVE_CHAN);
+  },12000);
+}
+function renderStaffChanTabs(chans){
+  const el=document.getElementById('staffChanTabs'); if(!el)return;
+  if(chans.length<=1){ el.innerHTML=''; return; }
+  el.innerHTML=chans.map(c=>{
+    const m=CHAN_META_S[c]||{icon:'💬',label:c};
+    const active=c===STAFF_ACTIVE_CHAN;
+    return `<button onclick="switchStaffChannel('${c}')" style="background:${active?'var(--gold-soft)':'none'};border:1px solid ${active?'var(--gold)':'var(--line)'};color:${active?'var(--gold)':'var(--muted)'};border-radius:100px;padding:6px 16px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">${m.icon} ${esc(m.label.replace(' Channel',''))}</button>`;
+  }).join('');
+}
+function applyStaffChanHead(chan){
+  const meta = CHAN_META_S[chan]||{icon:'💬',label:'Department Channel',sub:''};
+  document.getElementById('staffChanIcon').textContent=meta.icon;
+  document.getElementById('staffChanTitle').textContent=meta.label;
+  document.getElementById('staffChanSub').textContent=meta.sub;
+  document.getElementById('staffChanInput').placeholder=`Message ${meta.label}…`;
+}
+async function switchStaffChannel(chan){
+  STAFF_ACTIVE_CHAN=chan;
+  const dept = await resolveStaffDept();
+  const myChans = (dept && dept!=='general') ? ['general',dept] : ['general'];
+  renderStaffChanTabs(myChans);
+  applyStaffChanHead(chan);
+  await fetchStaffChanMsgs(chan);
+}
+
+async function fetchStaffChanMsgs(dept){
+  try{
+    const r=await fetch(API+'/api/dept/messages?dept='+dept,{headers:{'x-admin-key':KEY}});
+    STAFF_CHAN_MSGS=r.ok?(await r.json()):[];
+  }catch{}
+  const el=document.getElementById('staffChanMsgs'); if(!el)return;
+  const me=sessionStorage.getItem('skystaff_name')||'';
+  if(!STAFF_CHAN_MSGS.length){el.innerHTML='<div style="color:var(--muted);text-align:center;padding:40px">No messages yet. Say hello to your team 👋</div>';return;}
+  el.innerHTML=STAFF_CHAN_MSGS.map(m=>{
+    const mine=m.author===me;
+    return `<div class="chan-msg ${mine?'mine':'theirs'}">
+      <div class="cm-meta"><span class="cm-author">${esc(m.author)}</span><span class="cm-role">${m.author_role==='ceo'?' · CEO':m.author_role==='director'?' · Director':''}</span></div>
+      <div class="cm-body">${esc(m.body).replace(/\n/g,'<br>')}</div>
+      <div class="cm-time">${m.created_at?new Date(m.created_at).toLocaleString():''}</div>
+    </div>`;
+  }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+
+async function sendStaffChanMsg(){
+  const input=document.getElementById('staffChanInput');
+  const body=input.value.trim(); if(!body)return;
+  const dept=STAFF_ACTIVE_CHAN||await resolveStaffDept();
+  const me=sessionStorage.getItem('skystaff_name')||'Staff';
+  input.value='';
+  try{
+    const r=await fetch(API+'/api/dept/messages',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':KEY},
+      body:JSON.stringify({department:dept,body,author:me,author_role:'staff'})});
+    if(!r.ok){input.value=body;return;}
+    await fetchStaffChanMsgs(dept);
+  }catch{input.value=body;}
+}
+
+/* ══════════════════════════════════════════════════════
+   MY TASKS (staff)
+══════════════════════════════════════════════════════ */
+let MY_TASKS=[];
+
+async function loadMyTasks(){
+  const me=sessionStorage.getItem('skystaff_name')||'';
+  try{
+    const r=await fetch(API+'/api/staff/tasks',{headers:{'x-admin-key':KEY,'x-staff-name':me}});
+    MY_TASKS=r.ok?(await r.json()):[];
+    if(!Array.isArray(MY_TASKS))MY_TASKS=[];
+  }catch{MY_TASKS=[];}
+  renderMyTasks();
+}
+
+function renderMyTasks(){
+  const pending=MY_TASKS.filter(t=>t.status==='pending').length;
+  const inprog=MY_TASKS.filter(t=>t.status==='in_progress').length;
+  const done=MY_TASKS.filter(t=>t.status==='done').length;
+  document.getElementById('myTaskStats').innerHTML=`
+    ${statCard(MY_TASKS.length,'Total Tasks')}
+    ${statCard(pending,'Pending')}
+    ${statCard(inprog,'In Progress','g')}
+    ${statCard(done,'Completed')}`;
+  const el=document.getElementById('myTasksList');
+  if(!MY_TASKS.length){el.innerHTML='<div class="note" style="margin-top:16px">✅ <strong style="color:var(--txt)">No tasks assigned to you yet.</strong> Your director will assign tasks here when needed.</div>';return;}
+  const order={urgent:0,high:1,normal:2,low:3};
+  const sorted=[...MY_TASKS].filter(t=>t.status!=='done'&&t.status!=='cancelled').sort((a,b)=>(order[a.priority||'normal']||2)-(order[b.priority||'normal']||2));
+  const finished=MY_TASKS.filter(t=>t.status==='done'||t.status==='cancelled');
+  const priColors={urgent:'#ef9a9a',high:'#ffb74d',normal:'#7cb6f7',low:'var(--muted)'};
+  function taskCard(t){
+    return `<div class="stask-card">
+      <div class="stk-head">
+        <div class="stk-title">${esc(t.title)}</div>
+      </div>
+      <div class="stk-meta">
+        <span class="tk-pri pri-${esc(t.priority||'normal')}">${(t.priority||'normal').toUpperCase()}</span>
+        ${t.department?`<span style="font-size:0.7rem;color:var(--muted)">${esc(t.department.replace('_',' '))}</span>`:''}
+        ${t.due_date?`<span style="font-size:0.7rem;color:var(--muted)">📅 Due ${t.due_date}</span>`:''}
+        <span style="font-size:0.7rem;color:var(--muted)">From: ${esc(t.assigned_by||'CEO')}</span>
+      </div>
+      ${t.description?`<div style="font-size:0.8rem;color:var(--muted);margin-bottom:10px">${esc(t.description)}</div>`:''}
+      <div class="stk-actions">
+        ${t.status==='pending'?`<button class="stk-btn" onclick="updateMyTask(${t.id},'in_progress')">▶ Start</button>`:''}
+        ${t.status==='in_progress'?`<button class="stk-btn done" onclick="updateMyTask(${t.id},'done')">✅ Mark Done</button>`:''}
+        ${t.status==='done'||t.status==='cancelled'?`<span style="font-size:0.78rem;color:#86d98a;font-weight:600">${t.status==='done'?'✅ Completed':'❌ Cancelled'}</span>`:''}
+      </div>
+    </div>`;
+  }
+  el.innerHTML=(sorted.length?sorted.map(taskCard).join(''):'')
+    +(finished.length?`<div style="margin-top:18px;margin-bottom:10px;font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Completed / Cancelled</div>`+finished.map(taskCard).join(''):'');
+  const nb=document.getElementById('navTaskBadge');
+  if(nb){const u=MY_TASKS.filter(t=>t.status==='pending').length;nb.textContent=u;nb.classList.toggle('show',u>0);}
+}
+
+async function updateMyTask(id,status){
+  const me=sessionStorage.getItem('skystaff_name')||'';
+  try{
+    const r=await fetch(API+'/api/staff/tasks/'+id,{method:'PATCH',headers:{'Content-Type':'application/json','x-admin-key':KEY,'x-staff-name':me},body:JSON.stringify({status})});
+    if(!r.ok)throw new Error('Failed');
+    await loadMyTasks();
+  }catch(e){alert('Could not update task: '+e.message);}
+}
+
+/* ── ORG TABS ── */
+function orgTab(id, btn){
+  ['chart','departments','comms'].forEach(t=>{ const el=document.getElementById('org-'+t); if(el)el.style.display=t===id?'block':'none'; });
+  document.querySelectorAll('.org-tab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+</script>
+</body>
+</html>

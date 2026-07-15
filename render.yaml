@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: skyglobe-limited
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MAIL_USER
+        sync: false
+      - key: MAIL_PASS
+        sync: false
+      - key: RECIPIENT_EMAIL
+        sync: false
+      - key: PORT
+        value: 10000

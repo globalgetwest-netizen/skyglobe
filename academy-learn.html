@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn with Numa — SkyGlobe Academy</title>
+<meta name="theme-color" content="#041022">
+<link rel="icon" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#041022;--navy2:#0a1f44;--gold:#D4A73A;--gold-hi:#F4D77A;
+    --sky:#4DA3FF;--sky-d:#2C7BE5;--sky-soft:#DCEBFF;
+    --leaf:#3FBF7F;--leaf-soft:#D9F5E6;--sun:#FFC542;--sun-soft:#FFF2CF;
+    --ink:#22324a;--muted:#7488a3;--line:#e7ecf3;
+    --head:'Fredoka',system-ui,sans-serif;--body:'Nunito',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:var(--body);color:var(--ink);display:flex;flex-direction:column;height:100vh;overflow:hidden;
+    background:radial-gradient(900px 380px at 80% -6%,var(--sky-soft),transparent 60%),
+               radial-gradient(700px 340px at 10% 6%,var(--leaf-soft),transparent 55%),#f4f8ff}
+
+  /* Campus header (matches portal) */
+  header{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;padding:11px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 6px 24px rgba(4,16,34,.28);z-index:5}
+  header .back{color:#cfe0f5;font-size:1.5rem;text-decoration:none;padding:2px 6px;border-radius:8px}
+  header .back:hover{background:rgba(255,255,255,.1);color:#fff}
+  .teacher{display:flex;align-items:center;gap:11px;flex:1}
+  .teacher .av{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#7BBEFF,var(--sky));display:flex;align-items:center;justify-content:center;font-size:1.55rem;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+  .teacher h1{font-family:var(--head);font-size:1.2rem;line-height:1.05}
+  .teacher small{font-size:.74rem;color:#bcd0ec}
+  .scorebar{display:flex;gap:8px}
+  .pill{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);border-radius:22px;padding:7px 13px;font-family:var(--head);font-weight:600;font-size:.86rem;display:flex;align-items:center;gap:5px}
+
+  .feed{flex:1;overflow-y:auto;padding:22px 16px;display:flex;flex-direction:column;gap:14px}
+  .row{display:flex;gap:10px;max-width:840px;width:100%;margin:0 auto;align-items:flex-end}
+  .row.me{flex-direction:row-reverse}
+  .av-s{width:36px;height:36px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.15rem;background:#fff;box-shadow:0 3px 8px rgba(10,31,68,.12)}
+  .me .av-s{background:var(--sun-soft)}
+  .bubble{max-width:80%;padding:14px 18px;border-radius:22px;font-size:1.02rem;line-height:1.6;white-space:pre-wrap;word-break:break-word;box-shadow:0 4px 16px rgba(10,31,68,.07);font-weight:600}
+  .bot .bubble{background:#fff;border-bottom-left-radius:6px;color:var(--ink)}
+  .me .bubble{background:linear-gradient(135deg,#7BBEFF,var(--sky));color:#06294f;border-bottom-right-radius:6px}
+  .listen{margin-top:8px;background:var(--sky-soft);border:1px solid #BBD9FF;color:var(--sky-d);font-size:.8rem;padding:6px 13px;border-radius:18px;cursor:pointer;font-weight:700;font-family:var(--head)}
+  .listen:hover{background:#cfe2ff}
+  .dots span{display:inline-block;width:8px;height:8px;margin:0 2px;border-radius:50%;background:var(--sky);opacity:.5;animation:bnc 1s infinite}
+  .dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
+  @keyframes bnc{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-6px);opacity:1}}
+  .reward{align-self:center;background:var(--sun-soft);border:1px solid var(--sun);color:#9a6b00;font-family:var(--head);font-weight:600;font-size:.86rem;padding:7px 18px;border-radius:22px;animation:pop .3s}
+  @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+
+  .composer{padding:13px 16px;background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 22px rgba(10,31,68,.05)}
+  .composer .inner{max-width:840px;margin:0 auto;width:100%;display:flex;gap:10px;align-items:center}
+  #msg{flex:1;padding:15px 20px;border:2px solid var(--sky-soft);border-radius:30px;font-size:1.02rem;font-family:var(--body);font-weight:600;outline:none}
+  #msg:focus{border-color:var(--sky)}
+  .mic,.send{border:none;border-radius:50%;width:52px;height:52px;cursor:pointer;font-size:1.35rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .mic{background:var(--sky-soft);color:var(--sky-d)}
+  .mic.on{background:#FEE2E2;color:#DC2626;animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.4)}50%{box-shadow:0 0 0 8px rgba(220,38,38,0)}}
+  .send{background:linear-gradient(135deg,var(--gold-hi),var(--gold));color:#3a2a00}
+  .send:disabled{opacity:.5}
+  .gate{flex:1;display:flex;align-items:center;justify-content:center;padding:40px;text-align:center;flex-direction:column;gap:14px}
+  .gate a{background:var(--gold);color:#3a2a00;padding:13px 28px;border-radius:30px;font-family:var(--head);font-weight:600;text-decoration:none}
+  /* SVG visual blocks inside teacher bubbles */
+  .bot .bubble svg{border-radius:10px;background:#fff}
+  .bot .bubble p{margin:0 0 6px}
+  #langSel option{color:#22324a;background:#fff;font-weight:600}
+
+  /* ── MOBILE / RESPONSIVE ── */
+  @media (max-width:640px){
+    header{padding:9px 11px;gap:8px;flex-wrap:wrap}
+    .teacher .av{width:40px;height:40px;font-size:1.35rem}
+    .teacher h1{font-size:1.05rem}
+    .teacher small{font-size:.68rem}
+    .scorebar{gap:6px}
+    .pill{padding:6px 10px;font-size:.8rem}
+    #langSel{max-width:96px!important;padding:6px 8px!important;font-size:.76rem!important}
+    .feed{padding:16px 11px;gap:11px}
+    .bubble{max-width:88%;font-size:.98rem;padding:12px 15px}
+    .composer{padding:10px 11px}
+    .composer .inner{gap:8px}
+    #msg{padding:13px 16px;font-size:1rem}
+    .mic,.send{width:46px;height:46px;font-size:1.2rem}
+  }
+  @media (max-width:380px){
+    .teacher small{display:none}
+    .bubble{max-width:92%}
+  }
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="/academy" title="Back to Family Campus">←</a>
+  <div class="teacher">
+    <div class="av">🔢</div>
+    <div><h1>Numa</h1><small id="subline">Your Mathematics teacher</small></div>
+  </div>
+  <div class="scorebar">
+    <select id="langSel" title="Learning language" onchange="setLang(this.value)"
+      style="background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:22px;padding:7px 11px;font-family:var(--head);font-weight:600;font-size:.82rem;cursor:pointer;max-width:120px"></select>
+    <style>#langSel option{color:#22324a;background:#fff;font-weight:600}</style>
+    <div class="pill">⭐ <span id="pts">0</span></div>
+    <div class="pill">🔥 <span id="strk">0</span></div>
+  </div>
+</header>
+<div id="langLabel" style="text-align:center;font-size:.74rem;color:var(--muted);padding:4px;background:var(--sky-soft)"></div>
+
+<div class="feed" id="feed"></div>
+
+<div id="recInd" style="display:none;align-items:center;justify-content:center;gap:8px;padding:6px 14px;font-size:.78rem;font-weight:800;color:#DC2626;background:#FEE2E2;border-top:1px solid #FECACA;font-family:var(--head)">
+  <span id="recDot" style="width:10px;height:10px;border-radius:50%;background:#DC2626;display:inline-block;animation:pulse 1s infinite"></span>
+  <span>🔴 Recording…</span>
+  <canvas id="recWave" style="flex:1;max-width:200px;height:26px;display:block"></canvas>
+  <span id="recTimer">0s</span>
+</div>
+<div class="composer">
+  <div class="inner">
+    <button class="mic" id="mic" title="Hold to record — tap to toggle" onmousedown="startRec()" onmouseup="stopRec()" ontouchstart="startRec(event)" ontouchend="stopRec(event)">🎤</button>
+    <input id="msg" placeholder="Type or hold 🎤 to speak…" onkeydown="if(event.key==='Enter')send()">
+    <button class="send" id="send" onclick="send()">➤</button>
+  </div>
+</div>
+
+<script>
+const API='';
+const TOKEN=localStorage.getItem('academyToken')||'';
+const params=new URLSearchParams(location.search);
+const STUDENT=params.get('student');
+const SUBJECT=(params.get('subject')||'mathematics').toLowerCase();
+let TEACHER={name:'Numa',emoji:'🔢',color:'#3B82F6'};
+let history=[];
+
+/* ── PER-TEACHER VOICE PROFILES ── */
+const TEACHER_VOICES={
+  mathematics:{pitch:1.1,rate:0.95,voiceHint:'female'},
+  science:    {pitch:0.95,rate:1.0,voiceHint:'female'},
+  reading:    {pitch:1.2,rate:0.9,voiceHint:'female'},
+  coding:     {pitch:0.85,rate:1.05,voiceHint:'male'},
+  history:    {pitch:0.9,rate:0.85,voiceHint:'male'},
+  arts:       {pitch:1.3,rate:0.95,voiceHint:'female'},
+  finance:    {pitch:1.0,rate:0.9,voiceHint:'female'},
+  health:     {pitch:0.8,rate:1.1,voiceHint:'male'},
+};
+function teacherVoice(){return TEACHER_VOICES[SUBJECT]||TEACHER_VOICES.mathematics;}
+
+/* ── LANGUAGES ── */
+const LANGUAGES=[
+  ['en','English'],['es','Spanish'],['fr','French'],['de','German'],['pt','Portuguese'],
+  ['it','Italian'],['nl','Dutch'],['ru','Russian'],['ar','Arabic'],['zh','Chinese (Mandarin)'],
+  ['ja','Japanese'],['ko','Korean'],['hi','Hindi'],['bn','Bengali'],['ur','Urdu'],
+  ['pa','Punjabi'],['ta','Tamil'],['te','Telugu'],['tr','Turkish'],['fa','Persian'],
+  ['sw','Swahili'],['ha','Hausa'],['yo','Yoruba'],['ig','Igbo'],['am','Amharic'],
+  ['id','Indonesian'],['ms','Malay'],['th','Thai'],['vi','Vietnamese'],['pl','Polish'],
+  ['uk','Ukrainian'],['ro','Romanian'],['el','Greek'],['he','Hebrew'],['fil','Filipino']
+];
+let LANG=localStorage.getItem('academyLang_'+STUDENT)||'en';
+function langName(code){const m=LANGUAGES.find(l=>l[0]===code);return m?m[1]:'English';}
+function setLang(code){
+  LANG=code;localStorage.setItem('academyLang_'+STUDENT,code);
+  const lbl=document.getElementById('langLabel');if(lbl)lbl.textContent=code==='en'?'':('Learning in: '+langName(code));
+}
+function initLangSelect(){
+  const sel=document.getElementById('langSel');if(!sel)return;
+  sel.innerHTML=LANGUAGES.map(l=>`<option value="${l[0]}"${l[0]===LANG?' selected':''}>${l[1]}</option>`).join('');
+  setLang(LANG);
+}
+
+if(!TOKEN||!STUDENT){
+  document.body.innerHTML='<div class="gate"><div style="font-size:3rem">🔒</div><h2 style="font-family:Fredoka;color:#041022">Please open from the Family Campus</h2><a href="/academy">Go to Parent Portal</a></div>';
+}
+function authHeaders(){return{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN};}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* ── RENDER BOT CONTENT WITH INLINE SVG ── */
+function renderBotContent(b, text) {
+  const svgRx=/<svg[\s\S]*?<\/svg>/gi;
+  const svgs=text.match(svgRx)||[];
+  if(!svgs.length){b.textContent=text;return;}
+  const parts=text.split(svgRx);
+  parts.forEach((part,i)=>{
+    if(part.trim()){const t=document.createElement('p');t.style.cssText='margin:0 0 8px;white-space:pre-wrap;word-break:break-word';t.textContent=part.trim();b.appendChild(t);}
+    if(svgs[i]){
+      const wrapper=document.createElement('div');
+      wrapper.style.cssText='margin:8px 0;overflow:auto;max-width:100%;border-radius:12px;background:#f4f8ff;padding:10px;display:inline-block';
+      const clean=svgs[i].replace(/<(script|a|foreignObject|use|image)[^>]*>[\s\S]*?<\/\1>/gi,'').replace(/on\w+="[^"]*"/g,'').replace(/href\s*=/gi,'data-href=');
+      wrapper.innerHTML=clean;
+      const svgEl=wrapper.querySelector('svg');
+      if(svgEl){svgEl.style.maxWidth='100%';svgEl.setAttribute('aria-hidden','true');}
+      b.appendChild(wrapper);
+    }
+  });
+}
+
+function addMsg(role,text,typing){
+  const feed=document.getElementById('feed');
+  const id='m'+Date.now()+Math.random().toString(36).slice(2);
+  const me=role==='me';
+  const row=document.createElement('div');row.className='row '+(me?'me':'bot');row.id=id;
+  const av=document.createElement('div');av.className='av-s';av.textContent=me?'🧒':TEACHER.emoji;
+  const wrap=document.createElement('div');
+  const b=document.createElement('div');b.className='bubble';
+  if(typing){b.innerHTML='<span class="dots"><span></span><span></span><span></span></span>';}
+  else if(me){b.textContent=text;}
+  else{renderBotContent(b,text);}
+  wrap.appendChild(b);
+  if(!me&&!typing&&text&&'speechSynthesis'in window){
+    const speakText=text.replace(/<svg[\s\S]*?<\/svg>/gi,'[visual shown]').replace(/<[^>]+>/g,'').trim();
+    const lb=document.createElement('button');lb.className='listen';lb.textContent='🔊 Listen';lb.onclick=()=>speak(speakText,lb);wrap.appendChild(lb);
+  }
+  row.appendChild(av);row.appendChild(wrap);feed.appendChild(row);feed.scrollTop=feed.scrollHeight;return id;
+}
+function rm(id){const e=document.getElementById(id);if(e)e.remove();}
+function reward(txt){const f=document.getElementById('feed');const d=document.createElement('div');d.className='reward';d.textContent=txt;f.appendChild(d);f.scrollTop=f.scrollHeight;}
+
+async function send(){
+  const inp=document.getElementById('msg');const text=inp.value.trim();if(!text)return;
+  inp.value='';document.getElementById('send').disabled=true;
+  addMsg('me',text);const t=addMsg('bot','',true);
+  try{
+    const r=await fetch(API+'/api/academy/tutor',{method:'POST',headers:authHeaders(),
+      body:JSON.stringify({studentId:STUDENT,subject:SUBJECT,message:text,history:history.slice(-10),language:LANG})});
+    const d=await r.json();rm(t);
+    if(!r.ok)throw new Error(d.error||TEACHER.name+' is busy.');
+    addMsg('bot',d.reply);
+    history.push({role:'user',content:text});history.push({role:'assistant',content:d.reply});
+    if(history.length>20)history=history.slice(-20);
+    if(typeof d.points==='number'){
+      const prev=parseInt(document.getElementById('pts').textContent)||0;
+      document.getElementById('pts').textContent=d.points;
+      document.getElementById('strk').textContent=d.streak||0;
+      if(d.points>prev)reward('+'+(d.points-prev)+' points ⭐ Great work!');
+    }
+  }catch(e){rm(t);addMsg('bot','Oops — '+e.message+' Let\'s try again! 😊');}
+  document.getElementById('send').disabled=false;inp.focus();
+}
+
+/* ── VOICE OUTPUT ── */
+let curUtt=null;
+function cleanForSpeech(raw){return raw.replace(/#{1,6}\s*/g,'').replace(/\*\*(.+?)\*\*/g,'$1').replace(/\*(.+?)\*/g,'$1').replace(/`{1,3}[^`]*`{1,3}/g,'').replace(/\[([^\]]+)\]\([^)]+\)/g,'$1').replace(/^[\s\-\*•]+/gm,'').replace(/[\u{1F300}-\u{1FAFF}]/gu,'').replace(/\n{2,}/g,'. ').replace(/\n/g,', ').replace(/\s{2,}/g,' ').trim();}
+const FEMALE_RX=/female|Samantha|Karen|Moira|Tessa|Victoria|Zira|Aria|Jenny|Susan|Fiona|Google.*Female|Google US English/i;
+const MALE_RX=/male|David|Daniel|Alex|Fred|Rishi|Google.*Male|Mark|Guy/i;
+// Map our short language codes to a full BCP-47 region so we request the
+// right regional voice (e.g. es → es-ES, zh → zh-CN, ar → ar-SA).
+const LANG_BCP47={en:'en-US',es:'es-ES',fr:'fr-FR',de:'de-DE',pt:'pt-BR',it:'it-IT',nl:'nl-NL',ru:'ru-RU',ar:'ar-SA',zh:'zh-CN',ja:'ja-JP',ko:'ko-KR',hi:'hi-IN',bn:'bn-IN',ur:'ur-PK',pa:'pa-IN',ta:'ta-IN',te:'te-IN',tr:'tr-TR',fa:'fa-IR',sw:'sw-KE',ha:'ha-NG',yo:'yo-NG',ig:'ig-NG',am:'am-ET',id:'id-ID',ms:'ms-MY',th:'th-TH',vi:'vi-VN',pl:'pl-PL',uk:'uk-UA',ro:'ro-RO',el:'el-GR',he:'he-IL',fil:'fil-PH'};
+function speechLang(){return LANG_BCP47[LANG]||(LANG==='en'?'en-US':LANG);}
+// Keep a live cache of voices; some browsers populate them asynchronously.
+let VOICES=[];
+function loadVoices(){if('speechSynthesis'in window){VOICES=window.speechSynthesis.getVoices()||[];}}
+function pickVoice(hint){
+  const v=VOICES.length?VOICES:(window.speechSynthesis.getVoices()||[]);
+  const base=LANG; // e.g. 'es'
+  // 1) Exact language + gender
+  const byLangGender=v.find(x=>new RegExp('^'+base,'i').test(x.lang)&&(hint==='female'?FEMALE_RX:MALE_RX).test(x.name));
+  if(byLangGender)return byLangGender;
+  // 2) Any voice in the target language (correct accent matters most)
+  const byLang=v.find(x=>new RegExp('^'+base,'i').test(x.lang));
+  if(byLang)return byLang;
+  // 3) No native voice on this device → English fallback by gender
+  const byGender=v.find(x=>/^en/i.test(x.lang)&&(hint==='female'?FEMALE_RX:MALE_RX).test(x.name));
+  if(byGender)return byGender;
+  return v.find(x=>/en-US/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null;
+}
+function speakNow(text,btn){
+  const u=new SpeechSynthesisUtterance(cleanForSpeech(text));
+  const vp=teacherVoice();u.rate=vp.rate;u.pitch=vp.pitch;u.lang=speechLang();
+  const best=pickVoice(vp.voiceHint);if(best){u.voice=best;u.lang=best.lang;}
+  u._b=btn;u.onstart=()=>btn.textContent='⏸ Stop';u.onend=()=>{btn.textContent='🔊 Listen';curUtt=null;};u.onerror=()=>{btn.textContent='🔊 Listen';curUtt=null;};
+  curUtt=u;window.speechSynthesis.speak(u);
+}
+function speak(text,btn){
+  if(!('speechSynthesis'in window))return;
+  if(window.speechSynthesis.speaking||window.speechSynthesis.pending){window.speechSynthesis.cancel();if(curUtt&&curUtt._b)curUtt._b.textContent='🔊 Listen';if(curUtt&&curUtt._b===btn){curUtt=null;return;}}
+  // If voices haven't loaded yet, load then speak on the next tick.
+  if(!VOICES.length){loadVoices();if(!VOICES.length){setTimeout(()=>speakNow(text,btn),250);return;}}
+  speakNow(text,btn);
+}
+if('speechSynthesis'in window){loadVoices();window.speechSynthesis.onvoiceschanged=loadVoices;}
+
+/* ── PROFESSIONAL VOICE RECORDING (MediaRecorder → Groq Whisper) ── */
+let mediaRec=null,audioChunks=[],recTimerInt=null,recSecs=0,recStream=null,recStarted=false;
+let recAudioCtx=null,recAnalyser=null,recWaveRAF=null;
+
+function setRecordingUI(on){
+  const mic=document.getElementById('mic');
+  const ind=document.getElementById('recInd');
+  const tmr=document.getElementById('recTimer');
+  if(mic)mic.classList.toggle('on',on);
+  if(ind)ind.style.display=on?'flex':'none';
+  if(on){
+    recSecs=0;if(tmr)tmr.textContent='0s';
+    clearInterval(recTimerInt);
+    recTimerInt=setInterval(()=>{recSecs++;if(tmr)tmr.textContent=recSecs+'s';},1000);
+    startRecWave();
+  }else{
+    clearInterval(recTimerInt);if(tmr)tmr.textContent='0s';
+    stopRecWave();
+  }
+}
+
+/* ── Live voice waveform (reacts to real microphone amplitude) ── */
+function startRecWave(){
+  if(!recStream||!(window.AudioContext||window.webkitAudioContext))return;
+  try{
+    recAudioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    const src=recAudioCtx.createMediaStreamSource(recStream);
+    recAnalyser=recAudioCtx.createAnalyser();
+    recAnalyser.fftSize=256;recAnalyser.smoothingTimeConstant=0.78;
+    src.connect(recAnalyser);
+    const canvas=document.getElementById('recWave');
+    if(!canvas)return;
+    const ctx=canvas.getContext('2d'),dpr=window.devicePixelRatio||1;
+    const loop=()=>{
+      if(!recAnalyser)return;
+      const cw=canvas.clientWidth||160,ch=canvas.clientHeight||26;
+      if(canvas.width!==cw*dpr){canvas.width=cw*dpr;canvas.height=ch*dpr;}
+      const w=canvas.width,h=canvas.height;
+      const bins=recAnalyser.frequencyBinCount,data=new Uint8Array(bins);
+      recAnalyser.getByteFrequencyData(data);
+      ctx.clearRect(0,0,w,h);
+      const bars=22,step=Math.max(1,Math.floor(bins/bars)),gap=w/bars,bw=gap*0.5;
+      for(let i=0;i<bars;i++){
+        let sum=0;for(let j=0;j<step;j++)sum+=data[i*step+j]||0;
+        const v=Math.min(1,(sum/step)/200);
+        const bh=Math.max(h*0.14,v*h),x=i*gap+(gap-bw)/2,y=(h-bh)/2;
+        ctx.fillStyle='rgba(220,38,38,'+(0.5+v*0.5)+')';
+        if(ctx.roundRect){ctx.beginPath();ctx.roundRect(x,y,bw,bh,bw/2);ctx.fill();}
+        else ctx.fillRect(x,y,bw,bh);
+      }
+      recWaveRAF=requestAnimationFrame(loop);
+    };
+    loop();
+  }catch(e){}
+}
+function stopRecWave(){
+  if(recWaveRAF){cancelAnimationFrame(recWaveRAF);recWaveRAF=null;}
+  if(recAudioCtx){try{recAudioCtx.close();}catch(e){}recAudioCtx=null;}
+  recAnalyser=null;
+}
+
+async function startRec(e){
+  if(e)e.preventDefault();
+  if(recStarted||mediaRec)return;
+  recStarted=true;
+  audioChunks=[];
+  try{
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)
+      throw new Error('unsupported');
+    const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+    // If the user already released the button while the permission prompt was
+    // open, don't start a runaway recording — release the mic and bail.
+    if(!recStarted){stream.getTracks().forEach(t=>t.stop());return;}
+    recStream=stream;
+    const mimeType=MediaRecorder.isTypeSupported('audio/webm;codecs=opus')?'audio/webm;codecs=opus'
+      :MediaRecorder.isTypeSupported('audio/webm')?'audio/webm'
+      :MediaRecorder.isTypeSupported('audio/mp4')?'audio/mp4':'';
+    mediaRec=new MediaRecorder(recStream,mimeType?{mimeType}:{});
+    mediaRec.ondataavailable=ev=>{if(ev.data&&ev.data.size>0)audioChunks.push(ev.data);};
+    mediaRec.onstop=()=>{mediaRec=null;processAudio();};
+    mediaRec.start(100);
+    setRecordingUI(true);
+  }catch(err){
+    recStarted=false;mediaRec=null;
+    const inp=document.getElementById('msg');
+    if(inp)inp.placeholder=(err&&err.name==='NotAllowedError')
+      ?'Please allow microphone access in your browser, then tap 🎤 again.'
+      :'Microphone not available — please type your question.';
+  }
+}
+
+function stopRec(e){
+  if(e)e.preventDefault();
+  recStarted=false;
+  if(mediaRec&&mediaRec.state!=='inactive'){mediaRec.stop();}
+  if(recStream){recStream.getTracks().forEach(t=>t.stop());recStream=null;}
+  setRecordingUI(false);
+}
+
+async function processAudio(){
+  if(!audioChunks.length)return;
+  const mimeType=audioChunks[0].type||'audio/webm';
+  const blob=new Blob(audioChunks,{type:mimeType});
+  audioChunks=[];
+  // Show processing state
+  const mic=document.getElementById('mic');
+  if(mic){mic.textContent='⏳';mic.disabled=true;}
+  try{
+    const base64=await blobToBase64(blob);
+    const r=await fetch(API+'/api/transcribe',{
+      method:'POST',
+      headers:{...authHeaders(),'Content-Type':'application/json'},
+      body:JSON.stringify({audio:base64,mimeType})
+    });
+    const data=await r.json();
+    if(data.text&&data.text.trim()){
+      const inp=document.getElementById('msg');
+      if(inp)inp.value=data.text.trim();
+      send();
+    }else{
+      const inp=document.getElementById('msg');
+      if(inp)inp.placeholder='Could not hear you — please try again or type.';
+    }
+  }catch(err){
+    console.error('[voice]',err);
+  }finally{
+    if(mic){mic.textContent='🎤';mic.disabled=false;}
+  }
+}
+
+function blobToBase64(blob){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>res(r.result.split(',')[1]);
+    r.onerror=rej;
+    r.readAsDataURL(blob);
+  });
+}
+// Tap-to-toggle fallback (e.g. accessibility / keyboard activation)
+function toggleMic(){
+  if(recStarted){stopRec();}else{startRec();}
+}
+
+/* ── GREETINGS PER SUBJECT ── */
+const FIRST_GREETINGS={
+  mathematics: n=>`Hi ${n}! 👋 I'm Numa, your maths teacher. I'm so happy to meet you! What would you like to learn today — counting, adding, shapes, or something else? 😊`,
+  science:     n=>`Hello ${n}! 🔬 I'm Nova, your science teacher. Science is all around you — in the sky, in your food, in your body! What shall we discover today?`,
+  reading:     n=>`Hi there, ${n}! 📚 I'm Lexi, your reading teacher. Words are magical — shall we explore a story, practise phonics, or build your vocabulary today?`,
+  coding:      n=>`Hey ${n}! 🤖 I'm Cody, your coding teacher. Think of me as your guide to the world of computers and logic! Ready to think like a programmer?`,
+  history:     n=>`Greetings, ${n}! 🗺️ I'm Atlas, your history teacher. We're about to travel through time together. Which part of history shall we explore first?`,
+  arts:        n=>`Hello ${n}! 🎨 I'm Melody, your arts teacher. Every lesson with me is a chance to create something beautiful. Shall we explore colour, music, or drawing today?`,
+  finance:     n=>`Hi ${n}! 💰 I'm Penny, your finance teacher. Let's learn how money works — saving, spending, and making smart choices. Ready to become money-smart?`,
+  health:      n=>`Hi ${n}! 🌟 I'm Vita, your health teacher. A healthy body and happy mind are the greatest gifts you have. What shall we explore — food, movement, or feelings?`,
+};
+const RETURN_GREETINGS={
+  mathematics: n=>`Welcome back, ${n}! 🌟 Ready for more maths fun with Numa? Tell me what you'd like to practise today!`,
+  science:     n=>`Great to see you, ${n}! 🔬 Nova here — ready for another amazing science adventure? What question shall we answer today?`,
+  reading:     n=>`Welcome back, ${n}! 📖 It's Lexi! I've been waiting for you. Shall we read, write, or play word games today?`,
+  coding:      n=>`Hey, ${n} is back! 🤖 Cody here — ready to flex those coding muscles? Let's build something amazing!`,
+  history:     n=>`Welcome back, time traveller ${n}! 🗺️ Atlas here — where in history shall we journey today?`,
+  arts:        n=>`${n}! Wonderful to have you back! 🎨 Melody here — your creativity has been missed. What shall we make today?`,
+  finance:     n=>`Welcome back, ${n}! 💰 Penny here — every day you learn a little more about money, you get a step closer to your goals. Ready?`,
+  health:      n=>`Great to see you, ${n}! 🌟 Vita here — your body and mind are amazing. Let's keep learning how to take great care of them!`,
+};
+
+/* ── SUBJECT DISPLAY NAMES ── */
+const SUBJECT_LABELS={mathematics:'Mathematics',science:'Science',reading:'Reading & Language',coding:'Coding & Robotics',history:'History & Geography',arts:'Arts & Music',finance:'Financial Literacy',health:'Health & Well-being'};
+
+/* ── BOOT ── */
+async function loadTeacher(){
+  try{
+    const r=await fetch(API+'/api/academy/teacher/'+SUBJECT,{headers:authHeaders()});
+    if(r.ok){
+      const t=await r.json();
+      TEACHER={name:t.name||'Numa',emoji:t.emoji||'🔢',color:t.color||'#3B82F6'};
+      document.querySelector('.teacher h1').textContent=TEACHER.name;
+      document.querySelector('.teacher .av').textContent=TEACHER.emoji;
+      document.querySelector('.teacher .av').style.background=`linear-gradient(135deg,${TEACHER.color}cc,${TEACHER.color})`;
+      const subLabel=SUBJECT_LABELS[SUBJECT]||SUBJECT;
+      document.getElementById('msg').placeholder='Ask '+TEACHER.name+' about '+subLabel+'…';
+      document.title='Learn with '+TEACHER.name+' — SkyGlobe Academy';
+    }
+  }catch(e){}
+}
+async function boot(){
+  if(!TOKEN||!STUDENT)return;
+  initLangSelect();
+  await loadTeacher();
+  try{
+    const r=await fetch(API+'/api/academy/progress/'+STUDENT,{headers:authHeaders()});
+    const d=await r.json();
+    if(r.ok&&d.student){
+      document.getElementById('pts').textContent=d.student.points||0;
+      document.getElementById('strk').textContent=d.student.streak||0;
+      const subLabel=SUBJECT_LABELS[SUBJECT]||SUBJECT;
+      document.getElementById('subline').textContent='Your '+subLabel+' teacher · for '+d.student.name;
+      const first=(!d.sessions||!d.sessions.filter(s=>s.subject===SUBJECT).length);
+      const greetFn=first?(FIRST_GREETINGS[SUBJECT]||FIRST_GREETINGS.mathematics):(RETURN_GREETINGS[SUBJECT]||RETURN_GREETINGS.mathematics);
+      addMsg('bot',greetFn(d.student.name));
+    }
+  }catch(e){addMsg('bot','Hi! I\'m '+TEACHER.name+'. What would you like to learn today? 😊');}
+}
+boot();
+</script>
+</body>
+</html>

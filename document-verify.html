@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document Verification — SkyGlobe Group</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,sans-serif;background:#f4f6fa;color:#1a2233;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:30px}
+  .card{background:#fff;border-radius:22px;max-width:480px;width:100%;padding:38px 34px;box-shadow:0 24px 60px rgba(4,16,34,.12);text-align:center;border-top:6px solid #D4A73A}
+  .brand{font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.1em;color:#041022;font-size:1.1rem;text-transform:uppercase;margin-bottom:6px}
+  .brand span{color:#a87016}
+  .ic{font-size:3rem;margin:10px 0}
+  h1{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#041022;margin-bottom:6px}
+  .status{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:5px 16px;border-radius:20px;margin-bottom:18px}
+  .status.valid{background:#e8f9f1;color:#1f9d57}
+  .status.invalid{background:#fdecea;color:#a93226}
+  .rows{text-align:left;background:#f9fafc;border-radius:14px;padding:16px 20px;margin-top:8px}
+  .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e6e9ef;font-size:.88rem}
+  .row:last-child{border-bottom:none}
+  .row .k{color:#6b7689;font-weight:600}
+  .row .v{color:#041022;font-weight:700;text-align:right}
+  .note{margin-top:20px;font-size:.78rem;color:#6b7689;line-height:1.6}
+  a{color:#a87016}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">SKY<span>GLOBE</span> GROUP</div>
+  <div id="content"><div class="ic">⏳</div><h1>Checking…</h1></div>
+</div>
+<script>
+const ref = location.pathname.split('/verify-document/')[1] || location.pathname.split('/').pop();
+async function run(){
+  const box = document.getElementById('content');
+  try{
+    const r = await fetch('/api/legal-docs/verify/' + encodeURIComponent(ref));
+    const d = await r.json();
+    if (!r.ok || !d.valid) {
+      box.innerHTML = `<div class="ic">❌</div><h1>Not Verified</h1><div class="status invalid">Invalid or unknown</div>
+        <p class="note">${d.error || 'We could not verify a document with this reference.'} If you believe this is an error, contact <a href="https://wa.me/17373998522">SkyGlobe support</a>.</p>`;
+      return;
+    }
+    box.innerHTML = `<div class="ic">✅</div><h1>Document Verified</h1><div class="status valid">Authentic · SkyGlobe Group</div>
+      <div class="rows">
+        <div class="row"><span class="k">Document Type</span><span class="v">${esc(d.docType)}</span></div>
+        <div class="row"><span class="k">Issued</span><span class="v">${esc(d.issuedDate)}</span></div>
+        <div class="row"><span class="k">Reference</span><span class="v">${esc(d.ref)}</span></div>
+      </div>
+      <p class="note">This document was prepared and verified by SkyGlobe Group. For privacy, the recipient's name and the document's contents are never shown on this public verification page.</p>`;
+  }catch(e){
+    box.innerHTML = '<div class="ic">⚠️</div><h1>Verification unavailable</h1><p class="note">Please try again shortly.</p>';
+  }
+}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+run();
+</script>
+</body>
+</html>

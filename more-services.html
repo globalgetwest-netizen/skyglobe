@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>More Services — SkyGlobe Group</title>
+<meta name="description" content="New and upcoming services from SkyGlobe Group across every sector.">
+<meta name="theme-color" content="#041022">
+<link rel="icon" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#041022;--navy2:#071B3B;--gold:#D4A73A;--gold-hi:#F4D77A;--gold-deep:#a87016;
+    --ink:#1a2233;--muted:#6b7689;--line:#e6e9ef;
+    --font:"SF Pro Display","Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);color:var(--ink);background:#f4f6fa;line-height:1.6}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:40}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.06em}
+  .brand img{height:36px;width:36px;border-radius:8px}
+  .brand small{display:block;color:var(--gold);font-size:.6rem;letter-spacing:.22em;font-weight:600}
+  header .back{color:#cdd6e6;font-size:.88rem}
+
+  .hero{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;padding:54px 0 60px;text-align:center;position:relative;overflow:hidden}
+  .hero .tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(212,167,58,.4);padding:6px 16px;border-radius:30px;margin-bottom:16px}
+  .hero h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.9rem,5vw,3rem);line-height:1.1}
+  .hero h1 span{color:var(--gold)}
+  .hero p{max-width:620px;margin:14px auto 0;color:#c3cee0;font-weight:300}
+
+  .section{padding:40px 0 70px}
+  .sector-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--gold-deep);margin:30px 0 14px}
+  .sector-label:first-child{margin-top:0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:22px;transition:transform .2s,box-shadow .2s,border-color .2s}
+  .card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(4,16,34,.08);border-color:rgba(212,167,58,.5)}
+  .card h3{font-size:1.05rem;color:var(--navy);margin-bottom:8px}
+  .card p{font-size:.86rem;color:var(--muted);font-weight:300;margin-bottom:14px;line-height:1.6}
+  .card .price{font-size:.8rem;font-weight:700;color:var(--gold-deep);margin-bottom:12px}
+  .card a.cta{display:inline-block;background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1a1300;padding:9px 18px;border-radius:30px;font-weight:700;font-size:.82rem}
+  .empty{text-align:center;color:var(--muted);padding:60px 0}
+  footer{background:var(--navy);color:#9fb0c9;text-align:center;padding:28px 20px;font-size:.84rem;margin-top:40px}
+  footer .m{color:var(--gold);letter-spacing:.14em;font-size:.72rem;text-transform:uppercase;margin-top:8px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a href="/" class="brand"><img src="/icon-192.png" alt="SkyGlobe Group"><div>SKYGLOBE<small>GROUP</small></div></a>
+  <a class="back" href="/">← Main Site</a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <span class="tag">Always Expanding</span>
+  <h1>New &amp; <span>Upcoming</span> Services</h1>
+  <p>SkyGlobe Group is always adding new services across every sector. Here's what's newly available or coming soon.</p>
+</div></section>
+
+<section class="section"><div class="wrap" id="offeringsWrap">
+  <p style="text-align:center;color:var(--muted)">Loading…</p>
+</div></section>
+
+<footer>© <span id="yr"></span> SkyGlobe Group · Global Operations<div class="m">One World. One Mission.</div></footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+async function load(){
+  const wrap = document.getElementById('offeringsWrap');
+  try{
+    const r = await fetch('/api/offerings');
+    const items = await r.json();
+    if (!items || !items.length) { wrap.innerHTML = '<div class="empty">No new services listed right now — check back soon.</div>'; return; }
+    const bySector = {};
+    items.forEach(it => { (bySector[it.sector] = bySector[it.sector] || []).push(it); });
+    wrap.innerHTML = '';
+    Object.entries(bySector).forEach(([sector, list]) => {
+      const lbl = document.createElement('div'); lbl.className = 'sector-label'; lbl.textContent = sector;
+      wrap.appendChild(lbl);
+      const grid = document.createElement('div'); grid.className = 'grid';
+      list.forEach(it => {
+        const priceParts = [];
+        if (it.price_usd) priceParts.push('$' + it.price_usd);
+        if (it.price_eur) priceParts.push('€' + it.price_eur);
+        if (it.price_gbp) priceParts.push('£' + it.price_gbp);
+        const c = document.createElement('div'); c.className = 'card';
+        c.innerHTML = `<h3>${esc(it.title)}</h3><p>${esc(it.description || '')}</p>`+
+          (priceParts.length ? `<div class="price">${priceParts.join(' · ')}</div>` : '')+
+          `<a class="cta" href="${esc(it.cta_link || '/#contact')}">${esc(it.cta_label || 'Get in Touch')}</a>`;
+        grid.appendChild(c);
+      });
+      wrap.appendChild(grid);
+    });
+  }catch(e){ wrap.innerHTML = '<div class="empty">Could not load services right now.</div>'; }
+}
+load();
+</script>
+<script src="/announcements.js?v=2" defer></script>
+<script src="/dept-contact.js?v=7" defer></script>
+</body>
+</html>

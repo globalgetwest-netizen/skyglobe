@@ -1,0 +1,315 @@
+/* ════════════════════════════════════════════════════════════════════
+   SKYGLOBE GROUP — SHARED DESIGN SYSTEM  (skyglobe-ds.css)
+   One World. One Mission.
+
+   The single source of truth for brand colour, typography, spacing,
+   premium components and flawless cross-device responsiveness.
+   Loaded on every page. Apple / Google grade polish on any screen.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. BRAND TOKENS (exact palette) ───────────────────────────────── */
+:root{
+  /* Core palette */
+  --sg-navy:#041022;        /* primary deep base */
+  --sg-blue:#071B3B;        /* secondary surface */
+  --sg-blue-2:#0A2E65;      /* interactive blue */
+  --sg-blue-hi:#15418c;     /* blue hover */
+  --sg-gold:#D4A73A;        /* primary accent / authority */
+  --sg-gold-hi:#F4D77A;     /* highlight / light edge */
+  --sg-gold-pale:#fdf6e3;   /* gold tint surface */
+
+  /* Neutrals */
+  --sg-ink:#041022;         /* text on light */
+  --sg-ink-soft:#374151;    /* body text on light */
+  --sg-ink-dark:#eaf0ff;    /* text on dark */
+  --sg-muted:#64748b;       /* secondary on light */
+  --sg-muted-dark:#9fb0d6;  /* secondary on dark */
+  --sg-white:#ffffff;
+  --sg-bg:#f8f9fb;          /* app background */
+  --sg-surface:#ffffff;     /* card surface */
+  --sg-surface-2:#f4f7fb;   /* sunken surface */
+
+  /* Lines & focus */
+  --sg-border:rgba(4,16,34,0.10);
+  --sg-border-strong:rgba(4,16,34,0.18);
+  --sg-focus:rgba(10,46,101,0.35);
+
+  /* Radius scale */
+  --sg-r-sm:10px;
+  --sg-r:14px;
+  --sg-r-lg:20px;
+  --sg-r-xl:28px;
+  --sg-r-pill:100px;
+
+  /* Elevation (soft, premium, layered) */
+  --sg-shadow-1:0 1px 2px rgba(4,16,34,.04), 0 2px 8px rgba(4,16,34,.05);
+  --sg-shadow-2:0 4px 12px rgba(4,16,34,.06), 0 12px 32px rgba(4,16,34,.08);
+  --sg-shadow-3:0 8px 24px rgba(4,16,34,.10), 0 24px 64px rgba(4,16,34,.12);
+  --sg-shadow-gold:0 8px 28px rgba(212,167,58,.32);
+
+  /* Gradients */
+  --sg-grad-gold:linear-gradient(135deg,var(--sg-gold),var(--sg-gold-hi));
+  --sg-grad-navy:linear-gradient(160deg,var(--sg-navy),var(--sg-blue));
+
+  /* Motion */
+  --sg-trans:.32s cubic-bezier(.4,0,.2,1);
+  --sg-trans-fast:.18s cubic-bezier(.4,0,.2,1);
+
+  /* Typography */
+  --sg-font:"SF Pro Display","Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --sg-serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+
+  /* Fluid type scale — flawless phone → desktop via clamp() */
+  --sg-fs-display:clamp(2.4rem, 5.5vw, 4.4rem);
+  --sg-fs-h1:clamp(2rem, 4.4vw, 3.4rem);
+  --sg-fs-h2:clamp(1.6rem, 3.2vw, 2.5rem);
+  --sg-fs-h3:clamp(1.25rem, 2.2vw, 1.7rem);
+  --sg-fs-lead:clamp(1.05rem, 1.6vw, 1.3rem);
+  --sg-fs-body:clamp(.95rem, 1.1vw, 1.05rem);
+  --sg-fs-small:clamp(.8rem, .9vw, .9rem);
+
+  /* Fluid spacing rhythm */
+  --sg-space-section:clamp(3rem, 7vw, 7rem);
+  --sg-gutter:clamp(1rem, 4vw, 3rem);
+  --sg-container:1340px;
+
+  /* Safe areas (notches, gesture bars) */
+  --sg-safe-top:env(safe-area-inset-top, 0px);
+  --sg-safe-bottom:env(safe-area-inset-bottom, 0px);
+  --sg-safe-left:env(safe-area-inset-left, 0px);
+  --sg-safe-right:env(safe-area-inset-right, 0px);
+}
+
+/* ── 2. RESPONSIVE FOUNDATION (bulletproof on every device) ────────── */
+.sg{
+  /* opt-in namespace so the system never fights legacy page CSS */
+  font-family:var(--sg-font);
+  color:var(--sg-ink);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+.sg *,.sg *::before,.sg *::after{box-sizing:border-box}
+
+/* Kill horizontal overflow everywhere */
+html.sg-root,body.sg-root{max-width:100%;overflow-x:hidden}
+img,svg,video,canvas{max-width:100%;height:auto}
+
+/* Container: centred, padded, capped, respects notches */
+.sg-container{
+  width:100%;
+  max-width:var(--sg-container);
+  margin-inline:auto;
+  padding-inline:max(var(--sg-gutter), var(--sg-safe-left));
+}
+
+/* Vertical section rhythm */
+.sg-section{padding-block:var(--sg-space-section)}
+
+/* Responsive auto-grid — never breaks, never overflows */
+.sg-grid{display:grid;gap:clamp(1rem,2.5vw,2rem)}
+.sg-grid-2{grid-template-columns:repeat(2,1fr)}
+.sg-grid-3{grid-template-columns:repeat(3,1fr)}
+.sg-grid-4{grid-template-columns:repeat(4,1fr)}
+.sg-grid-auto{grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}
+
+@media(max-width:1024px){
+  .sg-grid-4{grid-template-columns:repeat(2,1fr)}
+  .sg-grid-3{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .sg-grid-2,.sg-grid-3,.sg-grid-4{grid-template-columns:1fr}
+}
+
+/* ── 3. TYPOGRAPHY ─────────────────────────────────────────────────── */
+.sg-display{font-size:var(--sg-fs-display);font-weight:700;line-height:1.04;letter-spacing:-.02em}
+.sg-h1{font-size:var(--sg-fs-h1);font-weight:700;line-height:1.08;letter-spacing:-.018em}
+.sg-h2{font-size:var(--sg-fs-h2);font-weight:600;line-height:1.14;letter-spacing:-.012em}
+.sg-h3{font-size:var(--sg-fs-h3);font-weight:600;line-height:1.2}
+.sg-lead{font-size:var(--sg-fs-lead);font-weight:400;line-height:1.5;color:var(--sg-ink-soft)}
+.sg-body{font-size:var(--sg-fs-body);line-height:1.65;color:var(--sg-ink-soft)}
+.sg-small{font-size:var(--sg-fs-small);color:var(--sg-muted)}
+.sg-serif{font-family:var(--sg-serif)}
+
+/* Product wordmark style (SKYGLOBE CORE etc.) */
+.sg-wordmark{font-weight:600;text-transform:uppercase;letter-spacing:.13em}
+
+/* Gold gradient text accent */
+.sg-gold-text{
+  background:var(--sg-grad-gold);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+}
+
+/* Balanced, readable measure for headings/paras */
+.sg-balance{text-wrap:balance}
+.sg-prose{max-width:65ch}
+
+/* ── 4. SECTION HEADER (gold pill + serif title pattern) ───────────── */
+.sg-eyebrow{
+  display:inline-flex;align-items:center;gap:.5em;
+  background:var(--sg-gold-pale);
+  color:#9a7012;
+  border:1px solid rgba(212,167,58,.3);
+  font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:.5em 1em;border-radius:var(--sg-r-pill);
+}
+
+/* ── 5. BUTTONS ────────────────────────────────────────────────────── */
+.sg-btn{
+  --_pad:.85em 1.6em;
+  display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  font-family:var(--sg-font);font-size:var(--sg-fs-body);font-weight:600;
+  padding:var(--_pad);border-radius:var(--sg-r-sm);border:1px solid transparent;
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  min-height:48px;                /* premium touch target */
+  transition:transform var(--sg-trans-fast), box-shadow var(--sg-trans), background var(--sg-trans), color var(--sg-trans);
+  user-select:none;-webkit-tap-highlight-color:transparent;
+}
+.sg-btn:active{transform:translateY(1px) scale(.99)}
+
+.sg-btn-gold{background:var(--sg-grad-gold);color:var(--sg-navy)}
+.sg-btn-gold:hover{transform:translateY(-2px);box-shadow:var(--sg-shadow-gold)}
+
+.sg-btn-navy{background:var(--sg-grad-navy);color:#fff}
+.sg-btn-navy:hover{transform:translateY(-2px);box-shadow:var(--sg-shadow-2)}
+
+.sg-btn-ghost{background:transparent;color:var(--sg-blue-2);border-color:var(--sg-border-strong)}
+.sg-btn-ghost:hover{background:var(--sg-surface-2);border-color:var(--sg-blue-2)}
+
+.sg-btn-block{width:100%}
+
+/* ── 6. CARDS & SURFACES ───────────────────────────────────────────── */
+.sg-card{
+  background:var(--sg-surface);
+  border:1px solid var(--sg-border);
+  border-radius:var(--sg-r-lg);
+  padding:clamp(1.25rem,3vw,2rem);
+  box-shadow:var(--sg-shadow-1);
+  transition:transform var(--sg-trans), box-shadow var(--sg-trans), border-color var(--sg-trans);
+}
+.sg-card-hover:hover{transform:translateY(-4px);box-shadow:var(--sg-shadow-3);border-color:rgba(212,167,58,.4)}
+
+.sg-card-dark{
+  background:var(--sg-grad-navy);
+  color:var(--sg-ink-dark);
+  border:1px solid rgba(244,215,122,.14);
+  border-radius:var(--sg-r-lg);
+  padding:clamp(1.25rem,3vw,2rem);
+}
+.sg-card-dark .sg-body{color:var(--sg-muted-dark)}
+
+/* Hairline divider with gold centre */
+.sg-rule{height:1px;border:0;background:linear-gradient(90deg,transparent,var(--sg-border-strong),transparent)}
+
+/* ── 7. FORM CONTROLS (accessible, premium) ────────────────────────── */
+.sg-field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.sg-label{font-size:.82rem;font-weight:600;color:var(--sg-ink-soft);letter-spacing:.01em}
+.sg-input,.sg-select,.sg-textarea{
+  font-family:var(--sg-font);font-size:1rem;color:var(--sg-ink);
+  background:var(--sg-surface);
+  border:1px solid var(--sg-border-strong);
+  border-radius:var(--sg-r-sm);
+  padding:.8em 1em;min-height:48px;width:100%;
+  transition:border-color var(--sg-trans-fast), box-shadow var(--sg-trans-fast);
+  -webkit-appearance:none;appearance:none;
+}
+.sg-textarea{min-height:120px;resize:vertical;line-height:1.6}
+.sg-input:focus,.sg-select:focus,.sg-textarea:focus{
+  outline:none;border-color:var(--sg-blue-2);
+  box-shadow:0 0 0 4px var(--sg-focus);
+}
+.sg-input::placeholder,.sg-textarea::placeholder{color:#94a3b8}
+/* readable dropdown options on every OS (fixes white-on-white) */
+.sg-select option{color:var(--sg-ink);background:var(--sg-white)}
+
+/* ── 8. CHIPS / BADGES / PILLS ─────────────────────────────────────── */
+.sg-chip{
+  display:inline-flex;align-items:center;gap:.4em;
+  font-size:.78rem;font-weight:600;
+  padding:.35em .85em;border-radius:var(--sg-r-pill);
+  background:var(--sg-surface-2);color:var(--sg-ink-soft);
+  border:1px solid var(--sg-border);
+}
+.sg-badge-gold{background:var(--sg-gold-pale);color:#9a7012;border-color:rgba(212,167,58,.3)}
+.sg-badge-ok{background:#e8f7ee;color:#15803d;border-color:#bbe8cb}
+.sg-badge-warn{background:#fef4e2;color:#b45309;border-color:#f6d699}
+
+/* ── 9. ACCESSIBILITY & MOTION ─────────────────────────────────────── */
+.sg :focus-visible{outline:2px solid var(--sg-blue-2);outline-offset:2px;border-radius:4px}
+.sg-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important;
+  }
+}
+
+/* ── 10. UTILITIES ─────────────────────────────────────────────────── */
+.sg-stack{display:flex;flex-direction:column}
+.sg-row{display:flex;align-items:center}
+.sg-wrap{flex-wrap:wrap}
+.sg-gap-sm{gap:.5rem}.sg-gap{gap:1rem}.sg-gap-lg{gap:1.5rem}
+.sg-center{align-items:center;justify-content:center}
+.sg-between{justify-content:space-between}
+.sg-text-center{text-align:center}
+.sg-mt{margin-top:1rem}.sg-mt-lg{margin-top:2rem}
+.sg-mb{margin-bottom:1rem}.sg-mb-lg{margin-bottom:2rem}
+.sg-hide-mobile{}
+@media(max-width:640px){
+  .sg-hide-mobile{display:none!important}
+  .sg-btn{width:100%}            /* full-width tap targets on phones */
+  .sg-row-stack-m{flex-direction:column;align-items:stretch}
+}
+@media(min-width:641px){.sg-only-mobile{display:none!important}}
+
+/* ══════════════════════════════════════════════════════════════════════
+   11. THE ECOSYSTEM CHAPTER  (ARCHITECTURE.md §4 — the palette law)
+
+   · Parent  — deep navy + premium gold (the signature, above)
+   · TERRA   — green accent  (trust · alive · grounded)
+   · YUNEX   — blue→purple   (dynamic · economic · modern)
+   · NORIA   — the orange ✦  (reserved). Orange elsewhere means one thing
+               only: LIVE ACTIVITY — where the intelligence is working.
+   Rules: gold sparingly · color never the sole carrier of meaning
+          (icon + word always accompany it) · gentle motion only.
+   ══════════════════════════════════════════════════════════════════════ */
+:root{
+  /* Platform accents (honoring the real logos) */
+  --terra:#3fae6a;          /* TERRA · trust green            */
+  --terra-deep:#2c7d4c;
+  --yunex:#4f8ef7;          /* YUNEX · economic blue          */
+  --yunex-grad-a:#3d5af1;   /* YUNEX gradient start           */
+  --yunex-grad-b:#b326d9;   /* YUNEX gradient end (purple)    */
+  --noria:#ff9f1c;          /* NORIA · the ✦ (reserved)       */
+  --noria-deep:#e65100;
+  --sg-live:var(--noria);   /* live activity = intelligence at work */
+}
+
+/* Platform-accented cards (compose with .sg-card / .sg-card-dark) */
+.sg-card--terra{border-color:rgba(63,174,106,.4)}
+.sg-card--yunex{border-color:rgba(79,142,247,.4)}
+.sg-card--noria{border-color:rgba(255,159,28,.4)}
+
+/* Platform buttons (compose with .sg-btn) */
+.sg-btn-terra{background:linear-gradient(135deg,var(--terra),var(--terra-deep));color:#fff}
+.sg-btn-terra:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(63,174,106,.32)}
+.sg-btn-yunex{background:linear-gradient(135deg,var(--yunex-grad-a),var(--yunex-grad-b));color:#fff}
+.sg-btn-yunex:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(79,142,247,.32)}
+
+/* The NORIA star — the honor mark on every SkyGlobe logo.
+   Position law: upper-right of the emblem. Defined once, never moved. */
+.noria-star{color:var(--noria);font-style:normal;display:inline-block;transform:translateY(-.35em);font-size:.55em;margin-left:.12em}
+@keyframes noria-breathe{0%,100%{opacity:.85}50%{opacity:1;text-shadow:0 0 8px rgba(255,159,28,.55)}}
+.noria-star--live{animation:noria-breathe 3.2s ease-in-out infinite}
+
+/* Live-activity badge (orange = intelligence working; icon+word required) */
+.sg-badge-live{background:rgba(255,159,28,.12);color:var(--noria-deep);border-color:rgba(255,159,28,.4)}
+
+/* Gentle entrance — cards rise into place (motion reinforces, never distracts) */
+@keyframes sg-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sg-rise{animation:sg-rise .32s cubic-bezier(.22,.7,.3,1) both}
+.sg-rise-2{animation:sg-rise .32s cubic-bezier(.22,.7,.3,1) .08s both}
+.sg-rise-3{animation:sg-rise .32s cubic-bezier(.22,.7,.3,1) .16s both}
+

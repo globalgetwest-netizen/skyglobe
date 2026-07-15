@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Programme — SkyGlobe Certificate Programs</title>
+<meta name="theme-color" content="#041022">
+<link rel="icon" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#041022;--navy2:#071B3B;--gold:#D4A73A;--gold-hi:#F4D77A;--gold-deep:#a87016;
+    --ink:#1a2233;--muted:#6b7689;--line:#e6e9ef;--ok:#1f9d57;
+    --font:"SF Pro Display","Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);color:var(--ink);background:#f4f6fa;line-height:1.6}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px}
+  header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:40}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.06em}
+  .brand img{height:36px;width:36px;border-radius:8px}
+  .brand small{display:block;color:var(--gold);font-size:.6rem;letter-spacing:.22em;font-weight:600}
+  header .back{color:#cdd6e6;font-size:.88rem}
+
+  .hero{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;padding:34px 0}
+  .hero .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+  .hero h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.4rem,3.4vw,1.9rem)}
+  .hero .sub{color:#c3cee0;font-size:.86rem;margin-top:4px}
+  .progress-ring{text-align:center}
+  .progress-ring .pct{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold-hi);font-weight:700}
+  .progress-ring .lbl{font-size:.68rem;color:#9fb0c9;text-transform:uppercase;letter-spacing:.1em}
+
+  .section{padding:30px 0 60px}
+  .steplist{display:flex;flex-direction:column;gap:10px}
+  .stepcard{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+  .stepcard:hover{border-color:rgba(212,167,58,.5);box-shadow:0 8px 20px rgba(4,16,34,.06)}
+  .stepcard.open{border-color:var(--gold)}
+  .stepcard .hd{display:flex;align-items:center;gap:12px}
+  .stepcard .num{width:32px;height:32px;border-radius:50%;background:#e6e9ef;color:#8a93a3;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.86rem;flex-shrink:0}
+  .stepcard.done .num{background:var(--ok);color:#fff}
+  .stepcard h3{font-size:.98rem;color:var(--navy);flex:1}
+  .stepcard .chev{color:var(--muted);transition:transform .2s}
+  .stepcard.open .chev{transform:rotate(90deg)}
+  .stepcard .content{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);color:#3c465a;font-size:.9rem;line-height:1.75;white-space:pre-wrap}
+  .stepcard.open .content{display:block}
+  .stepcard .actions{margin-top:14px;display:flex;justify-content:flex-end}
+  .btn{display:inline-block;background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1a1300;border:none;padding:11px 24px;border-radius:30px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn.small{padding:8px 18px;font-size:.8rem}
+  .btn.ghost{background:transparent;border:1.5px solid rgba(4,16,34,.2);color:var(--navy)}
+
+  .cert-box{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:28px;text-align:center;margin-top:26px}
+  .cert-box.ready{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,167,58,.15)}
+  .cert-box h2{font-family:'Cormorant Garamond',serif;color:var(--navy);font-size:1.5rem;margin-bottom:8px}
+  .cert-box p{color:var(--muted);font-size:.9rem}
+  .photo-pick{margin:16px auto;max-width:320px}
+  .photo-pick img{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);display:block;margin:0 auto 10px}
+  .spin{width:36px;height:36px;border:4px solid #e6e9ef;border-top-color:var(--gold);border-radius:50%;animation:s 1s linear infinite;margin:20px auto}
+  @keyframes s{to{transform:rotate(360deg)}}
+  .doc-ref{display:inline-block;background:var(--navy);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.15rem;letter-spacing:.06em;padding:10px 20px;border-radius:12px;border:2px solid var(--gold);margin:10px 0}
+  .lesson-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .tool{background:#f4f6fa;border:1.5px solid var(--line);color:var(--navy);border-radius:30px;padding:8px 16px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit}
+  .tool.active{border-color:var(--gold);color:var(--gold-deep)}
+  .quiz{margin-top:14px;border-top:1px dashed var(--line);padding-top:14px}
+  .quiz .q{margin-bottom:14px}
+  .quiz .q p{font-weight:600;color:var(--navy);font-size:.9rem;margin-bottom:6px}
+  .quiz label{display:block;padding:8px 12px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:6px;font-size:.86rem;cursor:pointer}
+  .quiz label.correct{border-color:var(--ok);background:#effaf3}
+  .quiz label.wrong{border-color:#c0392b;background:#fdf0ee}
+  .score-chip{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:800;color:var(--gold-deep);background:#fdf6e3;border:1px solid rgba(212,167,58,.45);padding:3px 10px;border-radius:20px;margin-left:8px}
+  .askbox{margin-top:14px;border-top:1px dashed var(--line);padding-top:14px}
+  .askbox .row{display:flex;gap:8px}
+  .askbox input{flex:1;padding:10px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:.88rem;font-family:inherit}
+  .askbox .ans{margin-top:10px;background:#f4f6fa;border-left:3px solid var(--gold);border-radius:8px;padding:12px 14px;font-size:.88rem;color:#3c465a;white-space:pre-wrap;display:none}
+  .exam-box{background:#fff;border:1.5px solid var(--gold);border-radius:18px;padding:28px;margin-top:26px;box-shadow:0 0 0 3px rgba(212,167,58,.12)}
+  .exam-box h2{font-family:'Cormorant Garamond',serif;color:var(--navy);font-size:1.5rem;margin-bottom:8px}
+  /* ── EXAM ROOM: no select/copy, and a traceable watermark on every screen ── */
+  .quiz,.exam-box{-webkit-user-select:none;-moz-user-select:none;user-select:none;position:relative}
+  .quiz::after,.exam-box::after{content:var(--wm,'SKYGLOBE ACADEMY');position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:800;color:rgba(4,16,34,.055);transform:rotate(-24deg);letter-spacing:.14em;white-space:pre-wrap;text-align:center;z-index:5}
+  @media print{.quiz,.exam-box,#examArea{display:none!important}}
+  footer{background:var(--navy);color:#9fb0c9;text-align:center;padding:28px 20px;font-size:.84rem;margin-top:40px}
+  footer .m{color:var(--gold);letter-spacing:.14em;font-size:.72rem;text-transform:uppercase;margin-top:8px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a href="/" class="brand"><img src="/icon-192.png" alt="SkyGlobe Group"><div>SKYGLOBE<small>GROUP</small></div></a>
+  <a class="back" href="/courses">← Certificate Programs</a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div>
+    <h1 id="hTrack">Loading your programme…</h1>
+    <div class="sub" id="hSub"></div>
+  </div>
+  <div class="progress-ring"><div class="pct" id="pct">0%</div><div class="lbl">Complete</div></div>
+</div></section>
+
+<section class="section"><div class="wrap">
+  <div class="steplist" id="steplist"><div class="spin"></div></div>
+
+  <div class="exam-box" id="examBox" style="display:none">
+    <h2>🎓 Final Examination</h2>
+    <p style="color:var(--muted);font-size:.9rem">Every lesson is complete. Pass the final exam (70%+) to earn your certificate. A fresh exam is issued for every retake.</p>
+    <div id="examArea" style="margin-top:14px"><button class="btn" onclick="startExam()">Begin Final Exam →</button></div>
+  </div>
+
+  <div class="cert-box" id="certBox" style="display:none">
+    <h2>🏅 Examination passed — congratulations!</h2>
+    <p><span id="finalScoreLine"></span> Add a photo (optional) and generate your official, QR-verifiable certificate.</p>
+    <div class="photo-pick">
+      <img id="photoPreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e6e9ef'/%3E%3C/svg%3E">
+      <input type="file" id="photoInput" accept="image/png,image/jpeg" onchange="onPhoto(this)">
+    </div>
+    <button class="btn" id="genBtn" onclick="generateCertificate()">Generate My Certificate →</button>
+    <a class="btn ghost" id="trBtn" href="#" target="_blank" style="margin-left:8px">📜 Official Transcript</a>
+    <div id="certResult"></div>
+  </div>
+</div></section>
+
+<footer>© <span id="yr"></span> SkyGlobe Group · Knowledge Hub<div class="m">One World. One Mission.</div></footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+const ENR_ID = new URLSearchParams(location.search).get('id');
+let ENR = null, PHOTO_DATA_URL = null;
+
+if (!ENR_ID) {
+  // No enrolment in the URL: show the friendly notice and STOP — the async
+  // loaders below would otherwise run against the replaced (empty) DOM.
+  document.body.innerHTML = '<div style="padding:60px;text-align:center;color:#6b7689">No enrolment found. <a href="/courses" style="color:#a87016">Go to Certificate Programs</a></div>';
+}
+
+async function load(){
+  try{
+    const r = await fetch('/api/courses/enrollment/' + ENR_ID);
+    ENR = await r.json();
+    if (!r.ok) throw new Error(ENR.error || 'Could not load your programme.');
+    document.getElementById('hTrack').textContent = ENR.trackName || 'Your Programme';
+    document.getElementById('hSub').textContent = (ENR.tierName || '') + ' · ' + ENR.full_name;
+    setWatermark();
+    renderSteps();
+  }catch(e){
+    document.getElementById('steplist').innerHTML = '<p style="color:#a93226">' + e.message + '</p>';
+  }
+}
+
+function renderSteps(){
+  const steps = ENR.steps || [];
+  const doneCount = steps.filter(s=>s.done).length;
+  document.getElementById('pct').textContent = steps.length ? Math.round(doneCount/steps.length*100)+'%' : '0%';
+  const list = document.getElementById('steplist'); list.innerHTML = '';
+  steps.forEach((s, i) => {
+    const c = document.createElement('div'); c.className = 'stepcard' + (s.done ? ' done' : '');
+    const scoreChip = (s.quiz_score!=null) ? `<span class="score-chip">📝 Test ${s.quiz_score}/5${s.quiz_passed?' · passed':''}</span>` : '';
+    c.innerHTML = `<div class="hd"><div class="num">${s.done ? '✓' : (i+1)}</div><h3>${esc(s.title)}${scoreChip}</h3><span class="chev">›</span></div>
+      <div class="content" id="content${i}">${s.content ? esc(s.content) : ''}</div>
+      <div id="tools${i}" style="display:none">
+        <div class="lesson-tools">
+          <button class="tool" id="listenBtn${i}" onclick="event.stopPropagation();toggleListen(${i})">🔊 Listen to this lesson</button>
+          <button class="tool" onclick="event.stopPropagation();toggleAsk(${i})">💬 Ask your teacher</button>
+          ${s.done ? '' : `<button class="btn small" onclick="event.stopPropagation();startQuiz(${i})">📝 Take the test to complete</button>`}
+        </div>
+        <div class="askbox" id="ask${i}" style="display:none">
+          <div class="row">
+            <input id="askInput${i}" placeholder="Type your question about this lesson…" onkeydown="if(event.key==='Enter')askTeacher(${i})">
+            <button class="tool" id="micBtn${i}" onclick="event.stopPropagation();micAsk(${i})" title="Speak your question">🎤</button>
+            <button class="btn small" onclick="event.stopPropagation();askTeacher(${i})">Ask</button>
+          </div>
+          <div class="ans" id="ans${i}"></div>
+        </div>
+        <div class="quiz" id="quiz${i}" style="display:none"></div>
+      </div>`;
+    c.onclick = (ev) => { if (ev.target.closest('button,input,label')) return; toggleStep(c, i); };
+    list.appendChild(c);
+  });
+  const allDone = steps.length && steps.every(s=>s.done);
+  const passed = (ENR.final_score || 0) >= 70;
+  document.getElementById('examBox').style.display = (allDone && !passed) ? 'block' : 'none';
+  document.getElementById('certBox').style.display = (allDone && passed) ? 'block' : 'none';
+  if (allDone && passed) {
+    document.getElementById('certBox').classList.add('ready');
+    document.getElementById('finalScoreLine').textContent = 'Final exam score: ' + ENR.final_score + '%.';
+    document.getElementById('trBtn').href = '/api/courses/enrollment/' + ENR_ID + '/transcript';
+  }
+}
+
+/* ── VOICE: the AI reads the lesson aloud ── */
+let SPEAKING = null;
+function toggleListen(i){
+  const btn = document.getElementById('listenBtn'+i);
+  if (SPEAKING === i) { speechSynthesis.cancel(); SPEAKING = null; btn.classList.remove('active'); btn.textContent = '🔊 Listen to this lesson'; return; }
+  speechSynthesis.cancel();
+  document.querySelectorAll('[id^=listenBtn]').forEach(b=>{b.classList.remove('active');b.textContent='🔊 Listen to this lesson';});
+  const text = ENR.steps[i].content;
+  if (!text) { alert('Open the lesson first so it can load.'); return; }
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = 0.95; u.onend = () => { SPEAKING = null; btn.classList.remove('active'); btn.textContent = '🔊 Listen to this lesson'; };
+  SPEAKING = i; btn.classList.add('active'); btn.textContent = '⏹ Stop reading';
+  speechSynthesis.speak(u);
+}
+
+/* ── ASK YOUR TEACHER — typed or spoken ── */
+function toggleAsk(i){ const b=document.getElementById('ask'+i); b.style.display = b.style.display==='none'?'block':'none'; }
+async function askTeacher(i){
+  const inp = document.getElementById('askInput'+i);
+  const q = inp.value.trim(); if(!q) return;
+  const ans = document.getElementById('ans'+i);
+  ans.style.display='block'; ans.textContent='Your teacher is thinking…';
+  try{
+    const r = await fetch(`/api/courses/enrollment/${ENR_ID}/ask`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q,stepIdx:i})});
+    const d = await r.json();
+    if(!r.ok) throw new Error(d.error||'Could not reach your teacher.');
+    ans.textContent = d.answer;
+    inp.value='';
+  }catch(e){ ans.textContent = e.message; }
+}
+function micAsk(i){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { alert('Voice input is not supported on this browser — please type your question.'); return; }
+  const rec = new SR(); rec.lang='en-US'; rec.interimResults=false;
+  const mb = document.getElementById('micBtn'+i); mb.textContent='🎙️…';
+  rec.onresult = e => { document.getElementById('askInput'+i).value = e.results[0][0].transcript; mb.textContent='🎤'; askTeacher(i); };
+  rec.onerror = () => { mb.textContent='🎤'; };
+  rec.onend = () => { mb.textContent='🎤'; };
+  rec.start();
+}
+
+/* ── LESSON TESTS ── */
+async function startQuiz(i){
+  const qb = document.getElementById('quiz'+i);
+  qb.style.display='block'; qb.innerHTML='<div class="spin"></div>';
+  try{
+    const r = await fetch(`/api/courses/enrollment/${ENR_ID}/step/${i}/quiz`, {method:'POST'});
+    const d = await r.json();
+    if(!r.ok) throw new Error(d.error||'Could not load the test.');
+    qb.innerHTML = d.quiz.map((q,qi)=>`<div class="q"><p>${qi+1}. ${esc(q.q)}</p>${q.options.map((o,oi)=>`<label><input type="radio" name="q${i}_${qi}" value="${oi}"> ${esc(o)}</label>`).join('')}</div>`).join('')
+      + `<button class="btn small" onclick="submitQuiz(${i},${d.quiz.length})">Submit answers</button>`;
+  }catch(e){ qb.innerHTML='<p style="color:#a93226">'+esc(e.message)+'</p>'; }
+}
+async function submitQuiz(i,n){
+  const answers=[];
+  for(let qi=0;qi<n;qi++){ const sel=document.querySelector(`input[name=q${i}_${qi}]:checked`); if(!sel){alert('Answer every question first.');return;} answers.push(Number(sel.value)); }
+  try{
+    const r = await fetch(`/api/courses/enrollment/${ENR_ID}/step/${i}/quiz/submit`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({answers})});
+    const d = await r.json();
+    if(!r.ok) throw new Error(d.error||'Could not grade the test.');
+    for(let qi=0;qi<n;qi++){
+      document.querySelectorAll(`input[name=q${i}_${qi}]`).forEach(inp=>{
+        const lab=inp.closest('label');
+        if(Number(inp.value)===d.correct[qi]) lab.classList.add('correct');
+        else if(inp.checked) lab.classList.add('wrong');
+      });
+    }
+    const qb=document.getElementById('quiz'+i);
+    qb.insertAdjacentHTML('beforeend', d.passed
+      ? `<p style="color:var(--ok);font-weight:700;margin-top:10px">✅ ${d.score}/${d.total} — passed! Lesson complete.</p>`
+      : `<p style="color:#a93226;font-weight:700;margin-top:10px">${d.score}/${d.total} — you need 3/5. Review the lesson and <button class="tool" onclick="startQuiz(${i})">try again</button></p>`);
+    if(d.passed){ setTimeout(()=>{ load(); }, 1600); }
+  }catch(e){ alert(e.message); }
+}
+
+/* ── FINAL EXAM ── */
+async function startExam(){
+  const area=document.getElementById('examArea');
+  area.innerHTML='<div class="spin"></div>';
+  try{
+    const r=await fetch(`/api/courses/enrollment/${ENR_ID}/final-exam`,{method:'POST'});
+    const d=await r.json();
+    if(!r.ok) throw new Error(d.error||'Could not prepare the exam.');
+    area.innerHTML = d.exam.map((q,qi)=>`<div class="q" style="margin-bottom:14px"><p style="font-weight:600;color:var(--navy);font-size:.9rem;margin-bottom:6px">${qi+1}. ${esc(q.q)}</p>${q.options.map((o,oi)=>`<label style="display:block;padding:8px 12px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:6px;font-size:.86rem;cursor:pointer"><input type="radio" name="ex_${qi}" value="${oi}"> ${esc(o)}</label>`).join('')}</div>`).join('')
+      + `<button class="btn" onclick="submitExam(${d.exam.length})">Submit Final Exam</button>`;
+  }catch(e){ area.innerHTML='<p style="color:#a93226">'+esc(e.message)+'</p><button class="btn small" onclick="startExam()" style="margin-top:10px">Try again</button>'; }
+}
+async function submitExam(n){
+  const answers=[];
+  for(let qi=0;qi<n;qi++){ const sel=document.querySelector(`input[name=ex_${qi}]:checked`); if(!sel){alert('Answer every question first.');return;} answers.push(Number(sel.value)); }
+  try{
+    const r=await fetch(`/api/courses/enrollment/${ENR_ID}/final-exam/submit`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({answers})});
+    const d=await r.json();
+    if(!r.ok) throw new Error(d.error||'Could not grade the exam.');
+    document.getElementById('examArea').innerHTML = `<p style="font-weight:700;color:${d.passed?'var(--ok)':'#a93226'};font-size:1.05rem">${d.passed?'🎉':'📚'} ${d.score}% — ${esc(d.message)}</p>`
+      + (d.passed ? '' : '<button class="btn" onclick="startExam()" style="margin-top:12px">Retake a fresh exam</button>');
+    if(d.passed){ setTimeout(()=>{ load(); }, 1800); }
+  }catch(e){ alert(e.message); }
+}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+async function toggleStep(card, i){
+  const wasOpen = card.classList.contains('open');
+  document.querySelectorAll('.stepcard').forEach(c=>c.classList.remove('open'));
+  document.querySelectorAll('[id^="actions"]').forEach(a=>a.style.display='none');
+  if (wasOpen) return;
+  card.classList.add('open');
+  document.getElementById('tools'+i).style.display = 'block';
+  const contentEl = document.getElementById('content'+i);
+  if (!ENR.steps[i].content) {
+    contentEl.textContent = 'Loading your lesson…';
+    try{
+      const r = await fetch(`/api/courses/enrollment/${ENR_ID}/step/${i}/content`, { method: 'POST' });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'Could not load lesson.');
+      ENR.steps[i].content = d.content;
+      contentEl.textContent = d.content;
+    }catch(e){ contentEl.textContent = 'Could not load this lesson: ' + e.message; }
+  }
+}
+
+async function markDone(i){
+  try{
+    const r = await fetch(`/api/courses/enrollment/${ENR_ID}/step/${i}/done`, { method: 'PATCH' });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || 'Could not update progress.');
+    ENR.steps = d.steps;
+    renderSteps();
+  }catch(e){ alert(e.message); }
+}
+
+function onPhoto(input){
+  const file = input.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      // Compress phone photos client-side so the upload always succeeds
+      const max = 640, scale = Math.min(1, max / Math.max(img.width, img.height));
+      const cv = document.createElement('canvas');
+      cv.width = Math.round(img.width * scale); cv.height = Math.round(img.height * scale);
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      PHOTO_DATA_URL = cv.toDataURL('image/jpeg', 0.86);
+      document.getElementById('photoPreview').src = PHOTO_DATA_URL;
+    };
+    img.src = reader.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function generateCertificate(){
+  const btn = document.getElementById('genBtn'); btn.disabled = true; btn.textContent = 'Generating…';
+  const box = document.getElementById('certResult');
+  try{
+    const r = await fetch(`/api/courses/enrollment/${ENR_ID}/certificate`, { method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ photoDataUrl: PHOTO_DATA_URL }) });
+    const d = await r.json();
+    if (!r.ok || !d.success) throw new Error(d.error || 'Could not generate certificate.');
+    box.innerHTML = `<div class="doc-ref">${d.certRef}</div>
+      <p style="color:var(--muted);margin-bottom:14px">Your certificate is ready — verifiable by anyone, anywhere.</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        ${d.viewUrl ? `<a class="btn" href="${d.viewUrl}" target="_blank">Open &amp; Print Certificate</a>` : ''}
+        <a class="btn ghost" href="${d.verifyUrl}" target="_blank">View Public Verification</a>
+      </div>`;
+    btn.style.display = 'none';
+  }catch(e){
+    box.innerHTML = '<p style="color:#a93226">' + e.message + '</p>';
+    btn.disabled = false; btn.textContent = 'Generate My Certificate →';
+  }
+}
+
+/* ── EXAM ROOM PROTECTIONS ──────────────────────────────────────────────
+   No copy, no cut, no paste, no right-click, no drag inside tests & exams.
+   Screens are watermarked with the student's own name and reference so any
+   photograph identifies its source. PrintScreen empties the clipboard and
+   briefly veils the questions (a deterrent — no website can fully stop a
+   phone camera, which is why the watermark is the real protection). */
+(function(){
+  const inExam = el => el && el.closest && el.closest('.quiz, .exam-box, #examArea');
+  ['copy','cut','paste','contextmenu','dragstart','selectstart'].forEach(ev =>
+    document.addEventListener(ev, e => { if (inExam(e.target)) e.preventDefault(); }, true));
+  document.addEventListener('keyup', e => {
+    if (e.key === 'PrintScreen') {
+      try { navigator.clipboard.writeText('SkyGlobe Academy — examination content is protected.'); } catch(_){}
+      document.querySelectorAll('.quiz, #examArea').forEach(el => { el.style.filter = 'blur(14px)'; });
+      setTimeout(() => document.querySelectorAll('.quiz, #examArea').forEach(el => { el.style.filter = ''; }), 2000);
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && ['c','x','p','s'].includes((e.key||'').toLowerCase()) && inExam(document.activeElement)) e.preventDefault();
+  });
+})();
+function setWatermark(){
+  if (!ENR) return;
+  const wm = (ENR.full_name || 'SKYGLOBE') + '  ·  ' + (ENR.ref || '') + '\nSKYGLOBE ACADEMY — PROTECTED';
+  document.documentElement.style.setProperty('--wm', JSON.stringify(wm));
+}
+
+if (ENR_ID) load();
+</script>
+<script src="/dept-contact.js?v=7" defer></script>
+</body>
+</html>

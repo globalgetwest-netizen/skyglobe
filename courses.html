@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyGlobe Certificate Programs — Knowledge Hub</title>
+<meta name="description" content="Professional, verifiable certificate programs from SkyGlobe Group — 1, 2 or 3 months, structured, QR-verifiable digital certificates recognised worldwide.">
+<meta name="theme-color" content="#041022">
+<link rel="icon" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#041022;--navy2:#071B3B;--blue:#0b2147;
+    --gold:#D4A73A;--gold-hi:#F4D77A;--gold-deep:#a87016;
+    --ink:#1a2233;--muted:#6b7689;--line:#e6e9ef;
+    --font:"SF Pro Display","Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);color:var(--ink);background:#f4f6fa;line-height:1.6}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px}
+
+  header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:40}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.06em}
+  .brand img{height:36px;width:36px;border-radius:8px}
+  .brand small{display:block;color:var(--gold);font-size:.6rem;letter-spacing:.22em;font-weight:600}
+  header .back{color:#cdd6e6;font-size:.88rem}
+
+  .hero{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;padding:54px 0 60px;text-align:center;position:relative;overflow:hidden}
+  .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(620px 320px at 50% -10%,rgba(212,167,58,.16),transparent 60%);pointer-events:none}
+  .hero .tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(212,167,58,.4);padding:6px 16px;border-radius:30px;margin-bottom:16px}
+  .hero h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.9rem,5vw,3rem);line-height:1.1}
+  .hero h1 span{color:var(--gold)}
+  .hero p{max-width:620px;margin:14px auto 0;color:#c3cee0;font-weight:300;font-size:clamp(.92rem,2.2vw,1.02rem)}
+
+  .steps{display:flex;justify-content:center;gap:0;margin:30px 0 6px;flex-wrap:wrap}
+  .step{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.82rem;font-weight:600;padding:0 12px}
+  .step .dot{width:26px;height:26px;border-radius:50%;background:#e6e9ef;color:#8a93a3;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+  .step.active{color:var(--navy)}
+  .step.active .dot{background:var(--gold);color:#1a1300}
+  .step.done .dot{background:var(--navy);color:#fff}
+
+  .section{padding:34px 0 60px}
+  .panel{display:none}
+  .panel.show{display:block}
+  .p-head{text-align:center;margin-bottom:24px}
+  .p-head h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.5rem,3.4vw,2.1rem);color:var(--navy)}
+  .p-head p{color:var(--muted);font-weight:300;margin-top:6px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+  .trk-card{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:20px;cursor:pointer;transition:border-color .2s,transform .2s,box-shadow .2s;text-align:center}
+  .trk-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(4,16,34,.08);border-color:rgba(212,167,58,.5)}
+  .trk-card.sel{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,167,58,.18)}
+  .trk-card .em{font-size:1.8rem;display:block;margin-bottom:8px}
+  .trk-card h3{font-size:.98rem;color:var(--navy)}
+
+  .cur-switch{display:flex;justify-content:center;gap:6px;margin-bottom:22px}
+  .cur-switch button{background:#fff;border:1.5px solid var(--line);color:var(--muted);font-weight:600;padding:7px 16px;border-radius:30px;cursor:pointer;font-size:.84rem}
+  .cur-switch button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .tier-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .tier{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:24px;cursor:pointer;transition:border-color .2s,transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+  .tier:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(4,16,34,.1);border-color:rgba(212,167,58,.5)}
+  .tier.sel{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,167,58,.18)}
+  .tier.featured{border-color:rgba(212,167,58,.6)}
+  .tier .name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--navy)}
+  .tier .price{font-size:1.9rem;font-weight:700;color:var(--navy);margin:8px 0 2px}
+  .tier .price small{font-size:.8rem;font-weight:400;color:var(--muted)}
+  .tier .blurb{font-size:.86rem;color:var(--muted);font-weight:300;margin-bottom:14px}
+  .tier ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:auto}
+  .tier li{font-size:.85rem;color:#3c465a;padding-left:20px;position:relative;font-weight:300}
+  .tier li:before{content:"✓";position:absolute;left:0;color:var(--gold-deep);font-weight:700}
+  .tier .badge{display:inline-block;font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#1a1300;background:var(--gold);padding:3px 10px;border-radius:20px;margin-bottom:8px;align-self:flex-start}
+
+  .form{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(22px,4vw,34px);max-width:640px;margin:0 auto}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:.82rem;font-weight:600;color:var(--navy);margin-bottom:6px}
+  .field label .req{color:#c0392b}
+  .field input,.field select{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;font-family:inherit;font-size:.92rem;color:var(--ink);background:#fbfcfe}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--gold);background:#fff}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:540px){.row2{grid-template-columns:1fr}}
+
+  .summary{background:#fff8e6;border:1px solid #ead9a6;border-radius:14px;padding:16px 18px;max-width:640px;margin:0 auto 18px;font-size:.9rem;color:#5a4a16}
+  .summary b{color:#3a2f0a}
+
+  .actions{display:flex;justify-content:space-between;gap:12px;max-width:640px;margin:24px auto 0}
+  .btn{display:inline-block;background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1a1300;border:none;padding:14px 30px;border-radius:40px;font-weight:700;font-size:.92rem;cursor:pointer;letter-spacing:.03em;box-shadow:0 10px 26px rgba(212,167,58,.32);transition:transform .2s,box-shadow .2s;font-family:inherit}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(212,167,58,.45)}
+  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+  .btn.ghost{background:transparent;border:1.5px solid rgba(4,16,34,.2);color:var(--navy);box-shadow:none}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold-deep)}
+
+  .note{font-size:.8rem;color:var(--muted);text-align:center;max-width:560px;margin:18px auto 0;font-weight:300}
+  .err{background:#fdecea;border:1px solid #f5c6c0;color:#a93226;border-radius:10px;padding:12px 14px;font-size:.86rem;max-width:640px;margin:0 auto 16px;display:none}
+
+  footer{background:var(--navy);color:#9fb0c9;text-align:center;padding:28px 20px;font-size:.84rem;margin-top:40px}
+  footer .m{color:var(--gold);letter-spacing:.14em;font-size:.72rem;text-transform:uppercase;margin-top:8px}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a href="/" class="brand"><img src="/icon-192.png" alt="SkyGlobe Group"><div>SKYGLOBE<small>GROUP</small></div></a>
+  <a class="back" href="/">← Main Site</a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <span class="tag">Knowledge Hub · Certificate Programs</span>
+  <h1>Real Skills. <span>Real Certificates.</span></h1>
+  <p>Choose a track, choose your programme length, and let our AI guide you step by step. Complete every lesson and receive a premium, QR-verifiable certificate recognised worldwide.</p>
+</div></section>
+
+<div class="wrap">
+  <div class="steps">
+    <div class="step active" id="st1"><span class="dot">1</span> Track</div>
+    <div class="step" id="st2"><span class="dot">2</span> Programme</div>
+    <div class="step" id="st3"><span class="dot">3</span> Register</div>
+    <div class="step" id="st4"><span class="dot">4</span> Pay</div>
+  </div>
+</div>
+
+<section class="section"><div class="wrap">
+
+  <!-- STEP 1: TRACK -->
+  <div class="panel show" id="panel1">
+    <div class="p-head"><h2>Choose your track</h2><p>Every sector, one trusted certification standard.</p></div>
+    <div id="trackGrid" class="grid"><p style="text-align:center;color:var(--muted)">Loading…</p></div>
+  </div>
+
+  <!-- STEP 2: TIER -->
+  <div class="panel" id="panel2">
+    <div class="p-head"><h2>Choose your programme</h2><p>Amateur, Advanced or Pro — pick the depth that fits your goals.</p></div>
+    <div class="cur-switch" id="curSwitch">
+      <button data-cur="USD" class="on">USD $</button>
+      <button data-cur="EUR">EUR €</button>
+      <button data-cur="GBP">GBP £</button>
+    </div>
+    <div class="tier-grid" id="tierGrid"></div>
+    <div class="actions"><button class="btn ghost" onclick="goStep(1)">← Back</button><button class="btn" onclick="if(!state.product){alert('Please choose a programme tier first.');return}goStep(3)">Continue →</button></div>
+  </div>
+
+  <!-- STEP 3: REGISTER -->
+  <div class="panel" id="panel3">
+    <div class="p-head"><h2>Register</h2><p>Your details for the certificate record.</p></div>
+    <div class="err" id="formErr"></div>
+    <div class="form">
+      <div class="field"><label>Full name <span class="req">*</span></label><input id="f_fullName" placeholder="As it should appear on your certificate"></div>
+      <div class="row2">
+        <div class="field"><label>Email <span class="req">*</span></label><input id="f_email" type="email" placeholder="you@example.com"></div>
+        <div class="field"><label>Date of birth</label><input id="f_dob" type="date"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Nationality</label><input id="f_nationality" placeholder="e.g. Canadian, Filipino, Emirati"></div>
+        <div class="field"><label>Graduation year</label><select id="f_gradYear"></select></div>
+      </div>
+      <div class="field"><label>Address</label><input id="f_address" placeholder="City, country"></div>
+    </div>
+    <div class="actions"><button class="btn ghost" onclick="goStep(2)">← Back</button><button class="btn" onclick="goStep(4)">Review &amp; Continue →</button></div>
+  </div>
+
+  <!-- STEP 4: PAY -->
+  <div class="panel" id="panel4">
+    <div class="p-head"><h2>Confirm &amp; pay</h2><p>Secure payment — your programme unlocks instantly after payment.</p></div>
+    <div class="err" id="payErr"></div>
+    <div class="summary" id="paySummary"></div>
+    <div class="actions"><button class="btn ghost" onclick="goStep(3)">← Back</button><button class="btn" id="payBtn" onclick="startPayment()">Pay &amp; Start →</button></div>
+    <p class="note">🔒 Secure payment · 🧠 Guided lessons · 🏅 QR-verifiable certificate on completion. One payment = one programme enrolment.</p>
+  </div>
+
+</div></section>
+
+<footer>
+  © <span id="yr"></span> SkyGlobe Group · Knowledge Hub
+  <div class="m">One World. One Mission.</div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+const gradSel = document.getElementById('f_gradYear');
+const curYear = new Date().getFullYear();
+for (let y = curYear; y <= curYear + 6; y++) gradSel.innerHTML += `<option value="${y}">${y}</option>`;
+
+const state = { trackId:null, trackName:null, product:null, tierName:null, tierId:null, currency:'USD', catalog:null };
+
+function goStep(n){
+  for(let i=1;i<=4;i++){ const p=document.getElementById('panel'+i); if(p)p.classList.toggle('show',i===n); }
+  for(let i=1;i<=4;i++){ const s=document.getElementById('st'+i); if(!s)continue; s.classList.toggle('active',i===n); s.classList.toggle('done',i<n); }
+  if(n===4) renderSummary();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function loadCatalog(){
+  try{
+    const r=await fetch('/api/courses/catalog'); state.catalog=await r.json();
+    renderTracks(); renderTiers();
+  }catch(e){ document.getElementById('trackGrid').innerHTML='<p style="text-align:center;color:#a93226">Could not load programmes. Please refresh.</p>'; }
+}
+
+function renderTracks(){
+  const wrap=document.getElementById('trackGrid'); wrap.innerHTML='';
+  // The catalog is organised by the Academy's Schools — exactly as the
+  // certificates are issued. Every programme appears under its faculty.
+  const SCHOOLS=[
+    {name:'School of Technology & Digital Sciences', icon:'💻', sub:'Coding, cloud, cybersecurity, data & AI'},
+    {name:'School of Business & Enterprise', icon:'💼', sub:'Business, management, marketing & commerce'},
+    {name:'School of Finance & Investment', icon:'💰', sub:'Accounting, tax, planning & investment'},
+    {name:'School of Health & Wellbeing', icon:'🩺', sub:'Clinical support, care & wellness professions'},
+    {name:'School of Creative Arts & Media', icon:'🎨', sub:'Design, photography, film & content'},
+    {name:'School of Education', icon:'🎓', sub:'Teaching, instructional design & leadership'},
+    {name:'School of Environment & Sustainability', icon:'🌍', sub:'Sustainability, renewable energy & conservation'},
+    {name:'School of Hospitality & Tourism', icon:'🌴', sub:'Hospitality, tourism & culinary arts'},
+    {name:'School of the Built Environment', icon:'📐', sub:'Surveying, construction & the built world'},
+    {name:'School of Agriculture & Natural Resources', icon:'🌾', sub:'Farming, fishing & agribusiness'},
+    {name:'School of Vocational Trades & Safety', icon:'🛠️', sub:'Hands-on trades — learn a skill, earn proof'},
+    {name:'School of Professional Studies', icon:'✨', sub:'Specialty programmes'},
+  ];
+  const grouped={};
+  state.catalog.tracks.forEach(t=>{ const k=t.school||'School of Professional Studies'; (grouped[k]=grouped[k]||[]).push(t); });
+  const known=new Set(SCHOOLS.map(g=>g.name));
+  Object.keys(grouped).forEach(k=>{ if(!known.has(k)) SCHOOLS.push({name:k,icon:'📘',sub:''}); });
+  SCHOOLS.forEach(g=>{
+    const list=grouped[g.name]||[]; if(!list.length) return;
+    const head=document.createElement('div');
+    head.style.cssText='grid-column:1/-1;margin:16px 0 2px;text-align:left';
+    head.innerHTML=`<div style="font-weight:800;color:#041022;font-size:1.02rem;letter-spacing:.02em">${g.icon} ${g.name}</div>${g.sub?`<div style="font-size:.78rem;color:#6b7689">${g.sub}</div>`:''}`;
+    wrap.appendChild(head);
+    list.forEach(t=>{
+      const c=document.createElement('div'); c.className='trk-card';
+      c.innerHTML=`<span class="em">${t.emoji}</span><h3>${t.name}</h3>`;
+      c.onclick=()=>{ state.trackId=t.id; state.trackName=t.name;
+        document.querySelectorAll('.trk-card').forEach(x=>x.classList.remove('sel'));
+        c.classList.add('sel'); setTimeout(()=>goStep(2),180); };
+      wrap.appendChild(c);
+    });
+  });
+}
+
+function renderTiers(){
+  const grid=document.getElementById('tierGrid'); grid.innerHTML='';
+  const sym={USD:'$',EUR:'€',GBP:'£'}[state.currency];
+  state.catalog.tiers.forEach((t,i)=>{
+    const c=document.createElement('div'); c.className='tier'+(i===2?' featured':'');
+    c.innerHTML=(i===2?'<span class="badge">Most complete</span>':'')+
+      '<div class="name">'+t.name+'</div>'+
+      '<div class="price">'+sym+t.price[state.currency]+' <small>one-time</small></div>'+
+      '<div class="blurb">'+t.blurb+' · '+t.steps+' guided lessons over '+t.months+' month'+(t.months>1?'s':'')+'</div>'+
+      '<ul>'+t.perks.map(p=>'<li>'+p+'</li>').join('')+'</ul>';
+    c.onclick=()=>{ state.product=t.product; state.tierName=t.name; state.tierId=t.id;
+      document.querySelectorAll('.tier').forEach(x=>x.classList.remove('sel'));
+      c.classList.add('sel'); setTimeout(()=>goStep(3),180); };
+    grid.appendChild(c);
+  });
+}
+
+document.getElementById('curSwitch').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  state.currency=b.dataset.cur;
+  document.querySelectorAll('#curSwitch button').forEach(x=>x.classList.toggle('on',x===b));
+  renderTiers();
+});
+
+function val(id){return document.getElementById(id).value.trim();}
+function collectFields(){
+  return { fullName:val('f_fullName'), email:val('f_email'), dob:val('f_dob'), nationality:val('f_nationality'),
+    address:val('f_address'), graduationYear:val('f_gradYear') };
+}
+
+function renderSummary(){
+  const f=collectFields(); const sym={USD:'$',EUR:'€',GBP:'£'}[state.currency];
+  const tier=state.catalog.tiers.find(t=>t.product===state.product);
+  document.getElementById('paySummary').innerHTML=
+    '<b>Track:</b> '+state.trackName+'<br>'+
+    '<b>Programme:</b> '+state.tierName+'<br>'+
+    '<b>Student:</b> '+(f.fullName||'—')+'<br>'+
+    '<b>Email:</b> '+(f.email||'—')+'<br>'+
+    '<b>Graduation year:</b> '+(f.graduationYear||'—')+'<br>'+
+    '<b>Total:</b> '+sym+(tier?tier.price[state.currency]:'')+' '+state.currency;
+}
+
+async function startPayment(){
+  const f=collectFields();
+  const fe=document.getElementById('payErr'); fe.style.display='none';
+  if(!f.fullName||!f.email){ goStep(3); const e=document.getElementById('formErr'); e.textContent='Please fill in full name and email.'; e.style.display='block'; return; }
+  const btn=document.getElementById('payBtn'); btn.disabled=true; btn.textContent='Starting secure payment…';
+  try{ localStorage.setItem('sky_course_pending', JSON.stringify({product:state.product,trackId:state.trackId,trackName:state.trackName,tierId:state.tierId,tierName:state.tierName,fields:f})); }catch(e){}
+  if(sessionStorage.getItem('sky_unlock_'+state.product)){ location.href=location.pathname+'?resume=1'; return; }
+  try{
+    const r=await fetch('/api/pay/init',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({product:state.product,provider:await pickProvider(),email:f.email,currency:state.currency,
+        meta:{trackId:state.trackId,service:'courses'}})});
+    const d=await r.json();
+    if(!r.ok||!d.authorization_url) throw new Error(d.error||'Could not start payment.');
+    window.location.href=d.authorization_url;
+  }catch(e){
+    btn.disabled=false; btn.textContent='Pay & Start →';
+    fe.textContent=e.message; fe.style.display='block';
+  }
+}
+let PAY_CFG=null;
+async function pickProvider(){
+  if(!PAY_CFG){ try{ PAY_CFG=await (await fetch('/api/pay/config')).json(); }catch(e){ PAY_CFG={providers:[]}; } }
+  const provs=(PAY_CFG&&PAY_CFG.providers)||[];
+  const order=['stripe','flutterwave','paystack','grey'];
+  for(const p of order){ const m=provs.find(x=>x.name===p); if(m) return p; }
+  return provs[0]?.name || 'grey';
+}
+
+// ---- Resume + enrol after payment ----
+async function resumeIfPaid(){
+  const isResume=new URLSearchParams(location.search).get('resume')==='1';
+  let pending=null; try{ pending=JSON.parse(localStorage.getItem('sky_course_pending')||'null'); }catch(e){}
+  if(!isResume||!pending) return;
+  const unlock=sessionStorage.getItem('sky_unlock_'+pending.product);
+  if(!unlock) return;
+  try{
+    const r=await fetch('/api/courses/enroll',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({unlock,trackId:pending.trackId,tierId:pending.tierId,...pending.fields})});
+    const d=await r.json();
+    if(!r.ok||!d.success) throw new Error(d.error||'Enrolment failed.');
+    try{ localStorage.removeItem('sky_course_pending'); sessionStorage.removeItem('sky_unlock_'+pending.product); }catch(e){}
+    location.href='/courses/learn?id='+d.enrollmentId;
+  }catch(e){
+    alert('We could not complete your enrolment automatically: '+e.message+'. Please contact support with your payment reference.');
+  }
+}
+
+loadCatalog(); resumeIfPaid();
+</script>
+<script src="/announcements.js?v=2" defer></script>
+<script src="/dept-contact.js?v=7" defer></script>
+</body>
+</html>

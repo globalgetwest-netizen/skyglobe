@@ -1,5 +1,10 @@
-app = "skyglobe"
-primary_region = "iad"
+# fly.io configuration — SkyGlobe Group platform (same app as Render).
+# Deploy: fly launch --copy-config --name skyglobegroup  (first time)
+#         fly deploy                                     (updates)
+# Secrets: fly secrets set SUPABASE_URL=... SUPABASE_KEY=... SESSION_SECRET=... \
+#          ADMIN_PASSWORDS=... RESEND_API_KEY=... CANONICAL_HOST=skyglobegroup.com
+app = "skyglobegroup"
+primary_region = "fra"
 
 [build]
 
@@ -11,6 +16,5 @@ primary_region = "iad"
   min_machines_running = 0
 
 [[vm]]
-  memory = "1gb"
-  cpu_kind = "shared"
-  cpus = 1
+  size = "shared-cpu-1x"
+  memory = "512mb"

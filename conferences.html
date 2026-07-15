@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conference Sourcing — SkyGlobe Group</title>
+<meta name="description" content="We source genuine conference invitations and admission documents from real organisers worldwide, verify them, and deliver to you.">
+<link rel="icon" href="/favicon-32.png">
+<style>
+  /* ── SkyGlobe Group premium design system · One World. One Mission. ── */
+  :root{--navy:#0a1c3e;--navy2:#071B3B;--gold:#C8962A;--gold2:#e7c46a;--ink:#0b1220;--muted:#5b6573;--line:#e7e9ee;--ok:#16a34a}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#f4f6f9;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;letter-spacing:-.01em}
+  a{color:inherit}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+  header{background:#0a1c3e;color:#fff;padding:14px 0}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif}
+  .brand img{height:36px;width:36px;border-radius:9px}
+  .brand small{display:block;color:var(--gold);font-size:.62rem;letter-spacing:.2em;font-weight:700}
+  header a.home{color:#cdd6e6;text-decoration:none;font-size:.9rem}
+  /* premium white hero (matches homepage) */
+  .hero{background:radial-gradient(120% 95% at 50% -10%,#eef4ff 0%,#f4f6f9 60%);color:var(--ink);padding:64px 0 70px;text-align:center}
+  .hero h1{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;font-size:clamp(2rem,5vw,3.1rem);font-weight:760;letter-spacing:-.03em;line-height:1.05}
+  .hero h1 span{background:linear-gradient(115deg,#C8962A,#e7c46a 50%,#0A2E65);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p{max-width:680px;margin:16px auto 0;color:var(--muted);font-size:1.05rem}
+  .trust{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+  .trust span{background:#fff;border:1px solid var(--line);color:#5b6573;padding:7px 15px;border-radius:980px;font-size:.8rem;box-shadow:0 2px 8px rgba(16,24,40,.04)}
+  .section{padding:48px 0;max-width:1100px;margin:0 auto}
+  .section h2{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700;letter-spacing:-.025em;margin-bottom:6px}
+  .section .sub{color:var(--muted);margin-bottom:26px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(16,24,40,.04),0 10px 30px rgba(16,24,40,.06);transition:.25s}
+  .card:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(16,24,40,.12)}
+  .card .field{display:inline-block;background:#f3ead2;color:#7a5b00;font-size:.7rem;font-weight:700;padding:4px 11px;border-radius:980px;align-self:flex-start;margin-bottom:10px;letter-spacing:.02em}
+  .card h3{font-size:1.06rem;margin-bottom:6px;letter-spacing:-.01em}
+  .card .org{color:var(--gold);font-weight:600;font-size:.9rem}
+  .card .meta{color:var(--muted);font-size:.85rem;margin:8px 0}
+  .card p.sum{font-size:.9rem;color:#475569;flex:1}
+  .btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a1300;border:none;padding:12px 20px;border-radius:980px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;text-align:center;box-shadow:0 8px 20px rgba(200,150,42,.25);transition:.2s}
+  .btn:hover{transform:translateY(-1px);filter:brightness(1.03)}
+  .btn.block{width:100%;margin-top:14px}
+  .btn.ghost{background:transparent;border:1px solid var(--gold);color:#0a1c3e;box-shadow:none}
+  .empty{background:#fff;border:1px dashed var(--line);border-radius:16px;padding:40px;text-align:center;color:var(--muted)}
+  .how{background:#fff;border-radius:18px;border:1px solid var(--line);padding:30px;margin-top:14px;box-shadow:0 10px 30px rgba(16,24,40,.05)}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:10px}
+  .step{padding:16px;border-left:3px solid var(--gold);background:#f8fafc;border-radius:0 10px 10px 0}
+  .step b{display:block;color:#0a1c3e;margin-bottom:4px}
+  .note{background:#fff8e6;border:1px solid #ead9a6;border-radius:14px;padding:16px 18px;color:#5a4a16;font-size:.9rem;margin-top:22px}
+  /* modal */
+  .modal{position:fixed;inset:0;background:rgba(8,15,30,.55);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+  .modal.open{display:flex}
+  .box{background:#fff;border-radius:20px;max-width:520px;width:100%;max-height:92vh;overflow:auto;padding:28px;box-shadow:0 30px 70px rgba(0,0,0,.25)}
+  .box h3{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;margin-bottom:4px;letter-spacing:-.02em}
+  .box .for{color:var(--gold);font-weight:600;font-size:.9rem;margin-bottom:16px}
+  label{display:block;font-size:.82rem;font-weight:600;color:#3a4760;margin:12px 0 4px}
+  input,select,textarea{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:12px;font:inherit;background:#fff;color:var(--ink)}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,150,42,.12)}
+  textarea{min-height:70px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .pricebar{background:#0a1c3e;color:#fff;border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin:16px 0 4px}
+  .pricebar b{color:var(--gold);font-size:1.25rem}
+  .msg{margin-top:12px;padding:10px 12px;border-radius:10px;font-size:.9rem;display:none}
+  .msg.err{background:#fdecec;color:#a02020;display:block}
+  .msg.ok{background:#e9f6ea;color:var(--ok);display:block}
+  .close{float:right;background:none;border:none;font-size:1.3rem;cursor:pointer;color:#99a}
+  footer{background:#0a1c3e;color:#9fb0c9;text-align:center;padding:28px;font-size:.85rem;margin-top:44px}
+  @media(max-width:520px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand"><img src="/icon-192.png" alt="">SkyGlobe<small>GROUP</small></div>
+  <a class="home" href="/">← Back to main site</a>
+</div></header>
+
+<script src="/noria-widget.js"></script>
+
+<section class="hero"><div class="wrap">
+  <h1>Conference <span>Sourcing &amp; Verification</span></h1>
+  <p>Attending a conference abroad? We contact the <strong>real organising institution</strong> on your behalf, obtain the <strong>genuine invitation / admission document</strong>, verify it, and deliver it to you — fully facilitated by SkyGlobe Group.</p>
+  <div class="trust">
+    <span>✔ Genuine documents from real organisers</span>
+    <span>✔ Verified &amp; facilitated by SkyGlobe Group</span>
+    <span>✔ Free registration · we follow up by email</span>
+  </div>
+</div></section>
+
+<section class="section"><div class="wrap">
+  <h2>Available Conferences</h2>
+  <div class="sub">Pick a conference below, or request sourcing for any conference you already have in mind.</div>
+  <div id="list" class="grid"><div class="empty">Loading conferences…</div></div>
+
+  <div style="text-align:center;margin-top:26px">
+    <button class="btn ghost" onclick="openForm('conference_sourcing','')">Don't see yours? Request sourcing for any conference →</button>
+  </div>
+
+  <div class="how">
+    <h2 style="font-size:1.25rem">How it works</h2>
+    <div class="steps">
+      <div class="step"><b>1. Request &amp; pay</b>Choose a conference, fill the short form and pay the service fee securely.</div>
+      <div class="step"><b>2. We source it</b>Our team contacts the real organiser and obtains the genuine document for you.</div>
+      <div class="step"><b>3. We verify &amp; stamp</b>We confirm authenticity and add our "Facilitated &amp; Verified by SkyGlobe Group" mark.</div>
+      <div class="step"><b>4. We deliver</b>You receive the document by email and in your tracking portal.</div>
+    </div>
+    <div class="note"><strong>Our promise:</strong> SkyGlobe Group only delivers <strong>genuine</strong> documents obtained from the real organising institution. We never fabricate invitations or impersonate any institution — our stamp certifies that we sourced and verified the document on your behalf.</div>
+  </div>
+</div></section>
+
+<!-- Request modal -->
+<div class="modal" id="modal"><div class="box">
+  <button class="close" onclick="closeForm()">×</button>
+  <h3>Request Sourcing</h3>
+  <div class="for" id="forLabel">Conference</div>
+  <form id="reqForm">
+    <input type="hidden" id="product" value="conference_sourcing">
+    <div class="row">
+      <div><label>First name *</label><input id="fname" required></div>
+      <div><label>Last name</label><input id="lname"></div>
+    </div>
+    <div class="row">
+      <div><label>Email *</label><input id="email" type="email" required></div>
+      <div><label>Phone / WhatsApp</label><input id="phone"></div>
+    </div>
+    <div class="row">
+      <div><label>Your nationality</label><input id="nationality"></div>
+      <div><label>Conference country</label><input id="country"></div>
+    </div>
+    <label>Conference / institution</label>
+    <input id="conference" placeholder="e.g. World Health Summit 2026, Berlin">
+    <div class="row">
+      <div><label>Field / industry</label>
+        <select id="field">
+          <option value="">— Select —</option>
+          <option>Health &amp; Medicine</option><option>Technology &amp; Startups</option>
+          <option>Science &amp; Research</option><option>Business &amp; Economics</option>
+          <option>Artificial Intelligence</option><option>Education</option>
+          <option>Energy &amp; Engineering</option><option>Climate &amp; Environment</option>
+          <option>Architecture &amp; Design</option><option>Nursing &amp; Healthcare</option>
+          <option>Law &amp; Policy</option><option>Arts &amp; Culture</option><option>Other</option>
+        </select>
+      </div>
+      <div><label>Intended travel date</label><input id="travelDate" type="date"></div>
+    </div>
+    <label>Anything else we should know?</label>
+    <textarea id="notes" placeholder="Field of interest, special requests, deadlines…"></textarea>
+
+    <div class="row" style="margin-top:6px">
+      <div><label>Currency</label>
+        <select id="currency" onchange="refreshPay()">
+          <option value="USD">USD — US Dollar</option>
+          <option value="EUR">EUR — Euro</option>
+          <option value="GBP">GBP — British Pound</option>
+        </select>
+      </div>
+      <div><label>Pay with</label>
+        <select id="providerSel"><option value="">Loading payment options…</option></select>
+      </div>
+    </div>
+    <div class="pricebar" style="display:flex;justify-content:space-between;align-items:center;background:#f4f6fb;border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:10px 0">
+      <div style="font-size:.8rem;color:var(--muted)">Sourcing &amp; verification fee</div>
+      <div id="priceOut" style="font-weight:700">—</div>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <button class="btn block" type="submit" id="submitBtn">Continue to secure payment →</button>
+    <p style="font-size:.78rem;color:var(--muted);margin-top:10px;text-align:center">We save your request first — you're only charged once you confirm payment on the next screen.</p>
+  </form>
+</div></div>
+
+<footer>SkyGlobe Group · Conference Sourcing &amp; Verification · <a href="https://wa.me/17373998522" style="color:var(--gold)">WhatsApp us</a></footer>
+
+<script>
+let PAY_CFG = { providers: [], pricing: {} };
+const PROVIDER_LABELS = {
+  grey: '🏦 Bank Transfer / USDC / USDT',
+  paystack: '💳 Card (Paystack)',
+  stripe: '💳 Card (Stripe)',
+  flutterwave: '💳 Card (Flutterwave)',
+};
+
+async function load() {
+  const [confR, cfg] = await Promise.all([
+    fetch('/api/conferences').then(r=>r.json()).catch(()=>[]),
+    fetch('/api/pay/config').then(r=>r.json()).catch(()=>({providers:[],pricing:{}})),
+  ]);
+  PAY_CFG = cfg;
+  renderConferences(confR);
+  refreshPay();
+}
+
+function refreshPay(){
+  const cur = document.getElementById('currency')?.value || 'USD';
+  const product = document.getElementById('product')?.value || 'conference_sourcing';
+  const entry = PAY_CFG.pricing[product];
+  const amt = entry ? entry[cur] : null;
+  const priceOut = document.getElementById('priceOut');
+  if (priceOut) priceOut.textContent = amt != null ? `${cur} ${Number(amt).toLocaleString()}` : '—';
+
+  const sel = document.getElementById('providerSel');
+  if (sel) {
+    const active = (PAY_CFG.providers || []).filter(p => p.currencies.includes(cur));
+    sel.innerHTML = active.length
+      ? active.map(p => `<option value="${p.name}">${PROVIDER_LABELS[p.name] || p.name}</option>`).join('')
+      : '<option value="">No payment method available yet — contact us</option>';
+  }
+}
+
+function renderConferences(list){
+  const el = document.getElementById('list');
+  if(!list || !list.length){
+    el.innerHTML = '<div class="empty">No conferences are listed yet. Use the button below to request sourcing for <strong>any</strong> conference you have in mind.</div>';
+    return;
+  }
+  el.innerHTML = list.map(c=>`
+    <div class="card">
+      ${c.field?`<span class="field">${esc(c.field)}</span>`:''}
+      <h3>${esc(c.title)}</h3>
+      ${c.organization?`<div class="org">${esc(c.organization)}</div>`:''}
+      <div class="meta">📍 ${esc([c.city,c.country].filter(Boolean).join(', '))} ${c.date?'· 📅 '+esc(formatDate(c.date)):''}</div>
+      <p class="sum">${esc(c.summary||'')}</p>
+      ${c.website?`<a class="org" style="font-size:.8rem;text-decoration:none" href="${esc(c.website)}" target="_blank" rel="noopener">🔗 Official website</a>`:''}
+      <button class="btn block" onclick='openForm(${JSON.stringify((c.title||'')+(c.country?(", "+c.country):""))}, ${JSON.stringify(c.field||"")})'>Register interest →</button>
+    </div>`).join('');
+}
+
+function formatDate(d){try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}catch(e){return d;}}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+
+function openForm(conf, field){
+  document.getElementById('forLabel').textContent = conf || 'Any conference';
+  document.getElementById('conference').value = conf || '';
+  if(field){const fs=document.getElementById('field');if([...fs.options].some(o=>o.value===field))fs.value=field;}
+  document.getElementById('msg').className='msg';
+  document.getElementById('submitBtn').disabled=false;
+  document.getElementById('submitBtn').textContent='Submit registration →';
+  document.getElementById('modal').classList.add('open');
+}
+function closeForm(){document.getElementById('modal').classList.remove('open');}
+
+document.getElementById('reqForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const btn=document.getElementById('submitBtn'), msg=document.getElementById('msg');
+  if(!val('fname')||!val('email')){ msg.className='msg err'; msg.textContent='Please enter your name and email.'; return; }
+  const provider = document.getElementById('providerSel').value;
+  if(!provider){ msg.className='msg err'; msg.textContent='Payment is not available yet. Please WhatsApp us to arrange manual payment.'; return; }
+  btn.disabled=true; btn.textContent='Starting secure payment…'; msg.className='msg';
+  const body={
+    product:val('product'), provider, currency:document.getElementById('currency').value,
+    fname:val('fname'),lname:val('lname'),email:val('email'),phone:val('phone'),
+    nationality:val('nationality'),country:val('country'),field:val('field'),
+    conference:val('conference'),travelDate:val('travelDate'),notes:val('notes')
+  };
+  try{
+    const r=await fetch('/api/conference/request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const d=await r.json();
+    if(!r.ok){throw new Error(d.error||'Something went wrong.');}
+    if(d.payment?.authorization_url){ window.location.href=d.payment.authorization_url; return; }
+    msg.className='msg ok';
+    msg.innerHTML=`✅ <strong>Request received!</strong> Your reference is <strong>${esc(d.ref)}</strong>. ${d.paymentError||"We've emailed you a confirmation and our team will follow up within 1–3 business days."}`;
+    btn.textContent='Request submitted ✓';
+    e.target.reset();
+  }catch(err){
+    msg.className='msg err'; msg.textContent=err.message;
+    btn.disabled=false; btn.textContent='Continue to secure payment →';
+  }
+});
+function val(id){return document.getElementById(id).value.trim();}
+load();
+</script>
+<script src="/announcements.js?v=2" defer></script>
+<script src="/dept-contact.js?v=7" defer></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digitalization — SkyGlobe Group</title>
+<meta name="description" content="SkyGlobe Group Digitalization — AI-controlled, securely managed legal digital documentation, web & app development, digital identity, business automation and digital presence. One World. One Mission.">
+<meta name="theme-color" content="#041022">
+<link rel="icon" href="/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#041022;--navy2:#071B3B;--blue:#0b2147;
+    --gold:#D4A73A;--gold-hi:#F4D77A;--gold-deep:#a87016;
+    --ink:#1a2233;--muted:#6b7689;--line:#e6e9ef;
+    --font:"SF Pro Display","Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);color:var(--ink);background:#f4f6fa;line-height:1.65}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+
+  /* header */
+  header{background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:40}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.06em}
+  .brand img{height:38px;width:38px;border-radius:8px}
+  .brand small{display:block;color:var(--gold);font-size:.62rem;letter-spacing:.22em;font-weight:600}
+  header a.home{color:#cdd6e6;font-size:.9rem}
+
+  /* hero */
+  .hero{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;padding:74px 0 84px;text-align:center}
+  .hero:before{content:"";position:absolute;inset:0;
+    background:radial-gradient(680px 360px at 50% -10%, rgba(212,167,58,.18), transparent 60%);pointer-events:none}
+  .hero .tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--gold);border:1px solid rgba(212,167,58,.4);padding:6px 18px;border-radius:30px;margin-bottom:20px}
+  .hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(2.1rem,5.5vw,3.4rem);line-height:1.1}
+  .hero h1 span{color:var(--gold)}
+  .hero p{max-width:680px;margin:18px auto 0;color:#c3cee0;font-weight:300;font-size:clamp(.95rem,2.4vw,1.08rem)}
+  .motto{margin-top:22px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.8rem;color:var(--gold-hi)}
+
+  /* section */
+  .section{padding:60px 0}
+  .s-head{text-align:center;max-width:680px;margin:0 auto 40px}
+  .s-tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:12px}
+  .s-title{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(1.7rem,3.6vw,2.4rem);color:var(--navy);line-height:1.15}
+  .s-sub{color:var(--muted);margin-top:10px;font-weight:300}
+
+  /* layers grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;transition:transform .25s,box-shadow .25s,border-color .25s}
+  .card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(4,16,34,.1);border-color:rgba(212,167,58,.5)}
+  .card .ic{font-size:1.9rem;margin-bottom:14px}
+  .card h3{font-size:1.12rem;color:var(--navy);margin-bottom:8px}
+  .card p{font-size:.92rem;color:#3c465a;font-weight:300}
+  .card .chip{display:inline-block;margin-top:14px;background:#eef2f9;color:#3a4a66;font-size:.72rem;font-weight:600;padding:5px 12px;border-radius:20px}
+  .card .card-cta{display:block;margin-top:16px;color:var(--gold-deep,#a87016);font-weight:700;font-size:.88rem;text-decoration:none}
+  .card .card-cta:hover{text-decoration:underline}
+
+  /* flagship */
+  .flag{background:linear-gradient(155deg,var(--navy),var(--navy2));color:#fff;border-radius:22px;overflow:hidden;
+    border:1px solid rgba(212,167,58,.3);box-shadow:0 24px 60px rgba(4,16,34,.25)}
+  .flag .inner{padding:clamp(28px,5vw,48px)}
+  .flag .s-tag{color:var(--gold)}
+  .flag h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.12}
+  .flag h2 span{color:var(--gold)}
+  .flag .lead{color:#c3cee0;font-weight:300;margin-top:14px;max-width:720px}
+  .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:30px}
+  .pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px}
+  .pill .n{color:var(--gold);font-weight:700;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+  .pill h4{margin:8px 0 6px;font-size:1rem}
+  .pill p{font-size:.86rem;color:#aebbd2;font-weight:300}
+  .feebar{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .feebar span{background:rgba(212,167,58,.14);border:1px solid rgba(212,167,58,.4);color:#f0e3bd;padding:7px 15px;border-radius:30px;font-size:.82rem}
+
+  .cta{text-align:center;margin-top:46px}
+  .btn{display:inline-block;background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1a1300;
+    padding:15px 34px;border-radius:44px;font-weight:700;font-size:.92rem;letter-spacing:.04em;
+    box-shadow:0 12px 30px rgba(212,167,58,.35);transition:transform .25s,box-shadow .25s}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(212,167,58,.5)}
+  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;box-shadow:none;margin-left:10px}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold-hi)}
+
+  .note{background:#fff8e6;border:1px solid #ead9a6;border-radius:14px;padding:18px 20px;color:#5a4a16;font-size:.9rem;margin-top:30px}
+  footer{background:var(--navy);color:#9fb0c9;text-align:center;padding:30px 20px;font-size:.85rem;margin-top:50px}
+  footer .m{color:var(--gold);letter-spacing:.14em;font-size:.74rem;text-transform:uppercase;margin-top:8px}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a href="/" class="brand"><img src="/icon-192.png" alt="SkyGlobe Group"><div>SKYGLOBE<small>GROUP</small></div></a>
+  <a class="home" href="/">← Back to main site</a>
+</div></header>
+
+<script src="/noria-widget.js"></script>
+
+<!-- HERO -->
+<section class="hero"><div class="wrap">
+  <span class="tag">Division · Digitalization</span>
+  <h1>Digital <span>Transformation</span>,<br>Engineered for Trust</h1>
+  <p>SkyGlobe Group brings the physical world into a secure, intelligent digital layer — from AI-controlled legal documentation to web, identity, automation and digital presence.</p>
+  <div class="motto">One World. One Mission.</div>
+</div></section>
+
+<!-- FLAGSHIP: LEGAL DIGITAL DOCUMENTATION -->
+<section class="section"><div class="wrap">
+  <div class="flag"><div class="inner">
+    <span class="s-tag">Flagship Service</span>
+    <h2>Legal Digital <span>Documentation</span></h2>
+    <p class="lead">AI-assisted creation and lifecycle control of legal documents — each one encrypted, access-controlled, fully audit-logged, and verified with the SkyGlobe stamp. Intelligent automation, human authority, absolute security.</p>
+    <div class="pillars">
+      <div class="pill"><div class="n">01 · Intelligent</div><h4>AI-Controlled</h4><p>Generated and validated by the SkyGlobe AI engine — then authorised by a human before release. AI never issues unsupervised.</p></div>
+      <div class="pill"><div class="n">02 · Secured</div><h4>Encrypted & Gated</h4><p>Encrypted storage, token-gated secure viewer, and a complete audit log of every view and download.</p></div>
+      <div class="pill"><div class="n">03 · Verified</div><h4>Trusted Stamp</h4><p>Marked “Facilitated &amp; Verified by SkyGlobe Group.” We never fabricate instruments or impersonate authorities.</p></div>
+      <div class="pill"><div class="n">04 · Valued</div><h4>Tiered Fees</h4><p>Each document is priced by its nature and value — transparent tiers in USD, EUR or GBP.</p></div>
+    </div>
+    <div class="feebar">
+      <span>🔒 Bank-grade security</span>
+      <span>🧠 AI-assisted accuracy</span>
+      <span>🧾 Per-document pricing</span>
+      <span>📑 Full audit trail</span>
+    </div>
+    <div class="cta">
+      <a class="btn" href="/legal-documents">Get a Legal Document</a>
+      <a class="btn ghost" href="/#contact">Talk to an Expert</a>
+    </div>
+  </div></div>
+</div></section>
+
+<!-- THE LAYERS -->
+<section class="section" style="padding-top:10px"><div class="wrap">
+  <div class="s-head">
+    <span class="s-tag">The Digitalization Layers</span>
+    <h2 class="s-title">One Umbrella, <strong>Many Capabilities</strong></h2>
+    <p class="s-sub">Every digital need under one trusted, intelligent roof.</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="ic">⚖️</div>
+      <h3>Legal Digital Documentation</h3>
+      <p>Secure, AI-controlled legal documents with verification, encryption and per-document fees by value.</p>
+      <span class="chip">Per document · USD/EUR/GBP</span>
+    </div>
+    <div class="card">
+      <div class="ic">💻</div>
+      <h3>Web &amp; App Development</h3>
+      <p>Premium websites, web apps and mobile apps — designed, built and maintained to world-class standard.</p>
+      <span class="chip">Per project · Quote</span>
+    </div>
+    <div class="card">
+      <div class="ic">🪪</div>
+      <h3>Digital Identity &amp; e-Docs</h3>
+      <p>Verified digital identity and secure electronic documents and credentials your partners can trust.</p>
+      <span class="chip">Per service</span>
+      <a href="/?apply=digital-identity" class="card-cta">Get Started →</a>
+    </div>
+    <div class="card">
+      <div class="ic">⚙️</div>
+      <h3>Business Automation</h3>
+      <p>Workflow automation, CRM and internal systems that digitize and streamline how organisations run.</p>
+      <span class="chip">Per project · Quote</span>
+    </div>
+    <div class="card">
+      <div class="ic">📈</div>
+      <h3>Digital Presence &amp; AI</h3>
+      <p>Branding, social, SEO and AI integration that put your organisation ahead, intelligently.</p>
+      <span class="chip">Per service</span>
+      <a href="/?apply=digital-presence" class="card-cta">Get Started →</a>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>How it works:</strong> tell us what you need → we scope it and confirm a transparent fee → our AI engine and specialists produce it → you receive it securely through your SkyGlobe account, verified and audit-logged.
+  </div>
+</div></section>
+
+<footer>
+  © <span id="yr"></span> SkyGlobe Group · Global Operations
+  <div class="m">One World. One Mission.</div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+<script src="/announcements.js?v=2" defer></script>
+<script src="/dept-contact.js?v=7" defer></script>
+</body>
+</html>
